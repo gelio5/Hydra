@@ -84,8 +84,8 @@ def AbsoluteSyrPos(Rate, SyrPos):
     if 5800 >= Rate >= 5 and 0 <= SyrPos <= 3000:
         port.write(str.encode("/1" + 'V' + Rate + 'A' + SyrPos + 'R' + '\r\n'))
         time.sleep(8)
-        config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + Rate + 'A' + SyrPos
-                           + 'R')
+        config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + Rate + 'A' +
+                           SyrPos + 'R')
         ans = str(port.readline())
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     else:
@@ -117,8 +117,8 @@ def SyrSetAbsoluteZero(valvePos, rate):
     port.write(str.encode(
         "/1" + valvePos + 'A0' + 'V' + str(rate) + 'R' + '\r\n'))
     time.sleep(8)
-    config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'A0V' + str(rate) +
-                       'R')
+    config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'A0V' +
+                       str(rate) + 'R')
     ans = str(port.readline())
     config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     return
@@ -131,8 +131,9 @@ def SetValveAbsoluteSyrPos(valvePos, rate, syrPos):
     """
     port.write(str.encode("/1" + valvePos + 'V' + str(rate) + 'A' +
                           str(syrPos) + 'R' + '\r\n'))
-    config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'V' + str(rate) +
-                       'A' + str(syrPos) + 'R')
+    config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'V' +
+                       str(rate) + 'A' +
+                 str(syrPos) + 'R')
     ans = str(port.readline())
     config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     time.sleep(8)
