@@ -3,13 +3,9 @@ from struct import *
 import struct
 import num2int as n2i
 import serial
-import logging
+import config
 import time
 
-logging.basicConfig(format=u'%(asctime)s %(levelname)-8s %(funcName)-15s % ('
-                           u'message)s',
-                    level=logging.DEBUG,
-                    filename=u'hydra.log')
 
 address = 8
 flag = 0
@@ -45,7 +41,8 @@ def TestTherm():
     temp, _ = GetTemp()
     eps = 0.01
     start_time = time.time()
-    logging.info("Test to measure the heating time to% s is launched" % temp)
+    config.logger.info("Test to measure the heating time to% s is launched" %
+                       temp)
     while abs(set_temp - temp) > eps or time.time() - start_time < 20:
         # пока разница с 25 градусов не будет меньше 0.01 или не пройдет 20
         # сек
@@ -54,12 +51,12 @@ def TestTherm():
     vel = GetVelocityHeat()
     if time_test > 20:
         flag = 10
-        logging.info("Время нагрева составило %f при заданной скорости %f" % (
-            time_test, vel[3]))
+        config.logger.info("Время нагрева составило %f при заданной скорости "
+                           "%f" % (time_test, vel[3]))
     else:
         _, flag = GetTemp()
-        logging.info("Время нагрева составило %f при заданной скорости %f" % (
-            time_test, vel[3]))
+        config.logger.info("Время нагрева составило %f при заданной скорости "
+                           "%f" % (time_test, vel[3]))
     return flag
 
 
@@ -88,7 +85,7 @@ def SetTemp(temp):
     except:
         return 11
     _, flag = GetTemp()
-    logging.info("Температура %f установлена" % temp)
+    config.logger.info("Температура %f установлена" % temp)
     return flag
 
 
