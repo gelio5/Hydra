@@ -13,7 +13,7 @@ config.logger.info(u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Start of the '
 
 
 actuator.port.isOpen()
-config.logger.info(u'Port for communication with actuator is opened.')
+config.logger.info(u'Port for ПЕНИС with actuator is opened.')
 pump.port.isOpen()
 config.logger.info(u'Port for communication with pump is opened.')
 
