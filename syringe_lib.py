@@ -1,4 +1,5 @@
 #! python
+# coding=utf-8
 #
 # noinspection PyPep8Naming
 #
@@ -13,12 +14,8 @@
 
 import time
 import serial
-import logging
+import config
 
-logging.basicConfig(format=u'%(asctime)s  %(levelname)-8s  %(funcName)-24s '
-                           u'%(message)s',
-                    level=logging.DEBUG,
-                    filename=u'hydra.log')
 
 inpPos = 'h29045'
 outPos = 'h29090'
@@ -36,22 +33,22 @@ def Initialization():
     Функция инициализации насоса PSD/4 (вызывается в начале работы
      с устройством)
     """
-    logging.info(u'Start Pump Initialization ')
+    config.logger.info(u'Start Pump Initialization ')
     port.write(str.encode("/1" + 'h30001R' + '\r\n'))
-    logging.info(u'Xmit Pump :%s' % '/1' + 'h30001R')
+    config.logger.info(u'Xmit Pump :%s' % '/1' + 'h30001R')
     ans = str(port.readline())
-    logging.info(u'Recv Pump :%s' % ans)
+    config.logger.info(u'Recv Pump :%s' % ans)
     port.write(str.encode("/1" + 'h10000R' + '\r\n'))
-    logging.info(u'Xmit Pump :%s' % '/1' + 'h10000R')
+    config.logger.info(u'Xmit Pump :%s' % '/1' + 'h10000R')
     time.sleep(0.001)
     ans = str(port.readline())
-    logging.info(u'Recv Pump :%s' % ans)
+    config.logger.info(u'Recv Pump :%s' % ans)
     port.write(str.encode("/1" + 'h20000R' + '\r\n'))
-    logging.info(u'Xmit Pump :%s' % '/1' + 'h20000R')
+    config.logger.info(u'Xmit Pump :%s' % '/1' + 'h20000R')
     time.sleep(15)
     ans = str(port.readline())
-    logging.info(u'Recv Pump :%s' % ans)
-    logging.info(u'End of initialization of pump')
+    config.logger.info(u'Recv Pump :%s' % ans)
+    config.logger.info(u'End of initialization of pump')
     # port.reset_input_buffer()
     return
 
@@ -60,7 +57,7 @@ def Test():
     """
     This function tests the Pump, have to be called after Pump Initialization
     """
-    logging.info(u'Start Pump test')
+    config.logger.info(u'Start Pump test')
     error = 0
     if not Get255():
         error = error << 1
@@ -73,10 +70,10 @@ def Test():
         error = error << 4
     if error == 0:
         SetValveAbsoluteSyrPos(inpPos, rate=1000, syrPos=0)
-        logging.info(u'Test completed error - 0')
+        config.logger.info(u'Test completed error - 0')
         return
     else:
-        logging.info(u'Test completed error - ' + str(error))
+        config.logger.info(u'Test completed error - ' + str(error))
         return
 
 
@@ -87,9 +84,9 @@ def AbsoluteSyrPos(Rate, SyrPos):
     if 5800 >= Rate >= 5 and 0 <= SyrPos <= 3000:
         port.write(str.encode("/1" + 'V' + Rate + 'A' + SyrPos + 'R' + '\r\n'))
         time.sleep(8)
-        logging.info(u'Xmit Pump: %s' % "/1" + 'V' + Rate + 'A' + SyrPos + 'R')
+        config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + Rate + 'A' + SyrPos + 'R')
         ans = str(port.readline())
-        logging.info(u'Recv Pump :%s' % ans[0:-1])
+        config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     else:
         return 'Wrong parameters'
 
@@ -103,11 +100,11 @@ def Aspirate(valvePos, rate, volume):
     port.write(str.encode(
         "/1" + valvePos + 'P' + str(volume) + 'V' + str(rate) + 'R' + '\r\n'))
     time.sleep(15)
-    logging.info(
+    config.logger.info(
         u'Xmit Pump: %s' % "/1" + valvePos + 'P' + str(volume) + 'V' +
         str(rate) + 'R')
     ans = str(port.readline())
-    logging.info(u'Recv Pump :%s' % ans[0:-1])
+    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     return
 
 
@@ -119,9 +116,9 @@ def SyrSetAbsoluteZero(valvePos, rate):
     port.write(str.encode(
         "/1" + valvePos + 'A0' + 'V' + str(rate) + 'R' + '\r\n'))
     time.sleep(8)
-    logging.info(u'Xmit Pump: %s' % "/1" + valvePos + 'A0V' + str(rate) + 'R')
+    config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'A0V' + str(rate) + 'R')
     ans = str(port.readline())
-    logging.info(u'Recv Pump :%s' % ans[0:-1])
+    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     return
 
 
@@ -132,12 +129,12 @@ def SetValveAbsoluteSyrPos(valvePos, rate, syrPos):
     """
     port.write(str.encode("/1" + valvePos + 'V' + str(rate) + 'A' +
                           str(syrPos) + 'R' + '\r\n'))
-    logging.info(u'Xmit Pump: %s' % "/1" + valvePos + 'V' + str(rate) + 'A' +
+    config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'V' + str(rate) + 'A' +
                  str(syrPos) + 'R')
     ans = str(port.readline())
-    logging.info(u'Recv Pump :%s' % ans[0:-1])
+    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     time.sleep(8)
-    logging.info(u'Sleep 8s is ended.')
+    config.logger.info(u'Sleep 8s is ended.')
     return
 
 
@@ -147,9 +144,9 @@ def SetValvePos(valvePos):
     """
     port.write(str.encode("/1" + valvePos + 'R' + '\r\n'))
     time.sleep(0.5)
-    logging.info(u'Xmit Pump: %s' % "/1" + valvePos + 'R')
+    config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'R')
     ans = str(port.readline())
-    logging.info(u'Recv Pump :%s' % ans[0:-1])
+    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     return
 
 
@@ -159,9 +156,9 @@ def AskSyrPos():
     """
     port.write(str.encode("/1" + '?' + '\r\n'))
     time.sleep(2)
-    logging.info(u'Xmit Pump: %s' % "/1" + '?')
+    config.logger.info(u'Xmit Pump: %s' % "/1" + '?')
     ans = str(port.readline())
-    logging.info(u'Recv Pump :%s' % ans[0:-1])
+    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     return ans
 
 
@@ -171,9 +168,9 @@ def AskValvePos():
     """
     port.write(str.encode("/1" + '?25000' + '\r\n'))
     time.sleep(2)
-    logging.info(u'Xmit Pump: %s' % "/1" + '?25000')
+    config.logger.info(u'Xmit Pump: %s' % "/1" + '?25000')
     ans = str(port.readline())
-    logging.info(u'Recv Pump :%s' % ans[0:-1])
+    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     return ans
 
 
@@ -182,9 +179,9 @@ def Status():
     This function returns current Pump Status
     """
     port.write(str.encode("/1" + 'Q' + '\r\n'))
-    logging.info(u'Xmit Pump: %s' % "/1" + 'Q')
+    config.logger.info(u'Xmit Pump: %s' % "/1" + 'Q')
     ans = str(port.readline())
-    logging.info(u'Recv Pump :%s' % ans[0:-1])
+    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     return ()
 
 
@@ -196,9 +193,9 @@ def Get255():
     This function returns 255
     """
     port.write(str.encode('/1' + '?22' + '\r\n'))
-    logging.info(u'Xmit Pump: %s' % "/1" + '?22')
+    config.logger.info(u'Xmit Pump: %s' % "/1" + '?22')
     ans = str(port.readline())
-    logging.info(u'Recv Pump :%s' % ans[0:-1])
+    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     if ans.find('255') == -1:
         ans = False
     else:
@@ -211,9 +208,9 @@ def CheckSum():
     This function returns Check Sum
     """
     port.write(str.encode('/1' + '#' + '\r\n'))
-    logging.info(u'Xmit Pump: %s' % "/1" + '#')
+    config.logger.info(u'Xmit Pump: %s' % "/1" + '#')
     ans = str(port.readline())
-    logging.info(u'Recv Pump :%s' % ans[0:-1])
+    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     if ans.find('E882') == -1:
         ans = False
     else:
@@ -226,9 +223,9 @@ def FirmVersion():
     This function returns Firm Version
     """
     port.write(str.encode('/1' + '&' + '\r\n'))
-    logging.info(u'Xmit Pump: %s' % "/1" + '&')
+    config.logger.info(u'Xmit Pump: %s' % "/1" + '&')
     ans = str(port.readline())
-    logging.info(u'Recv Pump :%s' % ans[0:-1])
+    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     if ans.find('DV01.32.0A 58269-02') == -1:
         return False
     else:

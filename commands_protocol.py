@@ -1,3 +1,4 @@
+# coding=utf-8
 from struct import *
 import struct
 import num2int as n2i
