@@ -28,7 +28,7 @@ actuator.port.close()
 config.logger.info(u'Port for communication with actuator is closed.')
 pump.port.close()
 config.logger.info(u'Port for communication with pump is closed.')
-config.logger.info(u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Exit      '
-             u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+config.logger.info(u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Exit  '
+                   u'    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
 
 exit()
