@@ -1,0 +1,4 @@
+# Default ignored files
+/workspace.xml
+/inspectionProfiles/Project_Default.xml
+/venv/Lib/site-packages/numpy/distutils/fcompiler/__init__.py
