@@ -132,8 +132,7 @@ def SetValveAbsoluteSyrPos(valvePos, rate, syrPos):
     port.write(str.encode("/1" + valvePos + 'V' + str(rate) + 'A' +
                           str(syrPos) + 'R' + '\r\n'))
     config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'V' +
-                       str(rate) + 'A' +
-                 str(syrPos) + 'R')
+                       str(rate) + 'A' + str(syrPos) + 'R')
     ans = str(port.readline())
     config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     time.sleep(8)
