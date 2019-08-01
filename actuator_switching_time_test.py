@@ -29,19 +29,19 @@ for k in range(numberOfCycles):
     for j in range(numbersOfPositions):
         for i in range(numbersOfPositions):
             if i != j:
-                act.GoToPosition(actuatorPort, str(i + 1))
+                act.GoToPosition(actuatorPort)
                 time.sleep(2)
-                act.GoToPosition(actuatorPort, str(j + 1))
+                act.GoToPosition(actuatorPort)
                 time.sleep(2)
-                timings[k][j][i] = act.MovingTime(actuatorPort)
+                timings[k][j][i] = act.MovingTime()
                 time.sleep(2)
                 i += 1
             else:
                 i += 1
         j += 1
-        #time.sleep(j*100)
+        # time.sleep(j*100)
     k += 1
-    #time.sleep(k*1000)
+    # time.sleep(k*1000)
 
 print(timings)
 
@@ -201,5 +201,3 @@ print(d1, len(d1))
 print(d2, len(d2))
 print(len(d1)+len(d2))
 """
-
-
