@@ -22,3 +22,13 @@ print((list(struct.pack("f", n))))
 print(nf.num2int(n))
 print(253 % 256)
 print(str(0x90).encode('ascii'))
+
+f = open('lg.log', 'r')
+a = f.readlines()
+f.close()
+b = open('lg2.log', 'w')
+print(len(a))
+for i in range(len(a)):
+    if a[i].find("FPGA") == -1:
+        b.write(a[i])
+b.close()
