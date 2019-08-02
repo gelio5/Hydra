@@ -20,6 +20,3 @@ def num2int(num):
         aa.append(BitArray(bin=a1).int)
     print(sum(aa))
     return sum(aa)
-
-
-
