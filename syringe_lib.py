@@ -74,14 +74,18 @@ def Test():
         return
     else:
         config.logger.info(u'Test completed error - ' + str(error))
+        config.logger.info(
+            u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Exit  '
+            u'    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        exit()
         return
 
 
-def AbsoluteSyrPos(Rate, SyrPos):
+def AbsoluteSyrPos(rate, SyrPos):
     """"
     This function places syringe to the SyrPos using Rate as velocity parameter
     """
-    if 5800 >= Rate >= 5 and 0 <= SyrPos <= 3000:
+    if 5800 >= rate >= 5 and 0 <= SyrPos <= 3000:
         port.write(str.encode("/1" + 'V' + Rate + 'A' + SyrPos + 'R' + '\r\n'))
         time.sleep(8)
         config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + Rate + 'A' +
@@ -89,7 +93,11 @@ def AbsoluteSyrPos(Rate, SyrPos):
         ans = str(port.readline())
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     else:
-        return 'Wrong parameters'
+        config.logger.info(
+            u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Exit  '
+            u'    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        exit()
+        return
 
 
 def Aspirate(valvePos, rate, volume):
@@ -98,14 +106,20 @@ def Aspirate(valvePos, rate, volume):
     передвигает шприц со скоростью Rate
     на Volume колличество шагов вверх
     """
-    port.write(str.encode(
-        "/1" + valvePos + 'P' + str(volume) + 'V' + str(rate) + 'R' + '\r\n'))
-    time.sleep(15)
-    config.logger.info(
-        u'Xmit Pump: %s' % "/1" + valvePos + 'P' + str(volume) + 'V' +
-        str(rate) + 'R')
-    ans = str(port.readline())
-    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+    if 5800 >= rate >= 5 and 0 <= volume <= 3000:
+        port.write(str.encode(
+            "/1" + valvePos + 'P' + str(volume) + 'V' + str(rate) + 'R' + '\r\n'))
+        time.sleep(15)
+        config.logger.info(
+         u'Xmit Pump: %s' % "/1" + valvePos + 'P' + str(volume) + 'V' +
+            str(rate) + 'R')
+        ans = str(port.readline())
+        config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+    else:
+        config.logger.info(
+            u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Exit  '
+            u'    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        exit()
     return
 
 
@@ -114,13 +128,19 @@ def SyrSetAbsoluteZero(valvePos, rate):
     This function sets commutator to output position and syringe to the
     absolute zero position
     """
-    port.write(str.encode(
-        "/1" + valvePos + 'A0' + 'V' + str(rate) + 'R' + '\r\n'))
-    time.sleep(8)
-    config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'A0V' +
-                       str(rate) + 'R')
-    ans = str(port.readline())
-    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+    if 5800>= rate >= 5:
+        port.write(str.encode(
+            "/1" + valvePos + 'A0' + 'V' + str(rate) + 'R' + '\r\n'))
+        time.sleep(8)
+        config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'A0V' +
+                           str(rate) + 'R')
+        ans = str(port.readline())
+        config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+    else:
+        config.logger.info(
+            u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Exit  '
+            u'    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        exit()
     return
 
 
@@ -129,14 +149,20 @@ def SetValveAbsoluteSyrPos(valvePos, rate, syrPos):
     This function moves commutator to the valvePos,
     then moves syringe to the syrPos with Rate as velocity
     """
-    port.write(str.encode("/1" + valvePos + 'V' + str(rate) + 'A' +
-                          str(syrPos) + 'R' + '\r\n'))
-    config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'V' +
-                       str(rate) + 'A' + str(syrPos) + 'R')
-    ans = str(port.readline())
-    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
-    time.sleep(8)
-    config.logger.info(u'Sleep 8s is ended.')
+    if 5800>= rate >=5 and 3000>= syrPos >=0:
+        port.write(str.encode("/1" + valvePos + 'V' + str(rate) + 'A' +
+                              str(syrPos) + 'R' + '\r\n'))
+        config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'V' +
+                           str(rate) + 'A' + str(syrPos) + 'R')
+        ans = str(port.readline())
+        config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+        time.sleep(8)
+        config.logger.info(u'Sleep 8s is ended.')
+    else:
+        config.logger.info(
+            u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Exit  '
+            u'    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        exit()
     return
 
 
