@@ -83,16 +83,17 @@ def Test():
         return
 
 
-def AbsoluteSyrPos(rate, SyrPos):
+def AbsoluteSyrPos(rate, syrPos):
     """"
     Функция передвигает шприц в положение syrPos,
     используя rate в качестве скорости
     """
-    if 5800 >= rate >= 5 and 0 <= SyrPos <= 3000:
-        port.write(str.encode("/1" + 'V' + rate + 'A' + SyrPos + 'R' + '\r\n'))
+    if 5800 >= rate >= 5 and 0 <= syrPos <= 3000:
+        port.write(str.encode("/1" + 'V' + str(rate) + 'A' + str(syrPos) +
+                              'R' + '\r\n'))
         time.sleep(8)
-        config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + rate + 'A' +
-                           SyrPos + 'R')
+        config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + str(rate) + 'A' +
+                           str(syrPos) + 'R')
         ans = str(port.readline())
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     else:
@@ -111,7 +112,8 @@ def Aspirate(valvePos, rate, volume):
     """
     if 5800 >= rate >= 5 and 0 <= volume <= 3000:
         port.write(str.encode(
-            "/1" + valvePos + 'P' + str(volume) + 'V' + str(rate) + 'R' + '\r\n'))
+            "/1" + valvePos + 'P' + str(volume) + 'V' + str(rate) +
+            'R' + '\r\n'))
         time.sleep(15)
         config.logger.info(
          u'Xmit Pump: %s' % "/1" + valvePos + 'P' + str(volume) + 'V' +
