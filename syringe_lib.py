@@ -16,7 +16,6 @@ import time
 import serial
 import config
 
-
 inpPos = 'h29045'
 outPos = 'h29090'
 byPassPos = 'h29135'
@@ -71,7 +70,7 @@ def Test():
     if not AskSyrPos().find('1000'):
         error = error << 4
     if error == 0:
-        SetValveAbsoluteSyrPos(inpPos, rate=1000, syrPos=0)
+        SetValveAbsoluteSyrPos(inpPos, rate=2000, syrPos=0)
         config.logger.info(u'Test completed error - 0')
         return
     else:
@@ -115,7 +114,7 @@ def Aspirate(valvePos, rate, volume):
             "/1" + valvePos + 'P' + str(volume) + 'V' + str(rate) +
             'R' + '\r\n'))
         config.logger.info(
-         u'Xmit Pump: %s' % "/1" + valvePos + 'P' + str(volume) + 'V' +
+            u'Xmit Pump: %s' % "/1" + valvePos + 'P' + str(volume) + 'V' +
             str(rate) + 'R')
         ans = str(port.readline())
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])
@@ -133,7 +132,7 @@ def SyrSetAbsoluteZero(valvePos, rate):
     Эта функция помещает коммутатор в пололожение valvePos,
     и полностью опорожняет шприц со скоростью rate
     """
-    if 5800>= rate >= 5:
+    if 5800 >= rate >= 5:
         port.write(str.encode(
             "/1" + valvePos + 'A0' + 'V' + str(rate) + 'R' + '\r\n'))
         config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'A0V' +
@@ -154,7 +153,7 @@ def SetValveAbsoluteSyrPos(valvePos, rate, syrPos):
     Функция устанавливает коммутатор в положение valvePos,
     после устанавливает шприц в положение syrPos со скоростью rate
     """
-    if 5800>= rate >=5 and 3000>= syrPos >=0:
+    if 5800 >= rate >= 5 and 3000 >= syrPos >= 0:
         port.write(str.encode("/1" + valvePos + 'V' + str(rate) + 'A' +
                               str(syrPos) + 'R' + '\r\n'))
         config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'V' +
@@ -226,6 +225,8 @@ def Status(i):
             return
     else:
         config.logger.info(u'Delay time exceeded')
+
+
 # Функции, описанные ниже нужны для проведения Теста
 
 
