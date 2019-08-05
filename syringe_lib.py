@@ -161,7 +161,7 @@ def SetValveAbsoluteSyrPos(valvePos, rate, syrPos):
                            str(rate) + 'A' + str(syrPos) + 'R')
         ans = str(port.readline())
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])
-        time.sleep(8)
+        Status(0)
         config.logger.info(u'Sleep 8s is ended.')
     else:
         config.logger.info(
@@ -207,17 +207,29 @@ def AskValvePos():
     return ans
 
 
-def Status():
+def Status(i):
     """
     Функция возвращает текущий статус насоса
     """
-    port.write(str.encode("/1" + 'Q' + '\r\n'))
-    config.logger.info(u'Xmit Pump: %s' % "/1" + 'Q')
-    ans = str(port.readline())
-    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
-    return ()
-
-
+    if i <= 100:
+        i = i + 1
+        port.write(str.encode("/1" + 'Q' + '\r\n'))
+        config.logger.info(u'Xmit Pump: %s' % "/1" + 'Q')
+        ans = str(port.readline())
+        config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+        if ans[4] == '`':
+            config.logger.info(u'Pump is ready')
+            return
+        elif ans[4] == '@':
+            config.logger.info(u'Pump is busy')
+            time.sleep(0.1)
+            Status(i)
+            return
+        else:
+            config.logger.info(u'ERROR - %s' % ans[4])
+            return
+    else:
+        config.logger.info(u'Delay time exceeded')
 # Функции, описанные ниже нужны для проведения Теста
 
 
