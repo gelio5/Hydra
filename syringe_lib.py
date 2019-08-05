@@ -38,12 +38,14 @@ def Initialization():
     config.logger.info(u'Xmit Pump :%s' % '/1' + 'h30001R')
     ans = str(port.readline())
     config.logger.info(u'Recv Pump :%s' % ans)
-    port.write(str.encode("/1" + 'h10000R' + '\r\n'))
+    port.write(str.encode("/1" + 'h20000R' + '\r\n'))
     config.logger.info(u'Xmit Pump :%s' % '/1' + 'h10000R')
     time.sleep(0.001)
+    port.write(str.encode("/1" + 'h29090R' + '\r\n'))
+    config.logger.info(u'Xmit Pump :%s' % "/1" + 'h29090R')
     ans = str(port.readline())
     config.logger.info(u'Recv Pump :%s' % ans)
-    port.write(str.encode("/1" + 'h20000R' + '\r\n'))
+    port.write(str.encode("/1" + 'h10000R' + '\r\n'))
     config.logger.info(u'Xmit Pump :%s' % '/1' + 'h20000R')
     time.sleep(15)
     ans = str(port.readline())
@@ -55,7 +57,7 @@ def Initialization():
 
 def Test():
     """
-    This function tests the Pump, have to be called after Pump Initialization
+    Это функция тестирует Насос, рекомендуется вызывать после инициализации
     """
     config.logger.info(u'Start Pump test')
     error = 0
@@ -83,12 +85,13 @@ def Test():
 
 def AbsoluteSyrPos(rate, SyrPos):
     """"
-    This function places syringe to the SyrPos using Rate as velocity parameter
+    Функция передвигает шприц в положение syrPos,
+    используя rate в качестве скорости
     """
     if 5800 >= rate >= 5 and 0 <= SyrPos <= 3000:
-        port.write(str.encode("/1" + 'V' + Rate + 'A' + SyrPos + 'R' + '\r\n'))
+        port.write(str.encode("/1" + 'V' + rate + 'A' + SyrPos + 'R' + '\r\n'))
         time.sleep(8)
-        config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + Rate + 'A' +
+        config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + rate + 'A' +
                            SyrPos + 'R')
         ans = str(port.readline())
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])
@@ -125,8 +128,8 @@ def Aspirate(valvePos, rate, volume):
 
 def SyrSetAbsoluteZero(valvePos, rate):
     """
-    This function sets commutator to output position and syringe to the
-    absolute zero position
+    Эта функция помещает коммутатор в пололожение valvePos,
+    и полностью опорожняет шприц со скоростью rate
     """
     if 5800>= rate >= 5:
         port.write(str.encode(
@@ -146,8 +149,8 @@ def SyrSetAbsoluteZero(valvePos, rate):
 
 def SetValveAbsoluteSyrPos(valvePos, rate, syrPos):
     """
-    This function moves commutator to the valvePos,
-    then moves syringe to the syrPos with Rate as velocity
+    Функция устанавливает коммутатор в положение valvePos,
+    после устанавливает шприц в положение syrPos со скоростью rate
     """
     if 5800>= rate >=5 and 3000>= syrPos >=0:
         port.write(str.encode("/1" + valvePos + 'V' + str(rate) + 'A' +
@@ -168,7 +171,7 @@ def SetValveAbsoluteSyrPos(valvePos, rate, syrPos):
 
 def SetValvePos(valvePos):
     """
-    This function moves Valve to the ValvePos
+    Функция устанавливает коммутатор в положение valvePos
     """
     port.write(str.encode("/1" + valvePos + 'R' + '\r\n'))
     time.sleep(0.5)
@@ -180,7 +183,7 @@ def SetValvePos(valvePos):
 
 def AskSyrPos():
     """
-    This function returns current syringe position
+    Функция возвращает текущее положение шприца
     """
     port.write(str.encode("/1" + '?' + '\r\n'))
     time.sleep(2)
@@ -192,7 +195,7 @@ def AskSyrPos():
 
 def AskValvePos():
     """
-    This function returns current valve position
+    Функция возвращает текущее положение коммутатора
     """
     port.write(str.encode("/1" + '?25000' + '\r\n'))
     time.sleep(2)
@@ -204,7 +207,7 @@ def AskValvePos():
 
 def Status():
     """
-    This function returns current Pump Status
+    Функция возвращает текущий статус насоса
     """
     port.write(str.encode("/1" + 'Q' + '\r\n'))
     config.logger.info(u'Xmit Pump: %s' % "/1" + 'Q')
@@ -213,12 +216,12 @@ def Status():
     return ()
 
 
-# Functions described below are needed for the Pump Test, after initialization
+# Функции, описанные ниже нужны для проведения Теста
 
 
 def Get255():
     """
-    This function returns 255
+    Функция возвращает 255
     """
     port.write(str.encode('/1' + '?22' + '\r\n'))
     config.logger.info(u'Xmit Pump: %s' % "/1" + '?22')
@@ -233,7 +236,7 @@ def Get255():
 
 def CheckSum():
     """
-    This function returns Check Sum
+    Функция возвращает Check Sum
     """
     port.write(str.encode('/1' + '#' + '\r\n'))
     config.logger.info(u'Xmit Pump: %s' % "/1" + '#')
@@ -248,7 +251,7 @@ def CheckSum():
 
 def FirmVersion():
     """
-    This function returns Firm Version
+    Функция возвращает Firm Version
     """
     port.write(str.encode('/1' + '&' + '\r\n'))
     config.logger.info(u'Xmit Pump: %s' % "/1" + '&')
