@@ -17,7 +17,6 @@ syringe = serial.Serial(port='COM9',
                         stopbits=serial.STOPBITS_ONE)
 syringe.isOpen()
 
-
 print('Enter your commands below.\r\nInsert "exit" to leave the application.')
 while 1:
     # if msvcrt.kbhit():

@@ -3784,3 +3784,63 @@ UA_MAIN_EQ
 2019-07-31 19:02:08,843  INFO      <module>                  Port for communication with actuator is closed.
 2019-07-31 19:02:08,893  INFO      <module>                  Port for communication with pump is closed.
 2019-07-31 19:02:08,893  INFO      <module>                  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Exit      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+2019-08-05 15:32:04,719  INFO      <module>                  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Start of the program      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+2019-08-05 15:32:04,748  INFO      <module>                  Port communication with actuator is opened.
+2019-08-05 15:32:04,748  INFO      <module>                  Port for communication with pump is opened.
+2019-08-05 15:32:04,748  INFO      Test                      Start testing of actuator.
+2019-08-05 15:32:04,749  INFO      TogglePos                 ##### Moving the check switch. #####
+2019-08-05 15:32:04,749  INFO      GoToPosition              Going to position 1.
+2019-08-05 15:32:04,750  INFO      Transmitter               Xmit Actuator: GO1.
+2019-08-05 15:32:04,750  INFO      CurrentPos                Interrogating the position of the actuator.
+2019-08-05 15:32:04,751  INFO      Transceiver               Xmit Actuator: CP.
+2019-08-05 15:32:04,853  INFO      Transceiver               Recv Actuator: CP01.
+2019-08-05 15:32:04,854  INFO      TogglePos                 ##### The switch was successful. #####
+2019-08-05 15:32:04,854  INFO      TogglePos                 ##### Moving the check switch. #####
+2019-08-05 15:32:04,854  INFO      GoToPosition              Going to position 13.
+2019-08-05 15:32:04,854  INFO      Transmitter               Xmit Actuator: GO13.
+2019-08-05 15:32:04,854  INFO      CurrentPos                Interrogating the position of the actuator.
+2019-08-05 15:32:04,855  INFO      Transceiver               Xmit Actuator: CP.
+2019-08-05 15:32:06,665  INFO      Transceiver               Recv Actuator: CP13.
+2019-08-05 15:32:06,665  INFO      TogglePos                 ##### The switch was successful. #####
+2019-08-05 15:32:06,666  INFO      MovingTime                Interrogation of the time spent on the previous switch.
+2019-08-05 15:32:06,666  INFO      Transceiver               Xmit Actuator: TM.
+2019-08-05 15:32:06,767  INFO      Transceiver               Recv Actuator: TM1720.
+2019-08-05 15:32:06,768  INFO      TogglePos                 ##### Moving the check switch. #####
+2019-08-05 15:32:06,768  INFO      GoToPosition              Going to position 20.
+2019-08-05 15:32:06,769  INFO      Transmitter               Xmit Actuator: GO20.
+2019-08-05 15:32:06,769  INFO      CurrentPos                Interrogating the position of the actuator.
+2019-08-05 15:32:06,770  INFO      Transceiver               Xmit Actuator: CP.
+2019-08-05 15:32:07,876  INFO      Transceiver               Recv Actuator: CP20.
+2019-08-05 15:32:07,876  INFO      TogglePos                 ##### The switch was successful. #####
+2019-08-05 15:32:07,876  INFO      Transmitter               Xmit Actuator: HM.
+2019-08-05 15:32:07,876  INFO      Test                      Test is ended. ERROR STATUS: 0.
+2019-08-05 15:32:07,876  INFO      Initialization            Start Pump Initialization 
+2019-08-05 15:32:07,877  INFO      Initialization            Xmit Pump :/1h30001R
+2019-08-05 15:32:07,900  INFO      Initialization            Recv Pump :b'/0@\x03\r\n'
+2019-08-05 15:32:07,900  INFO      Initialization            Xmit Pump :/1h10000R
+2019-08-05 15:32:07,923  INFO      Initialization            Recv Pump :b'/0@\x03\r\n'
+2019-08-05 15:32:07,923  INFO      Initialization            Xmit Pump :/1h20000R
+2019-08-05 15:32:22,925  INFO      Initialization            Recv Pump :b'/0o\x03\r\n'
+2019-08-05 15:32:22,926  INFO      Initialization            End of initialization of pump
+2019-08-05 15:32:22,927  INFO      Test                      Start Pump test
+2019-08-05 15:32:22,928  INFO      Get255                    Xmit Pump: /1?22
+2019-08-05 15:32:22,948  INFO      Get255                    Recv Pump :b'/0`255\x03\r\n
+2019-08-05 15:32:22,950  INFO      CheckSum                  Xmit Pump: /1#
+2019-08-05 15:32:22,970  INFO      CheckSum                  Recv Pump :b'/0`E882\x03\r\n
+2019-08-05 15:32:22,971  INFO      FirmVersion               Xmit Pump: /1&
+2019-08-05 15:32:23,012  INFO      FirmVersion               Recv Pump :b'/0`DV01.32.0A 58269-02 D\x03\r\n
+2019-08-05 15:32:23,013  INFO      SetValveAbsoluteSyrPos    Xmit Pump: /1h29045V1000A1000R
+2019-08-05 15:32:23,045  INFO      SetValveAbsoluteSyrPos    Recv Pump :b'/0@\x03\r\n
+2019-08-05 15:32:31,046  INFO      SetValveAbsoluteSyrPos    Sleep 8s is ended.
+2019-08-05 15:32:33,047  INFO      AskSyrPos                 Xmit Pump: /1?
+2019-08-05 15:32:33,048  INFO      AskSyrPos                 Recv Pump :b'/0`1000\x03\r\n
+2019-08-05 15:32:33,049  INFO      SetValveAbsoluteSyrPos    Xmit Pump: /1h29045V1000A0R
+2019-08-05 15:32:33,082  INFO      SetValveAbsoluteSyrPos    Recv Pump :b'/0@\x03\r\n
+2019-08-05 15:32:41,083  INFO      SetValveAbsoluteSyrPos    Sleep 8s is ended.
+2019-08-05 15:32:41,084  INFO      Test                      Test completed error - 0
+2019-08-05 15:32:41,085  INFO      Status                    Xmit Pump: /1Q
+2019-08-05 15:32:41,101  INFO      Status                    Recv Pump :b'/0`\x03\r\n
+2019-08-05 15:32:41,603  INFO      SetValvePos               Xmit Pump: /1h29090R
+2019-08-05 15:32:41,604  INFO      SetValvePos               Recv Pump :b'/0@\x03\r\n
+2019-08-05 15:32:43,606  INFO      AskSyrPos                 Xmit Pump: /1?
+2019-08-05 15:32:43,607  INFO      AskSyrPos                 Recv Pump :b'/0`0\x03\r\n

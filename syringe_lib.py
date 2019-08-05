@@ -86,9 +86,9 @@ def AbsoluteSyrPos(rate, SyrPos):
     This function places syringe to the SyrPos using Rate as velocity parameter
     """
     if 5800 >= rate >= 5 and 0 <= SyrPos <= 3000:
-        port.write(str.encode("/1" + 'V' + Rate + 'A' + SyrPos + 'R' + '\r\n'))
+        port.write(str.encode("/1" + 'V' + rate + 'A' + SyrPos + 'R' + '\r\n'))
         time.sleep(8)
-        config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + Rate + 'A' +
+        config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + rate + 'A' +
                            SyrPos + 'R')
         ans = str(port.readline())
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])

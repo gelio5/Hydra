@@ -16,7 +16,7 @@ logging.error(u'This is an error message')
 logging.critical(u'FATAL')
 """
 
-print("art".find("r"))
+"""print("art".find("r"))
 n = 23.712692260345423
 print((list(struct.pack("f", n))))
 print(nf.num2int(n))
@@ -32,3 +32,11 @@ for i in range(len(a)):
     if a[i].find("RFID") == -1:
         b.write(a[i])
 b.close()
+"""
+
+print(ord('a'))
+print(ord('b'))
+print(ord('c'))
+print(ord('d'))
+print(chr(96))
+print(chr(64))
