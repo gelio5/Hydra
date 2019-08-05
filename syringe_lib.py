@@ -120,11 +120,11 @@ def Aspirate(valvePos, rate, volume):
         ans = str(port.readline())
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])
         port.write(str.encode(
-            "/1" + valvePos + 'P' + str(volume) + 'V' + str(rate) +
+            "/1" + valvePos + 'V' + str(rate) + 'P' + str(volume) +
             'R' + '\r\n'))
         config.logger.info(
-         u'Xmit Pump: %s' % "/1" + valvePos + 'P' + str(volume) + 'V' +
-            str(rate) + 'R')
+         u'Xmit Pump: %s' % "/1" + valvePos + 'V' + str(rate) + 'P' +
+         str(volume) + 'R')
         ans = str(port.readline())
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])
         Status(0)

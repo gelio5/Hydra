@@ -24,7 +24,6 @@ pump.Test()
 for i in range(3):
     pump.Aspirate(valvePos=pump.inpPos, rate=5800, volume=3000)
     pump.SyrSetAbsoluteZero(valvePos=pump.outPos, rate=5800)
-time.sleep(9)
 pump.Aspirate(valvePos=pump.inpPos, volume=2000, rate=300)
 actuator.port.close()
 config.logger.info(u'Port for communication with actuator is closed.')
