@@ -137,7 +137,7 @@ def SyrSetAbsoluteZero(valvePos, rate):
         port.write(str.encode(
             "/1" + 'V' + str(rate) + valvePos + 'A0' + 'R' + '\r\n'))
         config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + str(rate) +
-                           valvePos + 'A0' + 'R' + '\r\n')
+                           valvePos + 'A0' + 'R')
         ans = str(port.readline())
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])
         Status(0)

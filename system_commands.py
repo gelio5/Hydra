@@ -16,17 +16,17 @@ reagentNames = {"IMS": "1", "SRE": "2", "PR2": "3", "CMS": "4", "AMS1": "5",
                 "C3": "20", "PW3": "21"}
 
 
-def PumpToFlowcell(reagentName, volume, aspirationRate, dispenseRate):
+def PumpToFlowcell(actPos, aspValvePos, volume, aspirationRate, dispenseRate):
     logging.info(u'##########   Start pumping %s with volume %s, aspiration '
                  u'rate %s and dispense rate %s   ##########' %
-                 (reagentName, volume, aspirationRate, dispenseRate))
+                 (actPos, volume, aspirationRate, dispenseRate))
     if int(psd.AskSyrPos()[5:-9])+volume > 3000:
         logging.warning(u'###   Syringe would be overflow   ###')
         psd.SyrSetAbsoluteZero(psd.outPos, dispenseRate)
         logging.warning(u'###   Syringe is free to pump   ###')
     else:
         logging.warning(u'###   Syringe is free to pump   ###')
-    actuator.TogglePos(int(reagentNames[reagentName]))
-    psd.Aspirate(valvePos=psd.inpPos, volume=volume, rate=aspirationRate)
+    actuator.TogglePos(actPos)
+    psd.Aspirate(valvePos=aspValvePos, volume=volume, rate=aspirationRate)
     logging.info(u'######################################   Pump to flowcell '
                  u'done!   ######################################')
