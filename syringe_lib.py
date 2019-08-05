@@ -94,8 +94,8 @@ def AbsoluteSyrPos(rate, syrPos):
         config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + str(rate) + 'A' +
                            str(syrPos) + 'R')
         ans = str(port.readline())
-        Status(0)
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+        Status(0)
     else:
         config.logger.info(
             u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Exit  '
