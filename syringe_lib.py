@@ -93,8 +93,8 @@ def AbsoluteSyrPos(rate, syrPos):
                               'R' + '\r\n'))
         config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + str(rate) + 'A' +
                            str(syrPos) + 'R')
-        Status(0)
         ans = str(port.readline())
+        Status(0)
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     else:
         config.logger.info(
@@ -114,12 +114,12 @@ def Aspirate(valvePos, rate, volume):
         port.write(str.encode(
             "/1" + valvePos + 'P' + str(volume) + 'V' + str(rate) +
             'R' + '\r\n'))
-        Status(0)
         config.logger.info(
          u'Xmit Pump: %s' % "/1" + valvePos + 'P' + str(volume) + 'V' +
             str(rate) + 'R')
         ans = str(port.readline())
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+        Status(0)
     else:
         config.logger.info(
             u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Exit  '
@@ -136,11 +136,11 @@ def SyrSetAbsoluteZero(valvePos, rate):
     if 5800>= rate >= 5:
         port.write(str.encode(
             "/1" + valvePos + 'A0' + 'V' + str(rate) + 'R' + '\r\n'))
-        Status(0)
         config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'A0V' +
                            str(rate) + 'R')
         ans = str(port.readline())
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+        Status(0)
     else:
         config.logger.info(
             u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Exit  '
@@ -162,7 +162,6 @@ def SetValveAbsoluteSyrPos(valvePos, rate, syrPos):
         ans = str(port.readline())
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])
         Status(0)
-        config.logger.info(u'Sleep 8s is ended.')
     else:
         config.logger.info(
             u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Exit  '
@@ -176,10 +175,10 @@ def SetValvePos(valvePos):
     Функция устанавливает коммутатор в положение valvePos
     """
     port.write(str.encode("/1" + valvePos + 'R' + '\r\n'))
-    Status(0)
     config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'R')
     ans = str(port.readline())
     config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+    Status(0)
     return
 
 
