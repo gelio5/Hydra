@@ -89,10 +89,6 @@ def AbsoluteSyrPos(rate, syrPos):
     используя rate в качестве скорости
     """
     if 5800 >= rate >= 5 and 0 <= syrPos <= 3000:
-        port.write(str.encode('/1' + 'V' + str(rate) + 'R' + '\r\n'))
-        config.logger.info(u'Xmit Pump: %s' % '/1' + 'V' + str(rate))
-        ans = str(port.readline())
-        config.logger.info(u'Recv Pump :%s' % ans[0:-1])
         port.write(str.encode("/1" + 'V' + str(rate) + 'A' + str(syrPos) +
                               'R' + '\r\n'))
         config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + str(rate) + 'A' +
@@ -115,10 +111,6 @@ def Aspirate(valvePos, rate, volume):
     на Volume колличество шагов вверх
     """
     if 5800 >= rate >= 5 and 0 <= volume <= 3000:
-        port.write(str.encode('/1' + 'V' + str(rate) + 'R' + '\r\n'))
-        config.logger.info(u'Xmit Pump: %s' % '/1' + 'V' + str(rate))
-        ans = str(port.readline())
-        config.logger.info(u'Recv Pump :%s' % ans[0:-1])
         port.write(str.encode(
             "/1" + valvePos + 'V' + str(rate) + 'P' + str(volume) +
             'R' + '\r\n'))
@@ -142,14 +134,10 @@ def SyrSetAbsoluteZero(valvePos, rate):
     и полностью опорожняет шприц со скоростью rate
     """
     if 5800>= rate >= 5:
-        port.write(str.encode('/1' + 'V' + str(rate) + 'R' + '\r\n'))
-        config.logger.info(u'Xmit Pump: %s' % '/1' + 'V' + str(rate))
-        ans = str(port.readline())
-        config.logger.info(u'Recv Pump :%s' % ans[0:-1])
         port.write(str.encode(
-            "/1" + valvePos + 'A0' + 'V' + str(rate) + 'R' + '\r\n'))
-        config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'A0V' +
-                           str(rate) + 'R')
+            "/1" + 'V' + str(rate) + valvePos + 'A0' + 'R' + '\r\n'))
+        config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + str(rate) +
+                           valvePos + 'A0' + 'R' + '\r\n')
         ans = str(port.readline())
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])
         Status(0)
@@ -167,10 +155,6 @@ def SetValveAbsoluteSyrPos(valvePos, rate, syrPos):
     после устанавливает шприц в положение syrPos со скоростью rate
     """
     if 5800>= rate >=5 and 3000>= syrPos >=0:
-        port.write(str.encode('/1' + 'V' + str(rate) + 'R' + '\r\n'))
-        config.logger.info(u'Xmit Pump: %s' % '/1' + 'V' + str(rate))
-        ans = str(port.readline())
-        config.logger.info(u'Recv Pump :%s' % ans[0:-1])
         port.write(str.encode("/1" + valvePos + 'V' + str(rate) + 'A' +
                               str(syrPos) + 'R' + '\r\n'))
         config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'V' +
