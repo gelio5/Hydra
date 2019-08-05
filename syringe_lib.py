@@ -39,6 +39,7 @@ def Initialization():
     ans = str(port.readline())
     config.logger.info(u'Recv Pump :%s' % ans)
     port.write(str.encode("/1" + 'h20000R' + '\r\n'))
+    config.logger.info(u'Xmit Pump :%s' % '/1' + 'h20000R')
     ans = str(port.readline())
     config.logger.info(u'Recv Pump :%s' % ans)
     time.sleep(1)
