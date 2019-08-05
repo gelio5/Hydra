@@ -212,7 +212,7 @@ def Status(i):
     Функция возвращает текущий статус насоса
     """
     if i <= 100:
-        i = i + 1
+        i += 1
         port.write(str.encode("/1" + 'Q' + '\r\n'))
         config.logger.info(u'Xmit Pump: %s' % "/1" + 'Q')
         ans = str(port.readline())
@@ -221,8 +221,7 @@ def Status(i):
             config.logger.info(u'Pump is ready')
             return
         elif ans[4] == '@':
-            config.logger.info(u'Pump is busy')
-            time.sleep(0.1)
+            time.sleep(0.5)
             Status(i)
             return
         else:

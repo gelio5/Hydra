@@ -1,6 +1,7 @@
 # log_test.py
 # -*- coding: utf-8 -*-
 import struct
+import sys
 import num2int as nf
 from bitstring import BitArray
 
@@ -40,3 +41,6 @@ print(ord('c'))
 print(ord('d'))
 print(chr(96))
 print(chr(64))
+a = True
+print(sys.getsizeof(a))
+print(sys.getsizeof(ord('@')))
