@@ -23,18 +23,35 @@ print((list(struct.pack("f", n))))
 print(nf.num2int(n))
 print(253 % 256)
 print(str(0x90).encode('ascii'))
-
-f = open('lg2.log', 'r')
-a = f.readlines()
-f.close()
-b = open('lg2.log', 'w')
-print(len(a))
-for i in range(len(a)):
-    if a[i].find("RFID") == -1:
-        b.write(a[i])
-b.close()
 """
 
+f = open('./Standby_Wash/MiSeqSoftware.00.log', 'r')
+a = f.readlines()
+f.close()
+b = open('lg3.log', 'w')
+print(len(a))
+for i in range(len(a)):
+    if a[i].find("19-08-06") != -1:
+        b.write(a[i])
+b.close()
+f = open('./Standby_Wash/lg3.log', 'r')
+a = f.readlines()
+f.close()
+b = open('./Standby_Wash/lg3.log', 'w')
+print(len(a))
+for i in range(len(a)):
+    if a[i].find("FPGA") == -1 and\
+            a[i].find("LED") == -1 and\
+            a[i].find("Instrument") == -1 and\
+            a[i].find("Motor") == -1 and\
+            a[i].find("Camera") == -1 and\
+            a[i].find("Sensor") == -1 and\
+            a[i].find("Control") == -1:
+        b.write(a[i])
+b.close()
+
+
+"""
 print(ord('a'))
 print(ord('b'))
 print(ord('c'))
@@ -44,3 +61,4 @@ print(chr(64))
 a = True
 print(sys.getsizeof(a))
 print(sys.getsizeof(ord('@')))
+"""
