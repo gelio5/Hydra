@@ -1,14 +1,6 @@
 19-07-30 16:00:37.325 +01 000000001 INF: Port = COM3, Interrupts, Baud = 115200, Handshake = None, Simulated = False
 19-07-30 16:00:38.136 +01 000000001 INF: Port = COM4, Interrupts, Baud = 115200, Handshake = None, Simulated = False
 19-07-30 16:00:40.133 +01 000000001 INF: Server backup of MiSeqOverride.cfg is disabled, because it specified a local drive D:\ and backups are already done to D:\Illumina Maintenance Logs\OverrideBackups
-	 Motor Settings (cont.) Neg Limit = 0, Pos Limit = 75.78055, Extra Timeout = 60000 
-	 Motor Settings (cont.) Controller Velocity limits: Granularity = 1 (0.000625 mm/sec), Min = 48 (0.03 mm/sec), Max = 28800 (18 mm/sec) 
-	 Motor Settings (cont.) App Velocity limits: Min = 0.03 mm/sec, Max = 10 mm/sec
-	 Motor Settings (cont.) Neg Limit = 0, Pos Limit = 0, Extra Timeout = 0 
-	 Motor Settings (cont.) Controller Velocity limits: Granularity = 1 (1 mm/sec), Min = 1 (1 mm/sec), Max = 1 (1 mm/sec) 
-	 Motor Settings (cont.) App Velocity limits: Min = 1 mm/sec, Max = 1 mm/sec
-19-07-30 16:00:40.242 +01 000000001 INF: FlowCellTempControl: Setting temperature polling rate to 00:00:05 ms
-19-07-30 16:00:40.367 +01 000000001 INF: ChillerTempControl: Setting temperature polling rate to 00:00:05 ms
 19-07-30 16:00:40.367 +01 000000001 INF: ChillerInnerTECBlock: Setting temperature polling rate to 00:00:00 ms
 19-07-30 16:00:40.632 +01 000000001 INF: Backup of Override.cfg is at D:\Illumina Maintenance Logs\OverrideBackups\MiSeqOverride_2018-05-08__15_13_37.cfg and is inserted below:
  ;Override Version 1.0.10_Shock 
@@ -52,33 +44,11 @@ LastCalibrated=9/11/2012 9:00:34 AM
 19-07-30 16:00:46.806 +01 000000018 INF: =================== Initializing ===================
 19-07-30 16:00:46.836 +01 000000019 INF: =================== StatusLights ===================
 19-07-30 16:00:46.836 +01 000000015 INF: =================== Fluidics ===================
-	 Motor Settings (cont.) Neg Limit = 0, Pos Limit = 0, Extra Timeout = 0 
-	 Motor Settings (cont.) Controller Velocity limits: Granularity = 1 (1 mm/sec), Min = 1 (1 mm/sec), Max = 1 (1 mm/sec) 
-	 Motor Settings (cont.) App Velocity limits: Min = 1 mm/sec, Max = 1 mm/sec
-	 Motor Settings (cont.) Neg Limit = 0, Pos Limit = 75.78055, Extra Timeout = 60000 
-	 Motor Settings (cont.) Controller Velocity limits: Granularity = 1 (0.000625 mm/sec), Min = 48 (0.03 mm/sec), Max = 28800 (18 mm/sec) 
-	 Motor Settings (cont.) App Velocity limits: Min = 0.03 mm/sec, Max = 10 mm/sec
 19-07-30 16:00:47.416 +01 000000023 INF: =================== FocusMirror ===================
-19-07-30 16:00:47.946 +01 000000024 INF: =================== SipperMotor ===================
-19-07-30 16:00:47.946 +01 000000017 INF: SampleDoorOpenSensor: Initialize
-19-07-30 16:00:47.956 +01 000000017 INF: SampleDoorOpenSensor: Status prefix = SD
-19-07-30 16:00:48.036 +01 000000017 INF: ChillerDoorOpenSensor: Initialize
-19-07-30 16:00:48.036 +01 000000017 INF: ChillerDoorOpenSensor: Status prefix = CD
-19-07-30 16:00:48.036 +01 000000017 INF: ReagentTrayPresentSensor: Initialize
-19-07-30 16:00:48.036 +01 000000017 INF: ReagentTrayPresentSensor: Status prefix = RP
-19-07-30 16:00:48.046 +01 000000017 INF: WasteBottleInstalledSensor: Initialize
-19-07-30 16:00:48.046 +01 000000017 INF: WasteBottleInstalledSensor: Status prefix = WI
-19-07-30 16:00:48.046 +01 000000017 INF: WasteBottleFullSensor: Initialize
-19-07-30 16:00:48.046 +01 000000017 INF: WasteBottleFullSensor: Status prefix = WF
-19-07-30 16:00:48.046 +01 000000017 INF: WasteAndPR2SipperDownSensor: Initialize
-19-07-30 16:00:48.046 +01 000000017 INF: WasteAndPR2SipperDownSensor: Status prefix = WS
-19-07-30 16:00:48.046 +01 000000017 INF: FlowcellClampClosedSensor: Initialize
-19-07-30 16:00:48.046 +01 000000017 INF: FlowcellClampClosedSensor: ReadSensorCommand = TEC2CLMP?
 19-07-30 16:00:48.486 +01 000000025 INF: Port = COM2, Interrupts, Baud = 9600, Handshake = None, Simulated = True
 19-07-30 16:00:48.486 +01 000000017 INF: ===================  ===================
 19-07-30 16:00:48.486 +01 000000017 INF: =================== Compensator ===================
 19-07-30 16:00:48.516 +01 000000025 INF: ===================  ===================
-19-07-30 16:00:49.506 +01 000000024 INF: SipperMotor: Set Sipper Position Up
 19-07-30 16:00:50.506 +01 000000025 INF: ===================  ===================
 19-07-30 16:00:50.516 +01 000000024 INF: ===================  ===================
 19-07-30 16:00:50.516 +01 000000025 INF: ===================  ===================
@@ -86,7 +56,6 @@ LastCalibrated=9/11/2012 9:00:34 AM
 19-07-30 16:00:50.696 +01 000000026 INF: ===================  ===================
 19-07-30 16:00:50.816 +01 000000023 INF: ===================  ===================
 19-07-30 16:00:50.826 +01 000000011 INF: ===================  ===================
-19-07-30 16:00:50.936 +01 000000015 INF: FlowCellTempControl: Temperature calibration, slope: 0.8975 offset: 2.94.
 19-07-30 16:00:51.006 +01 000000015 INF: LanePump: Initialize
 19-07-30 16:00:51.026 +01 000000015 INF: Port = COM6, Interrupts, Baud = 19200, Handshake = None, Simulated = False
 19-07-30 16:00:51.756 +01 000000015 INF: ReagentValve: Xmit R\r
@@ -113,7 +82,6 @@ LastCalibrated=9/11/2012 9:00:34 AM
 19-07-30 16:01:02.296 +01 000000015 INF: ReagentValve: Xmit B\r
 19-07-30 16:01:02.316 +01 000000015 INF: ReagentValve: Recv 132E\r
 19-07-30 16:01:02.316 +01 000000015 INF: ReagentValve: Home from 1.5 to 1.5 took 4910 steps, expected 4900. Error = 10 steps (0.2%)
-19-07-30 16:01:02.316 +01 000000015 INF: ReagentValve: MotorType = HT (Newer, size 17, 4900 steps / valve rev, 2.5 Amps)
 19-07-30 16:01:02.326 +01 000000015 INF: ReagentValve: Go to position 24 (Plug) - After Initialize
 19-07-30 16:01:02.326 +01 000000015 INF: ReagentValve: Xmit S\r
 19-07-30 16:01:02.356 +01 000000015 INF: ReagentValve: Recv 01\r
@@ -198,7 +166,6 @@ LastCalibrated=9/11/2012 9:00:34 AM
 19-07-30 16:01:20.936 +01 000000015 INF: LanePump: Xmit /1Q\r
 19-07-30 16:01:20.966 +01 000000015 INF: LanePump: Recv /0`(0x03)\r\n
 19-07-30 16:01:20.966 +01 000000015 INF: LanePump: Waited 459 ms for pump motion to complete
-19-07-30 16:01:21.266 +01 000000015 INF: ChillerTempControl: Temperature calibration, slope: 1 offset: 0.
 19-07-30 16:01:21.306 +01 000000015 INF: ===================  ===================
 19-07-30 16:01:21.306 +01 000000018 INF: ===================  ===================
 19-07-30 16:01:21.316 +01 000000018 INF: Config file sections used by each device:
@@ -210,7 +177,6 @@ LastCalibrated=9/11/2012 9:00:34 AM
 19-07-30 16:01:21.746 +01 000000001 ERR: !!!!! The Y motor stopped homing because the door was opened
 19-07-30 16:01:40.546 +01 000000011 INF: ReagentValve: Go to position 24 (Plug) - UnInitialize
 19-07-30 16:01:40.546 +01 000000011 INF: ReagentValve: Xmit S\r
-19-07-30 16:01:40.546 +01 000000020 INF: SipperMotor: Set Sipper Position Up
 19-07-30 16:01:40.566 +01 000000011 INF: ReagentValve: Recv 18\r
 19-07-30 16:01:42.626 +01 000000018 INF: InitializeAndHomeAll start: Startup
 19-07-30 16:01:42.656 +01 000000018 INF: =================== Initializing ===================
@@ -220,32 +186,10 @@ LastCalibrated=9/11/2012 9:00:34 AM
 19-07-30 16:01:43.716 +01 000000018 INF: =================== Initializing ===================
 19-07-30 16:01:43.716 +01 000000019 INF: =================== StatusLights ===================
 19-07-30 16:01:43.716 +01 000000027 INF: =================== Fluidics ===================
-19-07-30 16:01:43.716 +01 000000020 INF: =================== SipperMotor ===================
 19-07-30 16:01:43.726 +01 000000034 INF: =================== FocusMirror ===================
-	 Motor Settings (cont.) Neg Limit = 0, Pos Limit = 75.78055, Extra Timeout = 60000 
-	 Motor Settings (cont.) Controller Velocity limits: Granularity = 1 (0.000625 mm/sec), Min = 48 (0.03 mm/sec), Max = 28800 (18 mm/sec) 
-	 Motor Settings (cont.) App Velocity limits: Min = 0.03 mm/sec, Max = 10 mm/sec
-	 Motor Settings (cont.) Neg Limit = 0, Pos Limit = 0, Extra Timeout = 0 
-	 Motor Settings (cont.) Controller Velocity limits: Granularity = 1 (1 mm/sec), Min = 1 (1 mm/sec), Max = 1 (1 mm/sec) 
-	 Motor Settings (cont.) App Velocity limits: Min = 1 mm/sec, Max = 1 mm/sec
 19-07-30 16:01:44.506 +01 000000037 INF: Port = COM2, Interrupts, Baud = 9600, Handshake = None, Simulated = True
 19-07-30 16:01:44.506 +01 000000037 INF: ===================  ===================
-19-07-30 16:01:44.516 +01 000000024 INF: SampleDoorOpenSensor: Initialize
-19-07-30 16:01:44.516 +01 000000024 INF: SampleDoorOpenSensor: Status prefix = SD
-19-07-30 16:01:44.516 +01 000000024 INF: ChillerDoorOpenSensor: Initialize
-19-07-30 16:01:44.516 +01 000000024 INF: ChillerDoorOpenSensor: Status prefix = CD
 19-07-30 16:01:44.516 +01 000000037 INF: =================== Compensator ===================
-19-07-30 16:01:44.526 +01 000000024 INF: ReagentTrayPresentSensor: Initialize
-19-07-30 16:01:44.526 +01 000000024 INF: ReagentTrayPresentSensor: Status prefix = RP
-19-07-30 16:01:44.526 +01 000000024 INF: WasteBottleInstalledSensor: Initialize
-19-07-30 16:01:44.526 +01 000000024 INF: WasteBottleInstalledSensor: Status prefix = WI
-19-07-30 16:01:44.526 +01 000000024 INF: WasteBottleFullSensor: Initialize
-19-07-30 16:01:44.526 +01 000000024 INF: WasteBottleFullSensor: Status prefix = WF
-19-07-30 16:01:44.526 +01 000000024 INF: WasteAndPR2SipperDownSensor: Initialize
-19-07-30 16:01:44.526 +01 000000024 INF: WasteAndPR2SipperDownSensor: Status prefix = WS
-19-07-30 16:01:44.526 +01 000000024 INF: FlowcellClampClosedSensor: Initialize
-19-07-30 16:01:44.526 +01 000000024 INF: FlowcellClampClosedSensor: ReadSensorCommand = TEC2CLMP?
-19-07-30 16:01:46.506 +01 000000020 INF: SipperMotor: Set Sipper Position Up
 19-07-30 16:01:46.506 +01 000000029 INF: ===================  ===================
 19-07-30 16:01:46.506 +01 000000024 INF: ===================  ===================
 19-07-30 16:01:46.516 +01 000000024 INF: ===================  ===================
@@ -253,7 +197,6 @@ LastCalibrated=9/11/2012 9:00:34 AM
 19-07-30 16:01:46.726 +01 000000007 INF: ===================  ===================
 19-07-30 16:01:46.746 +01 000000019 INF: ===================  ===================
 19-07-30 16:01:46.886 +01 000000035 INF: ===================  ===================
-19-07-30 16:01:47.056 +01 000000027 INF: FlowCellTempControl: Temperature calibration, slope: 0.8975 offset: 2.94.
 19-07-30 16:01:47.086 +01 000000027 INF: LanePump: Initialize
 19-07-30 16:01:47.086 +01 000000034 INF: ===================  ===================
 19-07-30 16:01:47.096 +01 000000027 INF: Port = COM6, Interrupts, Baud = 19200, Handshake = None, Simulated = False
@@ -281,7 +224,6 @@ LastCalibrated=9/11/2012 9:00:34 AM
 19-07-30 16:01:58.196 +01 000000027 INF: ReagentValve: Xmit B\r
 19-07-30 16:01:58.216 +01 000000027 INF: ReagentValve: Recv 132E\r
 19-07-30 16:01:58.216 +01 000000027 INF: ReagentValve: Home from 1.5 to 1.5 took 4910 steps, expected 4900. Error = 10 steps (0.2%)
-19-07-30 16:01:58.216 +01 000000027 INF: ReagentValve: MotorType = HT (Newer, size 17, 4900 steps / valve rev, 2.5 Amps)
 19-07-30 16:01:58.216 +01 000000027 INF: ReagentValve: Go to position 24 (Plug) - After Initialize
 19-07-30 16:01:58.216 +01 000000027 INF: ReagentValve: Xmit S\r
 19-07-30 16:01:58.236 +01 000000027 INF: ReagentValve: Recv 01\r
@@ -323,7 +265,6 @@ LastCalibrated=9/11/2012 9:00:34 AM
 19-07-30 16:02:07.446 +01 000000027 INF: LanePump: Xmit /1Q\r
 19-07-30 16:02:07.476 +01 000000027 INF: LanePump: Recv /0`(0x03)\r\n
 19-07-30 16:02:07.476 +01 000000027 INF: LanePump: Waited 459 ms for pump motion to complete
-19-07-30 16:02:07.776 +01 000000027 INF: ChillerTempControl: Temperature calibration, slope: 1 offset: 0.
 19-07-30 16:02:07.806 +01 000000027 INF: ===================  ===================
 19-07-30 16:02:08.216 +01 000000015 INF: ===================  ===================
 19-07-30 16:02:08.216 +01 000000018 INF: ===================  ===================
@@ -335,7 +276,6 @@ LastCalibrated=9/11/2012 9:00:34 AM
 19-07-30 16:02:08.516 +01 000000018 INF: InitializeAndHomeAll finished after 25.9 seconds
 19-07-30 16:02:08.516 +01 000000001 ERR: !!!!! The Y motor stopped homing because the door was opened
 19-07-30 16:02:12.666 +01 000000018 INF: ReagentValve: Go to position 24 (Plug) - UnInitialize
-19-07-30 16:02:12.666 +01 000000040 INF: SipperMotor: Set Sipper Position Up
 19-07-30 16:02:12.666 +01 000000018 INF: ReagentValve: Xmit S\r
 19-07-30 16:02:12.696 +01 000000018 INF: ReagentValve: Recv 18\r
 19-07-30 16:02:14.766 +01 000000029 INF: InitializeAndHomeAll start: Startup
@@ -348,38 +288,15 @@ LastCalibrated=9/11/2012 9:00:34 AM
 19-07-30 16:02:15.866 +01 000000044 INF: =================== Compensator ===================
 19-07-30 16:02:15.866 +01 000000011 INF: =================== Fluidics ===================
 19-07-30 16:02:15.866 +01 000000039 INF: =================== FocusMirror ===================
-19-07-30 16:02:15.876 +01 000000018 INF: =================== SipperMotor ===================
-	 Motor Settings (cont.) Neg Limit = 0, Pos Limit = 0, Extra Timeout = 0 
-	 Motor Settings (cont.) Controller Velocity limits: Granularity = 1 (1 mm/sec), Min = 1 (1 mm/sec), Max = 1 (1 mm/sec) 
-	 Motor Settings (cont.) App Velocity limits: Min = 1 mm/sec, Max = 1 mm/sec
-	 Motor Settings (cont.) Neg Limit = 0, Pos Limit = 75.78055, Extra Timeout = 60000 
-	 Motor Settings (cont.) Controller Velocity limits: Granularity = 1 (0.000625 mm/sec), Min = 48 (0.03 mm/sec), Max = 28800 (18 mm/sec) 
-	 Motor Settings (cont.) App Velocity limits: Min = 0.03 mm/sec, Max = 10 mm/sec
 19-07-30 16:02:15.896 +01 000000057 INF: ===================  ===================
 19-07-30 16:02:15.906 +01 000000015 INF: Port = COM2, Interrupts, Baud = 9600, Handshake = None, Simulated = True
 19-07-30 16:02:15.906 +01 000000015 INF: ===================  ===================
 19-07-30 16:02:15.976 +01 000000045 INF: ===================  ===================
-19-07-30 16:02:15.986 +01 000000046 INF: SampleDoorOpenSensor: Initialize
-19-07-30 16:02:15.986 +01 000000046 INF: SampleDoorOpenSensor: Status prefix = SD
-19-07-30 16:02:15.986 +01 000000046 INF: ChillerDoorOpenSensor: Initialize
-19-07-30 16:02:15.986 +01 000000046 INF: ChillerDoorOpenSensor: Status prefix = CD
-19-07-30 16:02:15.986 +01 000000046 INF: ReagentTrayPresentSensor: Initialize
-19-07-30 16:02:15.986 +01 000000046 INF: ReagentTrayPresentSensor: Status prefix = RP
-19-07-30 16:02:15.986 +01 000000046 INF: WasteBottleInstalledSensor: Initialize
-19-07-30 16:02:15.986 +01 000000046 INF: WasteBottleInstalledSensor: Status prefix = WI
-19-07-30 16:02:15.986 +01 000000046 INF: WasteBottleFullSensor: Initialize
-19-07-30 16:02:15.986 +01 000000046 INF: WasteBottleFullSensor: Status prefix = WF
-19-07-30 16:02:15.986 +01 000000046 INF: WasteAndPR2SipperDownSensor: Initialize
-19-07-30 16:02:15.986 +01 000000046 INF: WasteAndPR2SipperDownSensor: Status prefix = WS
-19-07-30 16:02:15.996 +01 000000046 INF: FlowcellClampClosedSensor: Initialize
-19-07-30 16:02:15.996 +01 000000046 INF: FlowcellClampClosedSensor: ReadSensorCommand = TEC2CLMP?
-19-07-30 16:02:16.036 +01 000000018 INF: SipperMotor: Set Sipper Position Up
 19-07-30 16:02:16.086 +01 000000046 INF: ===================  ===================
 19-07-30 16:02:16.176 +01 000000024 INF: ===================  ===================
 19-07-30 16:02:16.236 +01 000000018 INF: ===================  ===================
 19-07-30 16:02:16.246 +01 000000027 INF: ===================  ===================
 19-07-30 16:02:16.456 +01 000000033 INF: ===================  ===================
-19-07-30 16:02:16.596 +01 000000011 INF: FlowCellTempControl: Temperature calibration, slope: 0.8975 offset: 2.94.
 19-07-30 16:02:16.626 +01 000000039 INF: ===================  ===================
 19-07-30 16:02:16.656 +01 000000011 INF: LanePump: Initialize
 19-07-30 16:02:16.666 +01 000000011 INF: Port = COM6, Interrupts, Baud = 19200, Handshake = None, Simulated = False
@@ -407,7 +324,6 @@ LastCalibrated=9/11/2012 9:00:34 AM
 19-07-30 16:02:27.766 +01 000000011 INF: ReagentValve: Xmit B\r
 19-07-30 16:02:27.786 +01 000000011 INF: ReagentValve: Recv 132E\r
 19-07-30 16:02:27.786 +01 000000011 INF: ReagentValve: Home from 1.5 to 1.5 took 4910 steps, expected 4900. Error = 10 steps (0.2%)
-19-07-30 16:02:27.786 +01 000000011 INF: ReagentValve: MotorType = HT (Newer, size 17, 4900 steps / valve rev, 2.5 Amps)
 19-07-30 16:02:27.786 +01 000000011 INF: ReagentValve: Go to position 24 (Plug) - After Initialize
 19-07-30 16:02:27.786 +01 000000011 INF: ReagentValve: Xmit S\r
 19-07-30 16:02:27.806 +01 000000011 INF: ReagentValve: Recv 01\r
@@ -449,7 +365,6 @@ LastCalibrated=9/11/2012 9:00:34 AM
 19-07-30 16:02:36.956 +01 000000011 INF: LanePump: Xmit /1Q\r
 19-07-30 16:02:36.986 +01 000000011 INF: LanePump: Recv /0`(0x03)\r\n
 19-07-30 16:02:36.986 +01 000000011 INF: LanePump: Waited 459 ms for pump motion to complete
-19-07-30 16:02:37.286 +01 000000011 INF: ChillerTempControl: Temperature calibration, slope: 1 offset: 0.
 19-07-30 16:02:37.316 +01 000000011 INF: ===================  ===================
 19-07-30 16:02:40.356 +01 000000020 INF: ===================  ===================
 19-07-30 16:02:40.356 +01 000000029 INF: ===================  ===================
@@ -470,8 +385,6 @@ LastCalibrated=9/11/2012 9:00:34 AM
 
 Additional technical details for this error are below. 
 Exception Type(s): WebException, WebException .'
-19-07-30 16:05:49.756 +01 000000029 INF: SipperMotor: Set Sipper Position Up
-19-07-30 16:05:51.226 +01 000000030 INF: SipperMotor: Set Sipper Position Down
 19-07-30 16:05:59.646 +01 000000030 INF: =================== Standby Wash 1 of 8 ===================
 19-07-30 16:06:10.696 +01 000000030 INF: ReagentValve: Go to position 4 - PumpToFlowcell start
 19-07-30 16:06:10.696 +01 000000030 INF: ReagentValve: Xmit S\r
@@ -11090,8 +11003,6 @@ Exception Type(s): WebException, WebException .'
 19-07-30 17:04:59.831 +01 000000030 INF: LanePump: Waited 459 ms for pump motion to complete
 19-07-30 17:04:59.831 +01 000000030 INF: =================== Standby Wash 8 of 8 ===================
 19-07-30 17:04:59.831 +01 000000030 INF: ===================  ===================
-19-07-30 17:05:10.851 +01 000000016 INF: SipperMotor: Set Sipper Position Up
-19-07-30 17:19:59.592 +01 000000043 INF: SipperMotor: Set Sipper Position Down
 19-07-30 17:20:07.992 +01 000000043 INF: =================== Standby Wash 1 of 8 ===================
 19-07-30 17:20:19.012 +01 000000043 INF: AsyncDelayTimer did not wait because wait time had elapsed
 19-07-30 17:20:19.012 +01 000000043 INF: ReagentValve: Go to position 4 - PumpToFlowcell start

@@ -25,19 +25,19 @@ print(253 % 256)
 print(str(0x90).encode('ascii'))
 """
 
-f = open('./Standby_Wash/MiSeqSoftware.00.log', 'r')
+f = open('./Post_Run_Wash/MiSeqSoftware.00.log', 'r')
 a = f.readlines()
 f.close()
-b = open('lg3.log', 'w')
+b = open('./Post_Run_Wash/lg4.log', 'w')
 print(len(a))
 for i in range(len(a)):
-    if a[i].find("19-08-06") != -1:
+    if a[i].find("19-08-07") != -1:
         b.write(a[i])
 b.close()
-f = open('./Standby_Wash/lg3.log', 'r')
+f = open('./Post_Run_Wash/lg4.log', 'r')
 a = f.readlines()
 f.close()
-b = open('./Standby_Wash/lg3.log', 'w')
+b = open('./Post_Run_Wash/lg4.log', 'w')
 print(len(a))
 for i in range(len(a)):
     if a[i].find("FPGA") == -1 and\
