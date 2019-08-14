@@ -1,14 +1,14 @@
 import system_commands as hydra
 import syringe_lib as pump
 import config
-numberOfActuatorPositions = 24
+numberOfActuatorPositions = 23
 
 
 def Maintenance():
     config.logger.info(u'========       Maintenance wash is started         '
                        u'========')
-    for j in range(2):
-        for k in range(8):
+    for j in range(1):
+        for k in range(1):
             config.logger.info(u'========        Stand by Wash %s of 8       '
                                u'========' % str(k + 1))
             for i in range(numberOfActuatorPositions):

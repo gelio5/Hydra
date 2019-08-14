@@ -55,7 +55,7 @@ def Test():
     if not TogglePos(20):
         ini_test += 8
         config.logger.error(u'8')
-    Transmitter("HM")
+    TogglePos(positionNumber=24)
     config.logger.info(u'Test is ended. ERROR STATUS: %s.' % ini_test)
     return
 

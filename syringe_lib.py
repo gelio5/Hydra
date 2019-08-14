@@ -71,7 +71,7 @@ def Test():
     if not AskSyrPos().find('1000'):
         error = error << 4
     if error == 0:
-        SetValveAbsoluteSyrPos(inpPos, rate=1000, syrPos=0)
+        SetValveAbsoluteSyrPos(outPos, rate=1000, syrPos=0)
         config.logger.info(u'Test completed error - 0')
         return
     else:

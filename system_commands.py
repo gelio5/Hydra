@@ -38,5 +38,5 @@ def AspirateFromBypass(volume, aspirationRate, dispenseRate):
         logging.warning(u'###   Syringe would be overflow   ###')
         psd.SyrSetAbsoluteZero(psd.outPos, dispenseRate)
     logging.warning(u'###   Syringe is free to pump   ###')
-    actuator.TogglePos(24)
+    actuator.TogglePos(23)
     psd.Aspirate(valvePos=psd.byPassPos, volume=volume, rate=aspirationRate)
