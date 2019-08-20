@@ -155,6 +155,9 @@ def StopHeat():
 
 
 def SetVelocityHeat(heat, cooling):
+    """
+    Функция устанавливает скорость нагрева/охлаждения
+    """
     length = 12
     command = 0x85
     crc = (address + length + command + n2i.num2int(heat) + n2i.num2int(
@@ -168,6 +171,9 @@ def SetVelocityHeat(heat, cooling):
 
 
 def GetVelocityHeat():
+    """
+    Функция возвращает скорость нагрева/охлаждения
+    """
     length = 4
     command = 0x84
     crc = address + length + command
@@ -179,6 +185,9 @@ def GetVelocityHeat():
 
 
 def SetDeviationHeat(temp_heat, time_heat, temp_cooling, time_cooling):
+    """
+    Функция устанавливает Отклонение нагрева
+    """
     length = 20
     command = 0x83
     crc = (address + length + command + n2i.num2int(temp_heat) + n2i.num2int(
@@ -193,6 +202,9 @@ def SetDeviationHeat(temp_heat, time_heat, temp_cooling, time_cooling):
 
 
 def GetDeviationHeat():
+    """
+    Функция возвращает Отклонение нагрева
+    """
     length = 4
     command = 0x82
     crc = address + length + command
@@ -204,6 +216,9 @@ def GetDeviationHeat():
 
 
 def GetFlag(byte_1, byte_2):
+    """
+    Функция возвращает флаг (значения описанны в начале файла)
+    """
     flag_0 = byte_1 & 128
     flag_1 = byte_1 & 64
     flag_2 = byte_1 & 8
