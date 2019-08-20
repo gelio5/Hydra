@@ -20,8 +20,9 @@ port = serial.Serial(port='COM4',
 
 
 def Transceiver(command):
-    """ Sends a command to the selected COM port and return answer from
-    actuator """
+    """
+    Функция посылает команду на Кран-переключатель и возвращает с него ответ
+    """
     port.write(str.encode(command + '\r\n'))
     config.logger.info(u'Xmit Actuator: %s.' % command)
     answer = ''
@@ -34,13 +35,19 @@ def Transceiver(command):
 
 
 def Transmitter(command):
-    """ Sends a command to the selected COM port without waiting for a
-    response """
+    """
+    Функция посылает команду на Кран-переключатель без ожидания ответа
+    """
     port.write(str.encode(command + '\r\n'))
     config.logger.info(u'Xmit Actuator: %s.' % command)
 
 
 def Test():
+    """
+    Функция тестирования Крана-переключателя, в случае прохождения теста
+    устанавливает Кран в положение 24(необходимо для тестиования Насоса)
+    :return:
+    """
     config.logger.info(u'Start testing of actuator.')
     ini_test = 0
     if not TogglePos(1):
@@ -66,17 +73,30 @@ def GoToPosition(positionNumber):
 
 
 def CurrentPos():
+    """
+    Функция возвращает текущее положение Крана-переключателя
+    :return:
+    """
     config.logger.info(u'Interrogating the position of the actuator.')
     return int(Transceiver("CP").replace("CP", "").replace("\r", ""))
 
 
 def MovingTime():
+    """
+    Функция возвращает время последнего переключения Крана-переключателя
+    :return:
+    """
     config.logger.info(u'Interrogation of the time spent on the previous '
                        u'switch.')
     return int(Transceiver("TM").replace("TM", "").replace("\r", ""))
 
 
 def TogglePos(positionNumber):
+    """
+    Функция устанавливает Кран-переключатель в положение positionNumber и
+    проверяет верно ли осуществленно переключение, путём возврата True
+    или False
+    """
     config.logger.info(u'##### Moving the check switch. #####')
     GoToPosition(positionNumber)
     if positionNumber == CurrentPos():
