@@ -15,15 +15,17 @@ import time
 import threading
 import config
 
-#port = serial.Serial(port='COM9',
- #                    baudrate=9600,
-  #                   bytesize=serial.EIGHTBITS,
-   #                  parity=serial.PARITY_NONE,
-    #                 stopbits=serial.STOPBITS_ONE)
+port = serial.Serial(port='COM9',
+                     baudrate=9600,
+                     bytesize=serial.EIGHTBITS,
+                     parity=serial.PARITY_NONE,
+                     stopbits=serial.STOPBITS_ONE)
 
 
 def AskSensors(askTimer):
-    print('ТАНЦУЙ ТАЙМЕР РАБОТАЕТ')
+    port.write(str.encode("S"))
+    time.sleep(1)
+    print(port.readline())
     if not askTimer.is_set():
         threading.Timer(10, AskSensors, [askTimer]).start()
     return
