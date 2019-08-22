@@ -241,6 +241,6 @@ def GetFlag(byte_1, byte_2):
             flag = 6
         elif byte_2 == 4:
             flag = 7
-    else:
+    else
         flag = 0
     return flag

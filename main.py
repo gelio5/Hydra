@@ -5,9 +5,11 @@
 import actuator_lib as actuator
 import syringe_lib as pump
 import system_commands as hydra
+import sensors_lib as sensors
 import config
 import wash
 import time
+import threading
 
 
 config.logger.info(u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Start of the '
@@ -18,11 +20,12 @@ actuator.port.isOpen()
 config.logger.info(u'Port communication with actuator is opened.')
 pump.port.isOpen()
 config.logger.info(u'Port for communication with pump is opened.')
-
+askTimer = threading.Event()
+sensors.AskSensors(askTimer)
 # actuator.Test()
-# pump.Initialization()
-# pump.Test()
-wash.Maintenance()
+pump.Initialization()
+pump.Test()
+#wash.Maintenance()
 # for i in range(5):
   #  hydra.AspirateFromBypass(3000, 2000, 4000)
 actuator.port.close()
