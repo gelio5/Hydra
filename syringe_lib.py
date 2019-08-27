@@ -21,7 +21,7 @@ inpPos = 'h29045'
 outPos = 'h29090'
 byPassPos = 'h29135'
 
-port = serial.Serial(port='COM9',
+port = serial.Serial(port='COM5',
                      baudrate=9600,
                      bytesize=serial.EIGHTBITS,
                      parity=serial.PARITY_NONE,

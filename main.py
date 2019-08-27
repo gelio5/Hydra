@@ -5,11 +5,12 @@
 import actuator_lib as actuator
 import syringe_lib as pump
 import system_commands as hydra
-import sensors_lib as sensors
+# import sensors_lib as sensors
 import config
 import wash
 import time
 import threading
+import therm_lib as holod
 
 
 config.logger.info(u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Start of the '
@@ -20,20 +21,21 @@ actuator.port.isOpen()
 config.logger.info(u'Port communication with actuator is opened.')
 pump.port.isOpen()
 config.logger.info(u'Port for communication with pump is opened.')
-askTimer = threading.Event()
-sensors.AskSensors(askTimer)
 actuator.Test()
 pump.Initialization()
 pump.Test()
-f =open('C:/Users/808872/PycharmProjects/Hydra/recipe.txt', 'r')
+f = open('recipe.txt', 'r')
 for line in f.readlines():
-    if not line.find('PumpToFlowCell') == -1:
-        spliter = line.split(',')
-        actPos = spliter[1]
-        volume = spliter[2]
-        aspirationRate = spliter[3]
-        dispenseRate = spliter[4]
-        hydra.PumpToFlowcell(actPos,volume,aspirationRate,dispenseRate)
+    if line.find('PumpToFlowCell') != -1:
+        splitter = line.split(',')
+        actPos = splitter[1]
+        volume = splitter[2]
+        aspirationRate = splitter[3]
+        dispenseRate = splitter[4]
+        hydra.PumpToFlowcell(int(actPos),
+                             int(volume),
+                             int(aspirationRate),
+                             int(dispenseRate))
 
 actuator.port.close()
 config.logger.info(u'Port for communication with actuator is closed.')

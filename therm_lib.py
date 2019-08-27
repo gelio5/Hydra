@@ -6,8 +6,7 @@ import serial
 import config
 import time
 
-
-address = 8
+adress = 8
 flag = 0
 """"
 Значения флагов представленны ниже:
@@ -26,21 +25,36 @@ flag = 0
 12 - ошибочный формат команды (от термостата)
 """
 
-
 try:
-    port_therm = serial.Serial('COM3',
+    port_therm = serial.Serial('COM14',
                                115200,
-                               timeout=0.3,
                                parity=serial.PARITY_NONE,
                                stopbits=1)
 except serial.SerialException:
     flag = 9
 
 
+def SetSippersZero():
+    length = 4
+    command = 0xBC
+    crc = adress + length + command
+    answer = ''
+    command_to_send = pack("<BBBB", adress, length, command, crc)
+    try:
+        port_therm.write(command_to_send)
+        answer_bites = port_therm.read(4)
+        print(answer_bites)
+        answer = unpack("<BBBB", answer_bites)
+    except:
+        answer = "Answer not exist"
+    return answer
+
+
 def IniTherm():
     """
     Функция инициализации, считываем значение температуры
      и возвращаем флаг о текущем состоянии термостата
+
     """
     _, flag = GetTemp()
     return flag
@@ -48,9 +62,9 @@ def IniTherm():
 
 def TestTherm():
     """
-    Функция для тестирования термостата. Нагреваем до температуры 25
-    градусов и ждем когда нагреется. Выводим состояние термостата и
-    записываем в лог время нагрева(это необязательно сами решите как надо)
+    Функция для тестирования термостата. Нагреваем до
+    температуры 25 градусов и ждем когда нагреется.
+    Выводим состояние термостата и записываем в лог время нагрева(это необязательно сами решите как надо)
     :return: flag
 
     """
@@ -59,22 +73,24 @@ def TestTherm():
     temp, _ = GetTemp()
     eps = 0.01
     start_time = time.time()
-    config.logger.info("Test to measure the heating time to% s is launched" %
-                       temp)
-    while abs(set_temp - temp) > eps or time.time() - start_time < 20:
-        # пока разница с 25 градусов не будет меньше 0.01 или не пройдет 20
-        # сек
+    config.logger.info(
+        "Test to measure the heating time to% s is launched" % temp)
+    while abs(
+            set_temp - temp) > eps or time.time() - start_time < 20:  # пока разница с 25 градусов не будет меньше 0.01
+        # или не пройдет 20 сек
         temp, _ = GetTemp()
     time_test = time.time() - start_time
     vel = GetVelocityHeat()
     if time_test > 20:
         flag = 10
-        config.logger.info("Время нагрева составило %f при заданной скорости "
-                           "%f" % (time_test, vel[3]))
+        config.logger.info(
+            "Время нагрева составило %f при заданной скорости %f" % (
+            time_test, vel[3]))
     else:
         _, flag = GetTemp()
-        config.logger.info("Время нагрева составило %f при заданной скорости "
-                           "%f" % (time_test, vel[3]))
+        config.logger.info(
+            "Время нагрева составило %f при заданной скорости %f" % (
+            time_test, vel[3]))
     return flag
 
 
@@ -88,14 +104,14 @@ def SetTemp(temp):
     """
     length = 8
     command = 0x91
-    crc = (address + length + command + n2i.num2int(temp)) % 256
-    # составление пакета данных
-    values_set_temp = pack("<BBBfB", address, length, command, temp, crc)
-    # преобразование в последовательность бит
+    crc = (adress + length + command + n2i.num2int(
+        temp)) % 256  # составление пакета данных
+    values_set_temp = pack("<BBBfB", adress, length, command, temp,
+                           crc)  # преобразование в последовательность бит
     try:
         port_therm.write(values_set_temp)
-        answer_bits = port_therm.readline()
-        unpack("BBBB", answer_bits)
+        answer_bity = (port_therm.readline())
+        unpack("BBBB", answer_bity)
     except serial.SerialException:
         return 8
     except struct.error:
@@ -114,12 +130,12 @@ def GetTemp():
     """
     length = 4
     command = 0x90
-    crc = address + length + command
-    values_check_temp = pack("<BBBB", address, length, command, crc)
+    crc = adress + length + command
+    values_check_temp = pack("<BBBB", adress, length, command, crc)
     try:
         port_therm.write(values_check_temp)
-        answer_bits = (port_therm.readline())
-        answer = unpack("<BBBffBBB", answer_bits)
+        answer_bity = (port_therm.readline())
+        answer = unpack("<BBBffBBB", answer_bity)
     except serial.SerialException:
         return -273, 8
     except struct.error:
@@ -138,8 +154,8 @@ def StopHeat():
     """
     length = 4
     command = 0x41
-    crc = address + length + command
-    values_stop = pack("<BBBB", address, length, command, crc)
+    crc = adress + length + command
+    values_stop = pack("<BBBB", adress, length, command, crc)
     try:
         port_therm.write(values_stop)
         answer_bity = (port_therm.readline())
@@ -155,14 +171,11 @@ def StopHeat():
 
 
 def SetVelocityHeat(heat, cooling):
-    """
-    Функция устанавливает скорость нагрева/охлаждения
-    """
     length = 12
     command = 0x85
-    crc = (address + length + command + n2i.num2int(heat) + n2i.num2int(
+    crc = (adress + length + command + n2i.num2int(heat) + n2i.num2int(
         cooling)) % 256
-    values_set_velocity_heat = pack("<BBBffB", address, length, command, heat,
+    values_set_velocity_heat = pack("<BBBffB", adress, length, command, heat,
                                     cooling, crc)
     port_therm.write(values_set_velocity_heat)
     answer_bity = (port_therm.readline())
@@ -171,13 +184,10 @@ def SetVelocityHeat(heat, cooling):
 
 
 def GetVelocityHeat():
-    """
-    Функция возвращает скорость нагрева/охлаждения
-    """
     length = 4
     command = 0x84
-    crc = address + length + command
-    values_check_velocity_heat = pack("<BBBB", address, length, command, crc)
+    crc = adress + length + command
+    values_check_velocity_heat = pack("<BBBB", adress, length, command, crc)
     port_therm.write(values_check_velocity_heat)
     answer_bity = (port_therm.readline())
     answer = unpack("<BBBffB", answer_bity)
@@ -185,16 +195,12 @@ def GetVelocityHeat():
 
 
 def SetDeviationHeat(temp_heat, time_heat, temp_cooling, time_cooling):
-    """
-    Функция устанавливает Отклонение нагрева
-    """
     length = 20
     command = 0x83
-    crc = (address + length + command + n2i.num2int(temp_heat) + n2i.num2int(
+    crc = (adress + length + command + n2i.num2int(temp_heat) + n2i.num2int(
         time_heat)
            + n2i.num2int(temp_cooling) + n2i.num2int(time_cooling)) % 256
-    values_set_deviation_heat = pack("<BBBffffB", address, length, command,
-                                     crc)
+    values_set_deviation_heat = pack("<BBBffffB", adress, length, command, crc)
     port_therm.write(values_set_deviation_heat)
     answer_bity = (port_therm.readline())
     answer = unpack("<BBBB", answer_bity)
@@ -202,23 +208,17 @@ def SetDeviationHeat(temp_heat, time_heat, temp_cooling, time_cooling):
 
 
 def GetDeviationHeat():
-    """
-    Функция возвращает Отклонение нагрева
-    """
     length = 4
     command = 0x82
-    crc = address + length + command
-    values_check_deviation_heat = pack("<BBBB", address, length, command, crc)
+    crc = adress + length + command
+    values_check_deviation_heat = pack("<BBBB", adress, length, command, crc)
     port_therm.write(values_check_deviation_heat)
-    answer_bits = (port_therm.readline())
-    answer = unpack("<BBBffffB", answer_bits)
+    answer_bity = (port_therm.readline())
+    answer = unpack("<BBBffffB", answer_bity)
     return answer
 
 
 def GetFlag(byte_1, byte_2):
-    """
-    Функция возвращает флаг (значения описанны в начале файла)
-    """
     flag_0 = byte_1 & 128
     flag_1 = byte_1 & 64
     flag_2 = byte_1 & 8

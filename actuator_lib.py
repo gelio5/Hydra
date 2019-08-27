@@ -12,7 +12,7 @@ import serial
 import config
 
 
-port = serial.Serial(port='COM4',
+port = serial.Serial(port='COM3',
                      baudrate=115200,
                      bytesize=serial.EIGHTBITS,
                      parity=serial.PARITY_NONE,
