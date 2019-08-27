@@ -15,17 +15,25 @@ import time
 import threading
 import config
 
-port = serial.Serial(port='COM9',
-                     baudrate=9600,
+port = serial.Serial(port='COM14',
+                     baudrate=115200,
                      bytesize=serial.EIGHTBITS,
                      parity=serial.PARITY_NONE,
                      stopbits=serial.STOPBITS_ONE)
 
 
 def AskSensors(askTimer):
+    """
+    Функция опрашивает датчики раз в 10 секунд
+    """
     port.write(str.encode("S"))
-    time.sleep(1)
+    ans = str(port.readline())
+    config.logger.info(u'Sensors Status:%s' %ans)
     print(port.readline())
+    config.logger.info(u'Port for communication with actuator is closed.')
     if not askTimer.is_set():
         threading.Timer(10, AskSensors, [askTimer]).start()
+        # Первое число в скобках - таймер опроса датчиков
     return
+
+

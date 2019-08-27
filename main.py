@@ -22,12 +22,19 @@ pump.port.isOpen()
 config.logger.info(u'Port for communication with pump is opened.')
 askTimer = threading.Event()
 sensors.AskSensors(askTimer)
-# actuator.Test()
+actuator.Test()
 pump.Initialization()
 pump.Test()
-#wash.Maintenance()
-# for i in range(5):
-  #  hydra.AspirateFromBypass(3000, 2000, 4000)
+f =open('C:/Users/808872/PycharmProjects/Hydra/recipe.txt', 'r')
+for line in f.readlines():
+    if not line.find('PumpToFlowCell') == -1:
+        spliter = line.split(',')
+        actPos = spliter[1]
+        volume = spliter[2]
+        aspirationRate = spliter[3]
+        dispenseRate = spliter[4]
+        hydra.PumpToFlowcell(actPos,volume,aspirationRate,dispenseRate)
+
 actuator.port.close()
 config.logger.info(u'Port for communication with actuator is closed.')
 pump.port.close()

@@ -82,7 +82,7 @@ def Test():
         exit()
         return
 
-
+    
 def AbsoluteSyrPos(rate, syrPos):
     """"
     Функция передвигает шприц в положение syrPos,
