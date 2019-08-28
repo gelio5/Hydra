@@ -34,22 +34,6 @@ except serial.SerialException:
     flag = 9
 
 
-def SetSippersZero():
-    length = 4
-    command = 0xBC
-    crc = adress + length + command
-    answer = ''
-    command_to_send = pack("<BBBB", adress, length, command, crc)
-    try:
-        port_therm.write(command_to_send)
-        answer_bites = port_therm.read(4)
-        print(answer_bites)
-        answer = unpack("<BBBB", answer_bites)
-    except:
-        answer = "Answer not exist"
-    return answer
-
-
 def IniTherm():
     """
     Функция инициализации, считываем значение температуры
