@@ -16,7 +16,10 @@ reagentNames = {"IMS": "1", "SRE": "2", "PR2": "3", "CMS": "4", "AMS1": "5",
                 "C3": "20", "PW3": "21"}
 
 
-def PumpToFlowcell(actPos, volume, aspirationRate, dispenseRate):
+def PumpToFlowcell(actPos: int,
+                   volume: int,
+                   aspirationRate: int,
+                   dispenseRate: int):
     logging.info(u'##########   Start pumping %s with volume %s, aspiration '
                  u'rate %s and dispense rate %s   ##########' %
                  (actPos, volume, aspirationRate, dispenseRate))
@@ -30,7 +33,7 @@ def PumpToFlowcell(actPos, volume, aspirationRate, dispenseRate):
                  u'done!   ######################################')
 
 
-def AspirateFromBypass(volume, aspirationRate, dispenseRate):
+def AspirateFromBypass(volume: int, aspirationRate: int, dispenseRate: int):
     logging.info(u'##########   Start Aspirating from ByPass with volume %s, '
                  u'aspiration rate %s and dispense rate %s   ##########' %
                  (volume, aspirationRate, dispenseRate))

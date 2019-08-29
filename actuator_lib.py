@@ -19,7 +19,7 @@ port = serial.Serial(port='COM3',
                      stopbits=serial.STOPBITS_ONE)
 
 
-def Transceiver(command):
+def Transceiver(command: str):
     """
     Функция посылает команду на Кран-переключатель и возвращает с него ответ
     """
@@ -34,7 +34,7 @@ def Transceiver(command):
     return answer
 
 
-def Transmitter(command):
+def Transmitter(command: str):
     """
     Функция посылает команду на Кран-переключатель без ожидания ответа
     """
@@ -67,7 +67,7 @@ def Test():
     return
 
 
-def GoToPosition(positionNumber):
+def GoToPosition(positionNumber: int):
     config.logger.info(u'Going to position %s.' % positionNumber)
     Transmitter("GO"+str(positionNumber))
 
@@ -91,7 +91,7 @@ def MovingTime():
     return int(Transceiver("TM").replace("TM", "").replace("\r", ""))
 
 
-def TogglePos(positionNumber):
+def TogglePos(positionNumber: int):
     """
     Функция устанавливает Кран-переключатель в положение positionNumber и
     проверяет верно ли осуществленно переключение, путём возврата True

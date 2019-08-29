@@ -5,7 +5,7 @@ from bitstring import BitArray
 # num1 = 24.900121688842773
 # num2 = 23.712692260345423
 
-def num2int(num):
+def num2int(num: float) -> int:
     """
     Функция, которая вычесляет сумму байт числа для float
     """

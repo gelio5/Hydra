@@ -10,25 +10,17 @@ import config
 import wash
 import time
 import threading
-import stand_cooler_lib as therm_stat
+import therm_lib as holod
 
 
 config.logger.info(u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Start of the '
                    u'program      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
 
-"""
+
 actuator.port.isOpen()
 config.logger.info(u'Port communication with actuator is opened.')
 pump.port.isOpen()
-config.logger.info(u'Port for communication with pump is opened.')"""
-therm_stat.port.isOpen()
-config.logger.info(
-    u"Port for communication with sippers and cooler is opened.")
-therm_stat.SetStandZero(0)
-time.sleep(9)
-therm_stat.GetStandState()
-time.sleep(1)
-"""
+config.logger.info(u'Port for communication with pump is opened.')
 actuator.Test()
 pump.Initialization()
 pump.Test()
@@ -43,28 +35,12 @@ for line in f.readlines():
         hydra.PumpToFlowcell(int(actPos),
                              int(volume),
                              int(aspirationRate),
-                             int(dispenseRate))"""
-therm_stat.SetStandDown()
-time.sleep(6)
-therm_stat.GetStandState()
-time.sleep(1)
-therm_stat.SetStandUp()
-time.sleep(6)
-therm_stat.GetStandState()
-time.sleep(1)
-therm_stat.SetStandDown()
-time.sleep(3)
-therm_stat.GetStandState()
-time.sleep(3)
-therm_stat.GetStandState()
-time.sleep(1)
-"""
+                             int(dispenseRate))
+
 actuator.port.close()
 config.logger.info(u'Port for communication with actuator is closed.')
 pump.port.close()
-config.logger.info(u'Port for communication with pump is closed.')"""
-therm_stat.port.close()
-config.logger.info(u'Port for communication with sippers and cooler is closed.')
+config.logger.info(u'Port for communication with pump is closed.')
 config.logger.info(u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Exit  '
                    u'    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
 

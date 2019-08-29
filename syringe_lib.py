@@ -15,6 +15,7 @@
 import time
 import serial
 import config
+import typing
 
 
 inpPos = 'h29045'
@@ -83,7 +84,7 @@ def Test():
         return
 
     
-def AbsoluteSyrPos(rate, syrPos):
+def AbsoluteSyrPos(rate: int, syrPos: int) :
     """"
     Функция передвигает шприц в положение syrPos,
     используя rate в качестве скорости
@@ -104,7 +105,7 @@ def AbsoluteSyrPos(rate, syrPos):
         return
 
 
-def Aspirate(valvePos, rate, volume):
+def Aspirate(valvePos: str, rate: int, volume: int):
     """
     Функция устанавливает положение коммутатора,
     передвигает шприц со скоростью Rate
@@ -128,7 +129,7 @@ def Aspirate(valvePos, rate, volume):
     return
 
 
-def SyrSetAbsoluteZero(valvePos, rate):
+def SyrSetAbsoluteZero(valvePos: str, rate: int):
     """
     Эта функция помещает коммутатор в пололожение valvePos,
     и полностью опорожняет шприц со скоростью rate
@@ -149,7 +150,7 @@ def SyrSetAbsoluteZero(valvePos, rate):
     return
 
 
-def SetValveAbsoluteSyrPos(valvePos, rate, syrPos):
+def SetValveAbsoluteSyrPos(valvePos: str, rate: int, syrPos: int):
     """
     Функция устанавливает коммутатор в положение valvePos,
     после устанавливает шприц в положение syrPos со скоростью rate
@@ -170,7 +171,7 @@ def SetValveAbsoluteSyrPos(valvePos, rate, syrPos):
     return
 
 
-def SetValvePos(valvePos):
+def SetValvePos(valvePos: str):
     """
     Функция устанавливает коммутатор в положение valvePos
     """
@@ -204,7 +205,7 @@ def AskValvePos():
     return ans
 
 
-def Status(i):
+def Status(i: int):
     """
     Функция возвращает текущий статус насоса.
     Функция является рекурсивной и

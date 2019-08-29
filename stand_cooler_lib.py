@@ -14,7 +14,7 @@ port = serial.Serial(port='COM14',
 address = 8
 
 
-def IntToSumOfBytes(num):
+def IntToSumOfBytes(num: int) -> int:
     """
     Функция, которая вычесляет сумму байт числа для integer
     """
@@ -29,7 +29,7 @@ def IntToSumOfBytes(num):
     return sum(aa)
 
 
-def FloatToSumOfBytes(num):
+def FloatToSumOfBytes(num: float) -> int:
     """
     Функция, которая вычесляет сумму байт числа для float
     """
