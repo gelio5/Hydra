@@ -3,14 +3,17 @@ import config
 from struct import *
 import ctypes
 from bitstring import BitArray
-
-port = serial.Serial(port='COM14',
-                     baudrate=115200,
-                     bytesize=serial.EIGHTBITS,
-                     parity=serial.PARITY_NONE,
-                     stopbits=serial.STOPBITS_ONE,
-                     timeout=0.3)
-
+"""
+try:
+    port = serial.Serial(port='COM19',
+                         baudrate=115200,
+                         bytesize=serial.EIGHTBITS,
+                         parity=serial.PARITY_NONE,
+                         stopbits=serial.STOPBITS_ONE,
+                         timeout=0.3)
+except:
+    print("Oops!")
+"""
 address = 8
 
 
@@ -18,30 +21,29 @@ def IntToSumOfBytes(num: int) -> int:
     """
     Функция, которая вычесляет сумму байт числа для integer
     """
-    a = bin(ctypes.c_uint.from_buffer(ctypes.c_int(num)).value)
-    a = a[2:]
-    aa = []
-    if len(a) < 32:
-        a = (32 - len(a)) * '0' + a
-    for i in range(4):
-        a1 = a[32 - 8 * (i + 1):32 - 8 * i]
-        aa.append(BitArray(bin=a1).int)
-    return sum(aa)
+    numInBinary = bin(ctypes.c_uint.from_buffer(ctypes.c_int(num)).value)[2:]
+    if len(numInBinary) < 32:
+        numInBinary = (32 - len(numInBinary)) * '0' + \
+                      numInBinary
+    numInBytes = [BitArray(bin=numInBinary[0:8]).uintbe,
+                  BitArray(bin=numInBinary[8:16]).uintbe,
+                  BitArray(bin=numInBinary[16:24]).uintbe,
+                  BitArray(bin=numInBinary[24:32]).uintbe]
+    return sum(numInBytes) % 256
 
 
 def FloatToSumOfBytes(num: float) -> int:
     """
     Функция, которая вычесляет сумму байт числа для float
     """
-    a = bin(ctypes.c_uint.from_buffer(ctypes.c_float(num)).value)
-    a = a[2:]
-    aa = []
-    if len(a) < 32:
-        a = (32 - len(a)) * '0' + a
-    for i in range(4):
-        a1 = a[32 - 8 * (i + 1):32 - 8 * i]
-        aa.append(BitArray(bin=a1).int)
-    return sum(aa)
+    numInBinary = bin(ctypes.c_uint.from_buffer(ctypes.c_float(num)).value)[2:]
+    if len(numInBinary) < 32:
+        numInBinary = (32 - len(numInBinary)) * '0' + numInBinary
+    numInBytes = [BitArray(bin=numInBinary[0:8]).uintbe,
+                  BitArray(bin=numInBinary[8:16]).uintbe,
+                  BitArray(bin=numInBinary[16:24]).uintbe,
+                  BitArray(bin=numInBinary[24:32]).uintbe]
+    return sum(numInBytes) % 256
 
 
 def GetStandState():
@@ -52,10 +54,20 @@ def GetStandState():
     port.write(commandToSend)
     config.logger.info(u'Xmit Stand: %s.' % commandToSend)
     answerBytes = port.read(20)
-    answer = unpack("<BBBiiiBBBBB", answerBytes)
+    answer: tuple = unpack("<BBBiiiBBBBB", answerBytes)
     config.logger.info(u'Recv Stand: %s' % answerBytes)
-    if answer[0] + answer[1] + answer[2] + IntToSumOfBytes(answer[3]) + IntToSumOfBytes(answer[4]) + IntToSumOfBytes(answer[5]) + answer[6] + answer[7] + answer[8] + answer[9] != answer[10]:
-        config.logger.error(u'Checksum did not match ')
+    if (answer[0] +
+        answer[1] +
+        answer[2] +
+        IntToSumOfBytes(answer[3]) +
+        IntToSumOfBytes(answer[4]) +
+        IntToSumOfBytes(answer[5]) +
+        answer[6] +
+        answer[7] +
+        answer[8] +
+        answer[9]) % \
+            256 != answer[10]:
+        config.logger.error(u'Message is corrupted')
         exit()
     else:
         return
@@ -105,7 +117,7 @@ def SetStandUp():
         config.logger.info(u'Sippers fall')
         return
     else:
-        config.logger.error(u'Checksum did not match ')
+        config.logger.error(u'Message is corrupted')
         exit()
 
 
@@ -129,4 +141,65 @@ def SetStandDown():
             config.logger.info(u'Sippers rise')
     else:
         config.logger.error(u'Message is corrupted')
+    return
+
+
+def GetCoolerData():
+    length = 4
+    command = 0x93
+    checksum = address + length + command
+    commandToSend = pack("<BBBB", address, length, command, checksum)
+    port.write(commandToSend)
+    config.logger.info(u'Xmit Cooler %s.' % commandToSend)
+    answerBytes = port.read(18)
+    config.logger.info(u'Recv Cooler: %s' % answerBytes)
+    answer = unpack("<BBBfffBBB", answerBytes)
+    if (answer[0] +
+        answer[1] +
+        answer[2] +
+        FloatToSumOfBytes(answer[3]) +
+        FloatToSumOfBytes(answer[4]) +
+        FloatToSumOfBytes(answer[5]) +
+        answer[6] +
+        answer[7]) %\
+            256 != answer[8]:
+        config.logger.error(u'Message is corrupted')
+        exit()
+    else:
+        print(answer)
+        return
+
+
+def SetCoolerData(temp: float):
+    length = 8
+    command = 0x91
+    checksum = (address + length + command + FloatToSumOfBytes(temp)) % 256
+    commandToSend = pack("<BBBfB", address, length, command, temp, checksum)
+    port.write(commandToSend)
+    config.logger.info(u'Xmit Cooler %s.' % commandToSend)
+    answerBytes = port.read(4)
+    config.logger.info(u'Recv Cooler: %s' % answerBytes)
+    answer = unpack("<BBBB", answerBytes)
+    if answer[3] != 0x9D:
+        config.logger.error(u'Answer message is corrupted')
+        exit()
+    else:
+        config.logger.info(u'Cooler going to %s' & temp)
+    return
+
+
+def StopCoolerControl():
+    length = 4
+    command = 0x41
+    checksum = address + length + command
+    commandToSend = pack("<BBBB", address, length, command, checksum)
+    port.write(commandToSend)
+    config.logger(u'Xmit Cooler: %s' % commandToSend)
+    answerBytes = port.read(4)
+    config.logger(u'Recv Cooler: %s' % answerBytes)
+    if answerBytes != commandToSend:
+        config.logger.error(u'Answer message is corrupted')
+        exit()
+    else:
+        config.logger.info(u'Cooler control is stop')
     return

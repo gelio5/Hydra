@@ -18,7 +18,7 @@ import config
 import typing
 
 
-inpPos = 'h29045'
+inpPos = 'h29180'
 outPos = 'h29090'
 byPassPos = 'h29135'
 
@@ -84,7 +84,7 @@ def Test():
         return
 
     
-def AbsoluteSyrPos(rate: int, syrPos: int) :
+def AbsoluteSyrPos(rate: int, syrPos: int):
     """"
     Функция передвигает шприц в положение syrPos,
     используя rate в качестве скорости
