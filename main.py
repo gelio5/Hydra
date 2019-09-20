@@ -6,6 +6,7 @@ import actuator_lib as actuator
 import syringe_lib as pump
 import system_commands as hydra
 # import sensors_lib as sensors
+import interpretator as inter
 import config
 import wash
 import time
@@ -32,18 +33,7 @@ time.sleep(1)
 actuator.Test()
 pump.Initialization()
 pump.Test()
-f = open('recipe.txt', 'r')
-for line in f.readlines():
-    if line.find('PumpToFlowCell') != -1:
-        splitter = line.split(',')
-        actPos = splitter[1]
-        volume = splitter[2]
-        aspirationRate = splitter[3]
-        dispenseRate = splitter[4]
-        hydra.PumpToFlowcell(int(actPos),
-                             int(volume),
-                             int(aspirationRate),
-                             int(dispenseRate))"""
+inter.Interpretator()
 therm_stat.SetStandDown()
 time.sleep(6)
 therm_stat.GetStandState()
@@ -61,11 +51,12 @@ time.sleep(1)
 therm_stat.GetCoolerData()
 time.sleep(2)
 therm_stat.GetCoolerData()
-"""
+
 actuator.port.close()
 config.logger.info(u'Port for communication with actuator is closed.')
 pump.port.close()
-config.logger.info(u'Port for communication with pump is closed.')"""
+config.logger.info(u'Port for communication with pump is closed.')
+"""
 therm_stat.port.close()
 config.logger.info(u'Port for communication with sippers and cooler is closed.')
 config.logger.info(u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Exit  '

@@ -266,7 +266,7 @@ def CheckSum():
     return ans
 
 
-def FirmVersion():
+def FirmVersion() -> boolean:
     """
     Функция возвращает Firm Version
     """
