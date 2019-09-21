@@ -21,13 +21,13 @@ import typing
 inpPos = 'h29180'
 outPos = 'h29090'
 byPassPos = 'h29135'
-
+"""
 port = serial.Serial(port='COM5',
                      baudrate=9600,
                      bytesize=serial.EIGHTBITS,
                      parity=serial.PARITY_NONE,
                      stopbits=serial.STOPBITS_ONE)
-
+"""
 
 def Initialization():
     """
@@ -266,7 +266,7 @@ def CheckSum():
     return ans
 
 
-def FirmVersion() -> boolean:
+def FirmVersion() -> bool:
     """
     Функция возвращает Firm Version
     """

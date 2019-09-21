@@ -2,6 +2,10 @@
   <dictionary name="vlrez">
     <words>
       <w>asctime</w>
+      <w>bbbb</w>
+      <w>bfff</w>
+      <w>biii</w>
+      <w>cycler</w>
       <w>flowcell</w>
       <w>kbhit</w>
       <w>levelname</w>

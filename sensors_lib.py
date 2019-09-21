@@ -12,12 +12,12 @@ import time
 import threading
 import serial
 import config
-
+"""
 port = serial.Serial(port='COM14',
                      baudrate=115200,
                      bytesize=serial.EIGHTBITS,
                      parity=serial.PARITY_NONE,
-                     stopbits=serial.STOPBITS_ONE)
+                     stopbits=serial.STOPBITS_ONE)"""
 
 
 def AskSensors():
@@ -26,12 +26,12 @@ def AskSensors():
     print(msg)
     port.write(msg)
     print(1)
-    time.sleep(30)
     print("sl")
+    """
     while port.inWaiting() > 0:
         answer += port.read(1).decode()
-        print('p')
-    print(answer)
+        print('p')"""
+    print(port.readline())
     """if not askTimer.is_set():
         threading.Timer(10, AskSensors, [askTimer]).start()"""
     return

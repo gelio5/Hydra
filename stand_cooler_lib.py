@@ -1,49 +1,20 @@
 import serial
 import config
 from struct import *
-import ctypes
-from bitstring import BitArray
-"""
+from types_to_sum_of_bytes import *
+
 try:
-    port = serial.Serial(port='COM19',
+    port = serial.Serial(port='COM14',
                          baudrate=115200,
                          bytesize=serial.EIGHTBITS,
                          parity=serial.PARITY_NONE,
                          stopbits=serial.STOPBITS_ONE,
                          timeout=0.3)
-except:
+except Exception as e:
     print("Oops!")
-"""
+    config.logger.error('Failed', exc_info=e)
+
 address = 8
-
-
-def IntToSumOfBytes(num: int) -> int:
-    """
-    Функция, которая вычесляет сумму байт числа для integer
-    """
-    numInBinary = bin(ctypes.c_uint.from_buffer(ctypes.c_int(num)).value)[2:]
-    if len(numInBinary) < 32:
-        numInBinary = (32 - len(numInBinary)) * '0' + \
-                      numInBinary
-    numInBytes = [BitArray(bin=numInBinary[0:8]).uintbe,
-                  BitArray(bin=numInBinary[8:16]).uintbe,
-                  BitArray(bin=numInBinary[16:24]).uintbe,
-                  BitArray(bin=numInBinary[24:32]).uintbe]
-    return sum(numInBytes) % 256
-
-
-def FloatToSumOfBytes(num: float) -> int:
-    """
-    Функция, которая вычесляет сумму байт числа для float
-    """
-    numInBinary = bin(ctypes.c_uint.from_buffer(ctypes.c_float(num)).value)[2:]
-    if len(numInBinary) < 32:
-        numInBinary = (32 - len(numInBinary)) * '0' + numInBinary
-    numInBytes = [BitArray(bin=numInBinary[0:8]).uintbe,
-                  BitArray(bin=numInBinary[8:16]).uintbe,
-                  BitArray(bin=numInBinary[16:24]).uintbe,
-                  BitArray(bin=numInBinary[24:32]).uintbe]
-    return sum(numInBytes) % 256
 
 
 def GetStandState():
@@ -161,7 +132,7 @@ def GetCoolerData():
         FloatToSumOfBytes(answer[4]) +
         FloatToSumOfBytes(answer[5]) +
         answer[6] +
-        answer[7]) %\
+        answer[7]) % \
             256 != answer[8]:
         config.logger.error(u'Message is corrupted')
         exit()
@@ -170,7 +141,8 @@ def GetCoolerData():
         return
 
 
-def SetCoolerData(temp: float):
+def SetCoolerTemp(temp: float):
+    temp = float(temp)
     length = 8
     command = 0x91
     checksum = (address + length + command + FloatToSumOfBytes(temp)) % 256
@@ -184,7 +156,7 @@ def SetCoolerData(temp: float):
         config.logger.error(u'Answer message is corrupted')
         exit()
     else:
-        config.logger.info(u'Cooler going to %s' & temp)
+        config.logger.info(u'Cooler going to %s' % temp)
     return
 
 
@@ -194,9 +166,9 @@ def StopCoolerControl():
     checksum = address + length + command
     commandToSend = pack("<BBBB", address, length, command, checksum)
     port.write(commandToSend)
-    config.logger(u'Xmit Cooler: %s' % commandToSend)
+    config.logger.info(u'Xmit Cooler: %s' % commandToSend)
     answerBytes = port.read(4)
-    config.logger(u'Recv Cooler: %s' % answerBytes)
+    config.logger.info(u'Recv Cooler: %s' % answerBytes)
     if answerBytes != commandToSend:
         config.logger.error(u'Answer message is corrupted')
         exit()

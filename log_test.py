@@ -90,5 +90,7 @@ print(sys.getsizeof(ord('@')))
 
 
 sensors.AskSensors()
-time.sleep(10)
+time.sleep(1)
+sensors.AskSensors()
+time.sleep(1)
 sensors.AskSensors()
