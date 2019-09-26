@@ -4,7 +4,7 @@ from struct import *
 from types_to_sum_of_bytes import *
 
 try:
-    port = serial.Serial(port='COM14',
+    port = serial.Serial(port='COM17',
                          baudrate=115200,
                          bytesize=serial.EIGHTBITS,
                          parity=serial.PARITY_NONE,

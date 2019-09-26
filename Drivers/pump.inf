@@ -1,0 +1,154 @@
+;/*++
+;
+;Module Name:
+;
+;    PUMP.INF
+;
+;    Copyright 2019, IAI RAS
+;
+;Abstract:
+;    Installation INF for Silicon Labs CP210x device
+;
+;--*/
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=Ports
+ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318}
+Provider=%Provider%
+DriverVer=09/26/2019,6.7.5.1893
+CatalogFile=pump.cat
+PnpLockDown=1
+
+
+; ================= Device section =====================
+
+[Manufacturer]
+%ManufacturerName%=SiLabsModelsSection, NTx86.6.1, NTamd64.6.1
+
+;Models sections (one per x86 and amd64)
+;Models section for installation of x86 driver on Windows 7 and above
+[SiLabsModelsSection.NTx86.6.1]
+%USB\VID_10C4&PID_EA60.DeviceDesc%=SiLabsDDInstallSection, USB\VID_10C4&PID_EA60
+%USB\VID_10C4&PID_EA70&Mi_00.DeviceDesc%=SiLabsDDInstallSection, USB\VID_10C4&PID_EA70&Mi_00
+%USB\VID_10C4&PID_EA70&Mi_01.DeviceDesc%=SiLabsDDInstallSection, USB\VID_10C4&PID_EA70&Mi_01
+%USB\VID_10C4&PID_EA71&Mi_00.DeviceDesc%=SiLabsDDInstallSection, USB\VID_10C4&PID_EA71&Mi_00
+%USB\VID_10C4&PID_EA71&Mi_01.DeviceDesc%=SiLabsDDInstallSection, USB\VID_10C4&PID_EA71&Mi_01
+%USB\VID_10C4&PID_EA71&Mi_02.DeviceDesc%=SiLabsDDInstallSection, USB\VID_10C4&PID_EA71&Mi_02
+%USB\VID_10C4&PID_EA71&Mi_03.DeviceDesc%=SiLabsDDInstallSection, USB\VID_10C4&PID_EA71&Mi_03
+%USB\VID_9411&PID_9411.DeviceDesc%=SiLabsDDInstallSection, USB\VID_9411&PID_9411
+
+;Models section for installation of x64 driver on Windows 7 and above
+[SiLabsModelsSection.NTamd64.6.1]
+%USB\VID_10C4&PID_EA60.DeviceDesc%=SiLabsDDInstallSection, USB\VID_10C4&PID_EA60
+%USB\VID_10C4&PID_EA70&Mi_00.DeviceDesc%=SiLabsDDInstallSection, USB\VID_10C4&PID_EA70&Mi_00
+%USB\VID_10C4&PID_EA70&Mi_01.DeviceDesc%=SiLabsDDInstallSection, USB\VID_10C4&PID_EA70&Mi_01
+%USB\VID_10C4&PID_EA71&Mi_00.DeviceDesc%=SiLabsDDInstallSection, USB\VID_10C4&PID_EA71&Mi_00
+%USB\VID_10C4&PID_EA71&Mi_01.DeviceDesc%=SiLabsDDInstallSection, USB\VID_10C4&PID_EA71&Mi_01
+%USB\VID_10C4&PID_EA71&Mi_02.DeviceDesc%=SiLabsDDInstallSection, USB\VID_10C4&PID_EA71&Mi_02
+%USB\VID_10C4&PID_EA71&Mi_03.DeviceDesc%=SiLabsDDInstallSection, USB\VID_10C4&PID_EA71&Mi_03
+%USB\VID_9411&PID_9411.DeviceDesc%=SiLabsDDInstallSection, USB\VID_9411&PID_9411
+
+;DDInstall sections (one per x86 and amd64)
+[SiLabsDDInstallSection.NTx86]
+AddReg=silabser.AddReg
+CopyFiles=silabser.Files.Ext
+FeatureScore=0x40
+[SiLabsDDInstallSection.NTamd64]
+AddReg=silabser.AddReg
+CopyFiles=silabser.Files.Ext
+FeatureScore=0x40
+
+;DDInstall.Services section (one per x86 and amd64)
+[SiLabsDDInstallSection.NTx86.Services]
+Addservice = silabser,0x00000002,silabser.AddService
+[SiLabsDDInstallSection.NTamd64.Services]
+Addservice = silabser,0x00000002,silabser.AddService
+
+[silabser.AddService]
+DisplayName    = %silabser.SvcDesc%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %12%\silabser.sys
+
+
+; common registry entries 
+[silabser.AddReg]
+HKR,,NTMPDriver,,silabser.sys
+HKR,,RateLimitPurgeMS, 0x10001, 0x64, 0x00, 0x00, 0x00
+HKR,,OverrideDefaultPortSettings, 0x10001, 01,00,00,00
+HKR,,InitialBaudRate, 0x10001, 00,C2,01,00		;115200 initial baud rate
+HKR,,InitialLineControl,, "8N1"				;8-bits, No parity, 1 stop bit
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+;DDInstall.HW section (one per x86 and amd64)
+[SiLabsDDInstallSection.NTx86.HW]
+AddReg=SiLabsDDInstallSection.HW.AddReg
+[SiLabsDDInstallSection.NTamd64.HW]
+AddReg=SiLabsDDInstallSection.HW.AddReg
+
+[SiLabsDDInstallSection.HW.AddReg]
+HKR,,"SelectiveSuspendTimeout",0x00010001,10000
+
+
+[silabser.Files.Ext]
+silabser.sys
+
+[SourceDisksNames]
+1=%Disk_Description%,"slabvcp.cat"
+
+[SourceDisksFiles.x86]
+silabser.sys = 1,x86
+WdfCoinstaller01009.dll=1,x86
+
+[SourceDisksFiles.amd64]
+silabser.sys = 1,x64
+WdfCoinstaller01009.dll=1,x64
+
+[DestinationDirs]
+Silabser.Files.Ext = 12
+CoInstaller_CopyFiles.KMDF.1.09 = 11
+
+;-------------- WDF Coinstaller installation
+;DDInstall.CoInstallers sections (one per x86 and amd64)
+[SiLabsDDInstallSection.NTx86.CoInstallers]
+AddReg=CoInstaller_AddReg.KMDF.1.09
+CopyFiles=CoInstaller_CopyFiles.KMDF.1.09
+[SiLabsDDInstallSection.NTamd64.CoInstallers]
+AddReg=CoInstaller_AddReg.KMDF.1.09
+CopyFiles=CoInstaller_CopyFiles.KMDF.1.09
+
+[CoInstaller_CopyFiles.KMDF.1.09]
+WdfCoinstaller01009.dll
+
+[CoInstaller_AddReg.KMDF.1.09]
+HKR,,CoInstallers32,0x00010000, "WdfCoinstaller01009.dll,WdfCoInstaller"
+
+; DDInstall.Wdf sections(one per x86 and amd64)
+[SiLabsDDInstallSection.NTx86.Wdf]
+KmdfService = silabser, SiLabs_wdfsect.1.09
+
+[SiLabsDDInstallSection.NTamd64.Wdf]
+KmdfService = silabser, SiLabs_wdfsect.1.09
+
+[SiLabs_wdfsect.1.09]
+KmdfLibraryVersion = 1.09
+
+;---------------------------------------------------------------;
+
+[Strings]
+Provider="IAI RAS"
+ManufacturerName="IAI"
+Disk_Description="IAI RAS Pump Installation Disk"
+USB\VID_10C4&PID_EA60.DeviceDesc="Silicon Labs CP210x USB to UART Bridge"
+USB\VID_10C4&PID_EA70&Mi_00.DeviceDesc="Silicon Labs Dual CP2105 USB to UART Bridge: Enhanced COM Port"
+USB\VID_10C4&PID_EA70&Mi_01.DeviceDesc="Silicon Labs Dual CP2105 USB to UART Bridge: Standard COM Port"
+USB\VID_10C4&PID_EA71&Mi_00.DeviceDesc="Silicon Labs Quad CP2108 USB to UART Bridge: Interface 0"
+USB\VID_10C4&PID_EA71&Mi_01.DeviceDesc="Silicon Labs Quad CP2108 USB to UART Bridge: Interface 1"
+USB\VID_10C4&PID_EA71&Mi_02.DeviceDesc="Silicon Labs Quad CP2108 USB to UART Bridge: Interface 2"
+USB\VID_10C4&PID_EA71&Mi_03.DeviceDesc="Silicon Labs Quad CP2108 USB to UART Bridge: Interface 3"
+USB\VID_9411&PID_9411.DeviceDesc="Pump"
+silabser.SvcDesc="IAI RAS Pump Driver"
+

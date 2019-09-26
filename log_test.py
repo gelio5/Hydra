@@ -88,9 +88,15 @@ print(sys.getsizeof(a))
 print(sys.getsizeof(ord('@')))
 """
 
+"""
+sensors.AskSensors()
+time.sleep(1)
+sensors.AskSensors()
+time.sleep(1)
+sensors.AskSensors()"""
 
-sensors.AskSensors()
-time.sleep(1)
-sensors.AskSensors()
-time.sleep(1)
-sensors.AskSensors()
+a = 117440517
+b = 117440520.0
+print(type(a))
+print(type(b))
+print(float(a) == float(b))

@@ -12,7 +12,7 @@ import wash
 import time
 import threading
 import stand_cooler_lib as therm_stat
-
+import thermal_cycler_lib as cycler
 
 config.logger.info(u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Start of the '
                    u'program      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
@@ -22,7 +22,7 @@ actuator.port.isOpen()
 config.logger.info(u'Port communication with actuator is opened.')
 pump.port.isOpen()
 config.logger.info(u'Port for communication with pump is opened.')"""
-therm_stat.port.isOpen()
+cycler.port.isOpen()
 config.logger.info(
     u"Port for communication with stand and cooler is opened.")
 """
@@ -49,16 +49,16 @@ therm_stat.GetStandState()
 time.sleep(3)
 therm_stat.GetStandState()
 time.sleep(1)"""
-# therm_stat.StopCoolerControl()
+cycler.StopThermalCyclerControl()
 for p in range(2):
-    therm_stat.GetCoolerData()
+    cycler.GetThermalCyclerData()
     time.sleep(1)
-therm_stat.SetCoolerTemp(18.8)
+cycler.SetThermalCyclerTemp(50)
 time.sleep(5)
-for i in range(500):
+for i in range(50):
     time.sleep(2)
-    therm_stat.GetCoolerData()
-
+    cycler.GetThermalCyclerData()
+cycler.SetThermalCyclerTemp(90)
 
 # actuator.port.close()
 # config.logger.info(u'Port for communication with actuator is closed.')
