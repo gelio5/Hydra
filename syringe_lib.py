@@ -29,6 +29,7 @@ port = serial.Serial(port='COM5',
                      stopbits=serial.STOPBITS_ONE)
 """
 
+
 def Initialization():
     """
     Функция инициализации насоса PSD/4 (вызывается в начале работы
@@ -134,7 +135,7 @@ def SyrSetAbsoluteZero(valvePos: str, rate: int):
     Эта функция помещает коммутатор в пололожение valvePos,
     и полностью опорожняет шприц со скоростью rate
     """
-    if 5800>= rate >= 5:
+    if 5800 >= rate >= 5:
         port.write(str.encode(
             "/1" + 'V' + str(rate) + valvePos + 'A0' + 'R' + '\r\n'))
         config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + str(rate) +
@@ -155,7 +156,7 @@ def SetValveAbsoluteSyrPos(valvePos: str, rate: int, syrPos: int):
     Функция устанавливает коммутатор в положение valvePos,
     после устанавливает шприц в положение syrPos со скоростью rate
     """
-    if 5800>= rate >=5 and 3000>= syrPos >=0:
+    if 5800 >= rate >= 5 and 3000 >= syrPos >= 0:
         port.write(str.encode("/1" + valvePos + 'V' + str(rate) + 'A' +
                               str(syrPos) + 'R' + '\r\n'))
         config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'V' +

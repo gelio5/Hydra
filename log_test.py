@@ -12,7 +12,7 @@ import sensors_lib as sensors
 """
 import logging
 
-logging.basicConfig(format=u'%(asctime)s  %(levelname)-8s:  %(filename)s:%(lineno)d  %(message)s', level=logging.DEBUG, filename=u'hydra.log')
+logging.basicConfig(format=u'%(asctime)s  %(levelname)-8s: %(filename)s:%(lineno)d  %(message)s', level=logging.DEBUG, filename=u'hydra.log')
 
 logging.debug(u'This is a debug message')
 logging.info(u'This is an info message')

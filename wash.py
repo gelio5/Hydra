@@ -1,5 +1,5 @@
 import system_commands as hydra
-import syringe_lib as pump
+# import syringe_lib as pump
 import config
 numberOfActuatorPositions = 23
 

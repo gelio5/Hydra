@@ -2,17 +2,25 @@ import time
 import config
 import system_commands as hydra
 
+
 def TempTest(duration, temperature):
     config.logger.info(u'Therm starts working')
     time.sleep(duration + temperature/10)
     config.logger.info(u'End of therm work')
     return()
 
+
 def Wait(duration):
     config.logger.info(u'Start waiting %s seconds' % time)
     time.sleep(duration)
     config.logger.info(u'End of waiting')
     return
+
+
+def Block():
+
+    return
+
 
 def Interpretator():
     f = open('recipe.txt', 'r')
