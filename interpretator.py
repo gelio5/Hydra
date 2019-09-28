@@ -1,6 +1,5 @@
 import time
-import config
-import system_commands as hydra
+from lib import config, system_commands as hydra
 
 
 def TempTest(duration, temperature):
@@ -12,7 +11,7 @@ def TempTest(duration, temperature):
 
 def Wait(duration):
     config.logger.info(u'Start waiting %s seconds' % time)
-    time.sleep(duration)
+    time.sleep(duration / 1000)
     config.logger.info(u'End of waiting')
     return
 
@@ -22,7 +21,7 @@ def Block():
     return
 
 
-def Interpretator():
+def Interpreter():
     f = open('recipe.txt', 'r')
     for line in f.readlines():
         if line.find('PumpToFlowCell') != -1:

@@ -1,13 +1,7 @@
 # log_test.py
 # -*- coding: utf-8 -*-
-import struct
-import sys
-import num2int as nf
-from bitstring import BitArray
-import stand_cooler_lib
-from struct import *
-import time
-import sensors_lib as sensors
+from lib import stand_cooler_lib
+import serial.tools.list_ports
 
 """
 import logging
@@ -94,9 +88,7 @@ time.sleep(1)
 sensors.AskSensors()
 time.sleep(1)
 sensors.AskSensors()"""
+# stand_cooler_lib.GetCoolerData()
+# stand_cooler_lib.SetStandDown()
+stand_cooler_lib.port.close()
 
-a = 117440517
-b = 117440520.0
-print(type(a))
-print(type(b))
-print(float(a) == float(b))
