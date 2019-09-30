@@ -1,48 +1,8 @@
 # log_test.py
 # -*- coding: utf-8 -*-
-from lib import stand_cooler_lib
+from lib import actuator_lib, sensors_lib, pump
 import serial.tools.list_ports
 
-"""
-import logging
-
-logging.basicConfig(format=u'%(asctime)s  %(levelname)-8s: %(filename)s:%(lineno)d  %(message)s', level=logging.DEBUG, filename=u'hydra.log')
-
-logging.debug(u'This is a debug message')
-logging.info(u'This is an info message')
-logging.warning(u'This is a warning')
-logging.error(u'This is an error message')
-logging.critical(u'FATAL')
-"""
-"""test_recv = b'\x08\x14\xbd\x9c\xff\xff\xff\x00\x00\x00\x00\x00\x00\x00\x00\x07\x02\x00\x00\x7b'
-test_answer = unpack("<BBBiiiBBBBB", test_recv)
-for i in range(len(test_answer)):
-    print(str(test_answer[i]) + " - " + str(type(test_answer[i])) + " - " + str(sys.getsizeof(test_answer[i])))
-print(test_answer)
-a = 1
-print(type(a))
-print(sys.getsizeof(a))
-print(test_answer[0] + test_answer[1] + test_answer[2] +
-      test_answer[6] + test_answer[7] + test_answer[8] + test_answer[9])
-print(stand_cooler_lib.IntToSumOfBytes(test_answer[3]))
-print((test_answer[0] +
-      test_answer[1] +
-      test_answer[2] +
-      stand_cooler_lib.IntToSumOfBytes(test_answer[3]) +
-      stand_cooler_lib.IntToSumOfBytes(test_answer[4]) +
-      stand_cooler_lib.IntToSumOfBytes(test_answer[5]) +
-      test_answer[6] +
-      test_answer[7] +
-      test_answer[8] +
-      test_answer[9]) % 256 == test_answer[10])"""
-# print(stand_cooler_lib.IntToSumOfBytes(3245245))
-"""print("art".find("r"))
-n = 23.712692260345423
-print((list(struct.pack("f", n))))
-print(nf.num2int(n))
-print(253 % 256)
-print(str(0x90).encode('ascii'))
-"""
 """
 f = open('./Post_Run_Wash/MiSeqSoftware.00.log', 'r')
 a = f.readlines()
@@ -70,25 +30,9 @@ for i in range(len(a)):
 b.close()
 
 """
-"""
-print(ord('a'))
-print(ord('b'))
-print(ord('c'))
-print(ord('d'))
-print(chr(96))
-print(chr(64))
-a = True
-print(sys.getsizeof(a))
-print(sys.getsizeof(ord('@')))
-"""
-
-"""
-sensors.AskSensors()
-time.sleep(1)
-sensors.AskSensors()
-time.sleep(1)
-sensors.AskSensors()"""
 # stand_cooler_lib.GetCoolerData()
 # stand_cooler_lib.SetStandDown()
-stand_cooler_lib.port.close()
-
+# stand_cooler_lib.port.close()
+# pump.Initialization()
+sensors_lib.AskSensors()
+pump.Test()

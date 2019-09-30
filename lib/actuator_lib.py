@@ -11,8 +11,17 @@ import time
 import serial
 from lib import config, ports
 import sys
-
-port = ports.actuator
+"""import serial.tools.list_ports
+list_of_ports = serial.tools.list_ports.comports()
+for obj in list_of_ports:
+    if obj.description.find('Actuator') == 0:
+        actuator = obj.description[obj.description.find('COM'):-1]"""
+# port = ports.actuator
+port = serial.Serial(port=ports.actuator,
+                     baudrate=115200,
+                     bytesize=serial.EIGHTBITS,
+                     parity=serial.PARITY_NONE,
+                     stopbits=serial.STOPBITS_ONE)
 
 
 def Transceiver(command: str):

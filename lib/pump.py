@@ -14,13 +14,17 @@
 
 import time
 import serial
-from lib import config, ports
+from lib import config, ports, sensors_lib
 
 inpPos = 'h29180'
 outPos = 'h29090'
 byPassPos = 'h29135'
 
-port = ports.pump
+port = serial.Serial(port=ports.pump,
+                     baudrate=9600,
+                     bytesize=serial.EIGHTBITS,
+                     parity=serial.PARITY_NONE,
+                     stopbits=serial.STOPBITS_ONE)
 
 
 def Initialization():
@@ -54,6 +58,8 @@ def Test():
     """
     Это функция тестирует Насос, рекомендуется вызывать после инициализации
     """
+    if not sensors_lib.CheckSensors():
+        exit()
     config.logger.info(u'Start Pump test')
     error = 0
     if not Get255():

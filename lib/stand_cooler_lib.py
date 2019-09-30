@@ -3,7 +3,12 @@ from lib import config, ports
 from struct import *
 from lib.types_to_sum_of_bytes import *
 
-port = ports.cooler
+port = serial.Serial(port=ports.cooler,
+                     baudrate=115200,
+                     bytesize=serial.EIGHTBITS,
+                     parity=serial.PARITY_NONE,
+                     stopbits=serial.STOPBITS_ONE,
+                     timeout=0.3)
 address = 8
 
 

@@ -3,7 +3,12 @@ import serial
 from lib.types_to_sum_of_bytes import *
 from struct import *
 
-port = ports.cycler
+port = serial.Serial(port=ports.cycler,
+                     baudrate=115200,
+                     bytesize=serial.EIGHTBITS,
+                     parity=serial.PARITY_NONE,
+                     stopbits=serial.STOPBITS_ONE,
+                     timeout=0.3)
 address = 8
 
 

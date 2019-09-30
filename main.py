@@ -25,10 +25,10 @@ config.logger.info(u'Port for communication with sensors is opened.')
 
 actuator.Test()
 print("act ok")
-# pump.Initialization()
+pump.Initialization()
 pump.Test()
 print("pump ok")
-exit()
+
 therm_stat.SetCoolerTemp(4.0)
 therm_stat.SetStandDown()
 time.sleep(6)
