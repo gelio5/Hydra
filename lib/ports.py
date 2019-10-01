@@ -3,14 +3,14 @@ import serial
 list_of_ports = serial.tools.list_ports.comports()
 
 for obj in list_of_ports:
-    if obj.description.find('Actuator') == 0:
-        actuator = obj.description[obj.description.find('COM'):-1]
-    elif obj.description.find('Pump') == 0:
-        pump = obj.description[obj.description.find('COM'):-1]
-    elif obj.description.find('Sensors') == 0:
-        sensors = obj.description[obj.description.find('COM'):-1]
-    elif obj.description.find('Cycler') == 0:
-        cycler = obj.description[obj.description.find('COM'):-1]
-    elif obj.description.find('Cooler') == 0:
-        cooler = obj.description[obj.description.find('COM'):-1]
+    if obj.serial_number == 'AC2A':
+        actuator = obj.device
+    elif obj.serial_number == '9411':
+        pump = obj.device
+    elif obj.serial_number == '5395':
+        sensors = obj.device
+    elif obj.serial_number == 'C7C1':
+        cycler = obj.device
+    elif obj.serial_number == 'C001':
+        cooler = obj.device
 

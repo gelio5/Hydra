@@ -39,7 +39,7 @@ def CheckSensors():
     sensors_file = open('sensors_value.txt', 'r')
     sensors_value = sensors_file.read()
     sensors_file.close()
-    if sensors_value.find('STATUS DB-0 BB-0 GND-1 DC-1 DO-1 TP-1') != -1:
+    if sensors_value.find('STATUS DB=0 BB=0 GND=1 DC=1 DO=1 TP=1') != -1:
         status = True
     else:
         status = False
