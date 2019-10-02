@@ -29,3 +29,8 @@ def FloatToSumOfBytes(num: float) -> int:
                   BitArray(bin=numInBinary[16:24]).uintbe,
                   BitArray(bin=numInBinary[24:32]).uintbe]
     return sum(numInBytes) % 256
+
+
+def ToFixed(f: float, n=0):
+    a, b = str(f).split('.')
+    return '{}.{}{}'.format(a, b[:n], '0'*(n-len(b)))

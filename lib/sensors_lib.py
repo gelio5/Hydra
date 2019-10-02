@@ -11,9 +11,8 @@
 # import time
 # import threading
 import serial
-from lib import ports, stand_cooler_lib
+from lib import ports, stand_cooler_lib, types_to_sum_of_bytes as fop, thermal_cycler_lib
 # import config
-
 port = serial.Serial(port=ports.sensors,
                      baudrate=115200,
                      bytesize=serial.EIGHTBITS,
@@ -24,10 +23,20 @@ port = serial.Serial(port=ports.sensors,
 def AskSensors():
     msg = "STATUS\r\n".encode()
     port.write(msg)
-    answer = port.readline().decode()
-    print(stand_cooler_lib.GetCoolerData())
+    answer = port.readline().decode()[7:-3]
+    if answer.find('UNDEFINED') != -1:
+        port.write(msg)
+        answer = port.readline().decode()[7:]
+    dataFromStand = stand_cooler_lib.GetStandState()
+    dataFromCooler = stand_cooler_lib.GetCoolerData()
+    dataFromCycler = thermal_cycler_lib.GetThermalCyclerData()
+    sP = ' SP=' + str(dataFromStand[4])
+    hP = ' HP=' + str(int((dataFromStand[6] & 8) / 8))
+    tS = ' TS=' + fop.ToFixed(dataFromCooler[4], 2)
+    tC = ' TC=' + fop.ToFixed(dataFromCycler[4], 2)
+    answer += sP + hP + tS + tC
     sensors_value = open('sensors_value.txt', 'w')
-    sensors_value.write(str(answer[0:]))
+    sensors_value.write(answer)
     sensors_value.close()
 
     """if not askTimer.is_set():
@@ -39,7 +48,7 @@ def CheckSensors():
     sensors_file = open('sensors_value.txt', 'r')
     sensors_value = sensors_file.read()
     sensors_file.close()
-    if sensors_value.find('STATUS DB=0 BB=0 GND=1 DC=1 DO=1 TP=1') != -1:
+    if sensors_value.find('DB=0 BB=0 GND=1 DC=1 DO=1 TP=1') != -1:
         status = True
     else:
         status = False

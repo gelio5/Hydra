@@ -69,5 +69,4 @@ def GetThermalCyclerData():
         config.logger.error(u'Message is corrupted')
         exit()
     else:
-        print(answer)
-        return
+        return answer

@@ -3,3 +3,17 @@
 3)Cooler - C001
 4)Cycler - C7C1
 5)Sensors - 5395
+
+
+
+DB - Drain Bottle - sensors - 1
+BB - Buffer Bottle - sensors - 1
+GND - Ground - sensors - 1
+DC - Door Closed - sensors - 1
+DO - Drain Overflow - sensors - 1
+TP - Tubes Placement - sensors - 1
+SA -  - sensors - 1
+TS - Thermostat - stand_cooler - 1
+TC - Thermal Cycler - thermal_cycler - 1
+SP - Stand Placement - stand_cooler - 1
+HP - Holder Placement - stand_cooler - 0

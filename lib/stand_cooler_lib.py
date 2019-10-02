@@ -36,7 +36,7 @@ def GetStandState():
         config.logger.error(u'Message is corrupted')
         exit()
     else:
-        return
+        return answer
 
 
 def SetStandZero(attempt):
@@ -132,8 +132,7 @@ def GetCoolerData():
         config.logger.error(u'Message is corrupted')
         exit()
     else:
-        print(answer)
-        return
+        return answer
 
 
 def SetCoolerTemp(temp: float):
