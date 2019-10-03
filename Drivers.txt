@@ -6,18 +6,18 @@
 
 
 
-DB - Drain Bottle - sensors - 1
-BB - Buffer Bottle - sensors - 1
-GND - Ground - sensors - 1
-DC - Door Closed - sensors - 1
-DO - Drain Overflow - sensors - 1
-TP - Tubes Placement - sensors - 1
-SA -  - sensors - 1
-TS - Thermostat - stand_cooler - 1
-TC - Thermal Cycler - thermal_cycler - 1
-SP - Stand Placement - stand_cooler - 1
-HP - Holder Placement - stand_cooler - 0
-СС - Сell Cover
-BU - Bubble
-CD - Cooler Door
-LD - Laser Door
+DB - Drain Bottle - sensors (Датчик наличия емкости слива)
+BB - Buffer Bottle - sensors (Датчик наличия ёмкости буфера)
+GND - Ground - sensors (Датчик наличия заземления)
+DC - Door Closed - sensors Датчик закрытий общей двери)
+DO - Drain Overflow - sensors (Датчик переполнения ёмкости слива)
+TP - Tubes Placement - sensors (Датчик положения трубок буфера и слива)
+SA -  - sensors (Датчик потока)
+TS - Thermostat - stand_cooler (Температура термостата)
+TC - Thermal Cycler - thermal_cycler (Температура термоциклера)
+SP - Stand Placement - stand_cooler (Положение столика для штатива)
+HP - Holder Placement - stand_cooler (Датчик наличия штатива)
+СС - Сell Cover (Датчик закрытия крышки ячейки)
+BU - Bubble (Количество пузырьков)
+CD - Cooler Door (Датчик закрытия двери термостата)
+LD - Laser Door (Датчик закрытия двери ячейки)
