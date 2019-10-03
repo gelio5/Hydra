@@ -30,5 +30,5 @@ for j in range(int(sys.argv[1])):
                 hydra.AspirateFromBypass(volume=600,
                                          aspirationRate=160,
                                          dispenseRate=800)
-config.logger.info(u'========        Maintenance wash is complete        '
+config.logger.info(u'========        Wash is complete        '
                    u'=======')
