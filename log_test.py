@@ -1,7 +1,8 @@
 # log_test.py
 # -*- coding: utf-8 -*-
-from lib import actuator_lib, sensors_lib, pump, system_commands
+from lib import actuator_lib, pump, system_commands
 import serial.tools.list_ports
+import subprocess
 
 """
 f = open('./Post_Run_Wash/MiSeqSoftware.00.log', 'r')
@@ -33,11 +34,16 @@ b.close()
 # stand_cooler_lib.GetCoolerData()
 # stand_cooler_lib.SetStandDown()
 # stand_cooler_lib.port.close()
-actuator_lib.Test()
-pump.Initialization()
-sensors_lib.AskSensors()
-pump.Test()
-system_commands.PumpToFlowcell(13, 2000, 5800, 2000)
-system_commands.PumpToFlowcell(18, 2000, 5800, 2000)
-system_commands.PumpToFlowcell(15, 2000, 5800, 2000)
-system_commands.PumpToFlowcell(19, 2000, 5800, 2000)
+ask_sensors = 'ask_sensors.py'
+process_sensors = subprocess.Popen(['python', ask_sensors])
+#actuator_lib.Test()
+#pump.Initialization()
+
+#pump.Test()
+for i in range(20):
+    system_commands.PumpToFlowcell(3, 2000, 500, 2000)
+# system_commands.PumpToFlowcell(18, 2000, 5800, 2000)
+# system_commands.PumpToFlowcell(15, 2000, 5800, 2000)
+# system_commands.PumpToFlowcell(19, 2000, 5800, 2000)
+
+

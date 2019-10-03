@@ -14,7 +14,7 @@
 
 import time
 import serial
-from lib import config, ports, sensors_lib
+from lib import config, ports #,sensors_lib
 
 inpPos = 'h29180'
 outPos = 'h29090'
@@ -58,8 +58,8 @@ def Test():
     """
     Это функция тестирует Насос, рекомендуется вызывать после инициализации
     """
-    if not sensors_lib.CheckSensors():
-        exit()
+    #if not sensors_lib.CheckSensors():
+        #exit()
     config.logger.info(u'Start Pump test')
     error = 0
     if not Get255():

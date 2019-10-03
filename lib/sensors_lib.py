@@ -34,7 +34,11 @@ def AskSensors():
     hP = ' HP=' + str(int((dataFromStand[6] & 8) / 8))
     tS = ' TS=' + fop.ToFixed(dataFromCooler[4], 2)
     tC = ' TC=' + fop.ToFixed(dataFromCycler[4], 2)
-    answer += sP + hP + tS + tC
+    cC = ' CC=0'
+    bU = ' BU=0'
+    cD = ' CD=0'
+    lD = ' LD=0'
+    answer += sP + hP + tS + tC + cC + bU
     sensors_value = open('sensors_value.txt', 'w')
     sensors_value.write(answer)
     sensors_value.close()

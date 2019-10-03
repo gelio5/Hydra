@@ -17,3 +17,7 @@ TS - Thermostat - stand_cooler - 1
 TC - Thermal Cycler - thermal_cycler - 1
 SP - Stand Placement - stand_cooler - 1
 HP - Holder Placement - stand_cooler - 0
+СС - Сell Cover
+BU - Bubble
+CD - Cooler Door
+LD - Laser Door
