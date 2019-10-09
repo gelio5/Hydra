@@ -1,5 +1,6 @@
 import time
-from lib import config, system_commands as hydra
+import config
+import system_commands as hydra
 
 
 def TempTest(duration, temperature):

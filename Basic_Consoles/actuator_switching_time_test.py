@@ -10,7 +10,7 @@
 import serial
 import numpy
 import time
-from lib import actuator_lib as act
+import actuator_lib as act
 
 actuatorPort = serial.Serial(port='COM6',
                              baudrate=115200,
