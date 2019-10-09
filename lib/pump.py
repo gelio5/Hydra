@@ -74,12 +74,14 @@ def Test():
     if error == 0:
         SetValveAbsoluteSyrPos(outPos, rate=1000, syrPos=0)
         config.logger.info(u'Test completed error - 0')
+        port.close()
         return error
     else:
         config.logger.info(u'Test completed error - ' + str(error))
         config.logger.info(
             u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Exit  '
             u'    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        port.close()
         return error
 
     
@@ -96,6 +98,7 @@ def AbsoluteSyrPos(rate: int, syrPos: int):
         ans = str(port.readline())
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])
         Status(0)
+        port.close()
     else:
         config.logger.info(
             u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Exit  '
@@ -120,6 +123,7 @@ def Aspirate(valvePos: str, rate: int, volume: int):
         ans = str(port.readline())
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])
         Status(0)
+        port.close()
     else:
         config.logger.info(
             u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Exit  '
@@ -141,10 +145,12 @@ def SyrSetAbsoluteZero(valvePos: str, rate: int):
         ans = str(port.readline())
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])
         Status(0)
+        port.close()
     else:
         config.logger.info(
             u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Exit  '
             u'    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        port.close()
         exit()
     return
 
@@ -162,10 +168,12 @@ def SetValveAbsoluteSyrPos(valvePos: str, rate: int, syrPos: int):
         ans = str(port.readline())
         config.logger.info(u'Recv Pump :%s' % ans[0:-1])
         Status(0)
+        port.close()
     else:
         config.logger.info(
             u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Exit  '
             u'    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        port.close()
         exit()
     return
 
@@ -179,6 +187,7 @@ def SetValvePos(valvePos: str):
     ans = str(port.readline())
     config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     Status(0)
+    port.close()
     return
 
 
@@ -190,7 +199,9 @@ def AskSyrPos():
     config.logger.info(u'Xmit Pump: %s' % "/1" + '?')
     ans = str(port.readline())
     config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+    port.close()
     return ans
+
 
 
 def AskValvePos():
@@ -201,6 +212,7 @@ def AskValvePos():
     config.logger.info(u'Xmit Pump: %s' % "/1" + '?25000')
     ans = str(port.readline())
     config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+    port.close()
     return ans
 
 
@@ -245,8 +257,10 @@ def Get255():
     config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     if ans.find('255') == -1:
         ans = False
+        port.close()
     else:
         ans = True
+        port.close()
     return ans
 
 
@@ -260,8 +274,10 @@ def CheckSum():
     config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     if ans.find('E882') == -1:
         ans = False
+        port.close()
     else:
         ans = True
+        port.close()
     return ans
 
 
@@ -273,6 +289,7 @@ def FirmVersion() -> bool:
     config.logger.info(u'Xmit Pump: %s' % "/1" + '&')
     ans = str(port.readline())
     config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+    port.close()
     if ans.find('DV01.32.0A 58269-02') == -1:
         return False
     else:
