@@ -2,9 +2,12 @@
 #
 # noinspection PyPep8Naming
 
-from lib import actuator_lib as actuator, config, pump, \
-    stand_cooler_lib as therm_stat, sensors_lib as sensors, \
-    thermal_cycler_lib as cycler
+import stand_cooler_lib as therm_stat
+import pump
+import actuator_lib as actuator
+import sensors_lib as sensors
+import config
+import thermal_cycler_lib as cycler
 import time
 
 config.logger.info(u'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      Start of the '

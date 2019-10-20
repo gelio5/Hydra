@@ -1,9 +1,9 @@
 # log_test.py
 # -*- coding: utf-8 -*-
-from lib import actuator_lib, pump, system_commands
+import actuator_lib, pump, system_commands, stand_cooler_lib, thermal_cycler_lib
 import serial.tools.list_ports
 import subprocess
-
+import time
 """
 f = open('./Post_Run_Wash/MiSeqSoftware.00.log', 'r')
 a = f.readlines()
@@ -34,16 +34,25 @@ b.close()
 # stand_cooler_lib.GetCoolerData()
 # stand_cooler_lib.SetStandDown()
 # stand_cooler_lib.port.close()
-ask_sensors = 'ask_sensors.py'
-process_sensors = subprocess.Popen(['python', ask_sensors])
+# ask_sensors = 'ask_sensors.py'
+#print(stand_cooler_lib.GetCoolerData())
+#process_sensors = subprocess.Popen(['python', './Subprocess/ask_sensors.py'])
+#subprocess.check_output(['python', './lib/stand_cooler_lib.py', 'down'])
 #actuator_lib.Test()
-#pump.Initialization()
-
+pump.Initialization()
+#subprocess.Popen(['python', './Subprocess/getCool.py'])
 #pump.Test()
-for i in range(20):
-    system_commands.PumpToFlowcell(3, 2000, 500, 2000)
+#for i in range(20):
+ #   system_commands.PumpToFlowcell(3, 2000, 500, 2000)
 # system_commands.PumpToFlowcell(18, 2000, 5800, 2000)
 # system_commands.PumpToFlowcell(15, 2000, 5800, 2000)
 # system_commands.PumpToFlowcell(19, 2000, 5800, 2000)
 
-
+#thermal_cycler_lib.SetThermalCyclerTemp(25)
+#time.sleep(5)
+#thermal_cycler_lib.StopThermalCyclerControl()
+"""for i in range(5):
+    thermal_cycler_lib.SetThermalCyclerTemp(20)
+    time.sleep(60)
+    thermal_cycler_lib.SetThermalCyclerTemp(50)
+    time.sleep(60)"""

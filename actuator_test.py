@@ -1,4 +1,5 @@
-from lib import actuator_lib as actuator, pump as syringe
+import pump as syringe
+import actuator_lib as actuator
 import sys
 
 
