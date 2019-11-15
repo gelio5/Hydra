@@ -14,6 +14,7 @@ port = serial.Serial(port=ports.cooler,
 address = 8
 port.close()
 
+
 def GetStandState():
     try:
         port.open()
@@ -89,6 +90,7 @@ def SetStandUp():
     port.write(commandToSend)
     config.logger.info(u'Xmit Stand: %s.' % commandToSend)
     answerBytes = port.read(4)
+    port.close()
     config.logger.info(u'Recv Stand: %s' % answerBytes)
     answer = unpack("<BBBB", answerBytes)
     if answer[0] == 8 and \
@@ -116,6 +118,7 @@ def SetStandDown():
     port.write(commandToSend)
     config.logger.info(u'Xmit Stand: %s.' % commandToSend)
     answerBytes = port.read(4)
+    port.close()
     config.logger.info(u'Recv Stand: %s' % answerBytes)
     answer = unpack("<BBBB", answerBytes)
     if answer[0] + answer[1] + answer[2] == answer[3]:

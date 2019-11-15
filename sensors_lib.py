@@ -16,6 +16,9 @@ import ports
 import thermal_cycler_lib
 import types_to_sum_of_bytes as fop
 import time
+import os
+
+# import redis
 # import config
 port = serial.Serial(port=ports.sensors,
                      baudrate=115200,
@@ -23,6 +26,9 @@ port = serial.Serial(port=ports.sensors,
                      parity=serial.PARITY_NONE,
                      stopbits=serial.STOPBITS_ONE)
 port.close()
+
+root_dir = os.path.abspath(os.path.dirname(__file__))
+ch = root_dir + "/../data/"
 
 
 def AskSensors():
@@ -37,26 +43,28 @@ def AskSensors():
     if answer.find('UNDEFINED') != -1:
         port.write(msg)
         answer = port.readline().decode()[7:]
+    port.close()
     dataFromStand = stand_cooler_lib.GetStandState()
     dataFromCooler = stand_cooler_lib.GetCoolerData()
     dataFromCycler = thermal_cycler_lib.GetThermalCyclerData()
     sP = ' SP=' + str(dataFromStand[4])
     hP = ' HP=' + str(int((dataFromStand[6] & 8) / 8))
-    tS = ' TS=' + fop.ToFixed(dataFromCooler[3], 3)
-    tC = ' TC=' + fop.ToFixed(dataFromCycler[3], 3)
+    tS = ' TS=' + fop.ToFixed(dataFromCooler[3], 1)
+    tC = ' TC=' + fop.ToFixed(dataFromCycler[3], 1)
     cC = ' CC=0'
     bU = ' BU=0'
-    cD = ' CD=0'
-    lD = ' LD=0'
-    answer += sP + hP + tS + tC + cC + bU + cD + lD
-    sensors_value = open('sensors_value.txt', 'w')
-    sensors_value.write(answer)
-    sensors_value.close()
-    port.close()
+    cD = ' CD=' + str(int((dataFromStand[6] & 16) / 16))
+    lD = ' LD=1'
+    tR = ' TR=' + str(int((dataFromCycler[6] & 128) / 128))
+    answer += sP + hP + tS + tC + cC + bU + cD + lD + tR
+    # r = redis.StrictRedis(host='localhost', port=6379, db=1)
+    # r.set('sensors',dict(item.split("=") for item in answer.split(" ")))
     """if not askTimer.is_set():
         threading.Timer(10, AskSensors, [askTimer]).start()"""
-    return
+    return answer
 
+
+# TODO: нужна ли функция CheckSensors?!
 
 def CheckSensors():
     sensors_file = open('sensors_value.txt', 'r')
@@ -68,3 +76,51 @@ def CheckSensors():
         status = False
     print(status)
     return status
+
+
+def BubOn():
+    try:
+        port.open()
+    except Exception:
+        time.sleep(0.01)
+        port.open()
+    msg = "BUBON\r\n".encode()
+    port.write(msg)
+    answer = port.readline().decode()  # [7:-3]
+    if answer.find('UNDEFINED') != -1:
+        port.write(msg)
+        answer = port.readline().decode()  # [7:]
+    port.close()
+    print(answer)
+
+
+def BubAsk():
+    try:
+        port.open()
+    except Exception:
+        time.sleep(0.01)
+        port.open()
+    msg = "BUBCOUNT\r\n".encode()
+    port.write(msg)
+    answer = port.readline().decode()  # [7:-3]
+    if answer.find('UNDEFINED') != -1:
+        port.write(msg)
+        answer = port.readline().decode()  # [7:]
+    port.close()
+    print(answer)
+
+
+def BubOff():
+    try:
+        port.open()
+    except Exception:
+        time.sleep(0.01)
+        port.open()
+    msg = "BUBOFF\r\n".encode()
+    port.write(msg)
+    answer = port.readline().decode()  # [7:-3]
+    if answer.find('UNDEFINED') != -1:
+        port.write(msg)
+        answer = port.readline().decode()  # [7:]
+    port.close()
+    print(answer)

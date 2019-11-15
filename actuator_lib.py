@@ -103,14 +103,14 @@ def TogglePos(positionNumber: int):
     проверяет верно ли осуществленно переключение, путём возврата True
     или False
     """
-    flow = '0'
+    """flow = '0'
     while flow != 'SA=1':
         file = open('sensors_value.txt', 'r')
         data = file.readline()
         file.close()
         flow = data.split(' ')[6]
-        print(flow)
-        time.sleep(0.5)
+        print(flow)"""
+    time.sleep(0.5)
     config.logger.info(u'##### Moving the check switch. #####')
     GoToPosition(positionNumber)
     if positionNumber == CurrentPos():
