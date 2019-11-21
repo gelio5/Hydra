@@ -20,10 +20,9 @@ for i in range(len(a) - 1):
     if i == 0:
         continue
     else:
-        if a[i].find("/1Q\\r") == -1 and \
-                a[i + 1].find("/0@(0x03)\\r\\n") == -1 or \
-                a[i - 1].find("/1Q\\r") == -1 and \
-                a[i].find("/0@(0x03)\\r\\n") == -1:
+        if (a[i].find("/1Q\\r") != -1 and a[i + 1].find("/0@(0x03)\\r\\n") != -1) or (a[i - 1].find("/1Q\\r") != -1 and a[i].find("/0@(0x03)\\r\\n") != -1):
+            continue
+        else:
             b.write(a[i])
 b.close()
 
