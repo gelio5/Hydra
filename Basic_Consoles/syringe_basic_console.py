@@ -10,7 +10,7 @@
 import serial   # pySerial API version 3.4
 import time
 
-syringe = serial.Serial(port='COM9',
+syringe = serial.Serial(port='COM18',
                         baudrate=9600,
                         bytesize=serial.EIGHTBITS,
                         parity=serial.PARITY_NONE,

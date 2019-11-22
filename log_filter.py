@@ -12,10 +12,10 @@ b.close()
 """
 
 # Status of pump filtration
-f = open('./Special_Post_Run_Wash/lg4.log', 'r')
+f = open('./Cycle_Log/lg1.log', 'r')
 a = f.readlines()
 f.close()
-b = open('./Special_Post_Run_Wash/lg4.log', 'w')
+b = open('./Cycle_Log/lg1.log', 'w')
 for i in range(len(a) - 1):
     if i == 0:
         continue
@@ -26,12 +26,13 @@ for i in range(len(a) - 1):
             b.write(a[i])
 b.close()
 
-# Next filtration system
 """
-f = open('./Special_Post_Run_Wash/lg4.log', 'r')
+# Next filtration system
+
+f = open('./Cycle_Log/Cycle1_Log.00.log', 'r')
 a = f.readlines()
 f.close()
-b = open('./Special_Post_Run_Wash/lg4.log', 'w')
+b = open('./Cycle_Log/lg1.log', 'w')
 print(len(a))
 for i in range(len(a)):
     if a[i].find("FPGA") == -1 and\
