@@ -26,12 +26,12 @@ for j in range(1):
                 hydra.PumpToFlowcell(actPos=i+1,
                                      volume=750,
                                      aspirationRate=500,
-                                     dispenseRate=1000)
+                                     dispenseRate=2000)
             elif i == 22:
                 continue
             else:
                 hydra.AspirateFromBypass(volume=7500,
                                          aspirationRate=500,
-                                         dispenseRate=1000)
+                                         dispenseRate=2000)
 config.logger.info(u'========        Wash is complete        '
                    u'=======')
