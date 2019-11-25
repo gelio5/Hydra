@@ -12,27 +12,27 @@ b.close()
 """
 
 # Status of pump filtration
-f = open('./Special_Post_Run_Wash/lg4.log', 'r')
+f = open('./Cycle_Log/lg1.log', 'r')
 a = f.readlines()
 f.close()
-b = open('./Special_Post_Run_Wash/lg4.log', 'w')
+b = open('./Cycle_Log/lg1.log', 'w')
 for i in range(len(a) - 1):
     if i == 0:
         continue
     else:
-        if a[i].find("/1Q\\r") == -1 and \
-                a[i + 1].find("/0@(0x03)\\r\\n") == -1 or \
-                a[i - 1].find("/1Q\\r") == -1 and \
-                a[i].find("/0@(0x03)\\r\\n") == -1:
+        if (a[i].find("/1Q\\r") != -1 and a[i + 1].find("/0@(0x03)\\r\\n") != -1) or (a[i - 1].find("/1Q\\r") != -1 and a[i].find("/0@(0x03)\\r\\n") != -1):
+            continue
+        else:
             b.write(a[i])
 b.close()
 
-# Next filtration system
 """
-f = open('./Special_Post_Run_Wash/lg4.log', 'r')
+# Next filtration system
+
+f = open('./Cycle_Log/Cycle1_Log.00.log', 'r')
 a = f.readlines()
 f.close()
-b = open('./Special_Post_Run_Wash/lg4.log', 'w')
+b = open('./Cycle_Log/lg1.log', 'w')
 print(len(a))
 for i in range(len(a)):
     if a[i].find("FPGA") == -1 and\
