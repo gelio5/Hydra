@@ -146,3 +146,6 @@ for i in range(5):
     while h != "work":
         h = input(">>")
         print(h)
+
+conn.set("bubble_need", 0)
+print(time.time()-n)
