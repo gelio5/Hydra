@@ -44,7 +44,7 @@ def PumpToFlowcell(actPos: int,
     logging.info(u'##########   Start pumping %s with volume %s, aspiration '
                  u'rate %s and dispense rate %s   ##########' %
                  (actPos, volume, aspirationRate, dispenseRate))
-    #volume = int(volume*3000/1250) + 46
+    # volume = int(volume*3000/1250) + 46
     if int(psd.AskSyrPos()[5:-9])+volume > 3000:
         logging.warning(u'###   Syringe would be overflow   ###')
         psd.SyrSetAbsoluteZero(psd.outPos, dispenseRate)
@@ -66,6 +66,21 @@ def AspirateFromBypass(volume: int, aspirationRate: int, dispenseRate: int):
     logging.warning(u'###   Syringe is free to pump   ###')
     actuator.TogglePos(23)
     psd.Aspirate(valvePos=psd.byPassPos, volume=volume, rate=aspirationRate)
+
+
+def DispenseToFlowcell(actPos: int,
+                       volume: int,
+                       dispenseRate: int):
+    logging.info(u'##########   Dispensing to Flowcell %s with volume %s, '
+                 u'aspiration rate %s and dispense rate %s   ##########' %
+                 (actPos, volume, aspirationRate, dispenseRate))
+    actuator.TogglePos(actPos)
+    time.sleep(0.5)
+    psd.SetValveAbsoluteSyrPos(valvePos=psd.inpPos,
+                               syrPos=int(psd.AskSyrPos()[5:-9])-volume,
+                               rate=aspirationRate)
+    logging.info(u'######################################   Dispense to '
+                 u'flowcell done!   ######################################')
 
 
 def DispenseAndWait(waiting_time: float, dispenseRate: int):
