@@ -93,7 +93,7 @@ def MovingTime():
     :return:
     """
     config.logger.info(u'Interrogation of the time spent on the previous '
-                       u'switch.')
+                           u'switch.')
     return int(Transceiver("TM").replace("TM", "").replace("\r", ""))
 
 

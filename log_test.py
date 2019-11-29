@@ -1,92 +1,17 @@
 # log_test.py
 # -*- coding: utf-8 -*-
-import actuator_lib, pump, system_commands,  thermal_cycler_lib # ,stand_cooler_lib
+import actuator_lib, pump, system_commands, stand_cooler_lib, thermal_cycler_lib
 import serial.tools.list_ports
 import subprocess
 import time
-#import sensors_lib
+import sensors_lib
 #system_commands.PumpToFlowcell(actPos=3, volume=90, aspirationRate=75, dispenseRate=2000)
 #thermal_cycler_lib.SetThermalCyclerTemp(22)
 #thermal_cycler_lib.SetThermalCyclerTempLowSpeed(startTemp=65,stopTemp=40, timeToGo=250)
 #time.sleep(180)
 #for i in range(1):
-"""
-stand_cooler_lib.SetStandUp()
-time.sleep(7)
-system_commands.PumpToActuator(1)
-system_commands.PumpToActuator(2)
-system_commands.PumpToActuator(4)
-system_commands.PumpToActuator(8)
-system_commands.PumpToActuator(12)
-"""
-
-"""
-print("Выход на температуру 50°C")
-thermal_cycler_lib.SetThermalCyclerTemp(temp=46)
-print("Денатурация")
-system_commands.PumpToFlowcell(actPos=8, aspirationRate=72, volume=180, dispenseRate=2000)
-time.sleep(30)
-system_commands.PumpToFlowcell(actPos=3, volume=180, aspirationRate=72, dispenseRate=2000)
-print("Выход на температуру 65°C")
-thermal_cycler_lib.SetThermalCyclerTemp(temp=65)
-print("Введение и отжиг праймеров для секвенирования первой цепи")
-print("Введение праймеров для секвенирования первой цепи")
-for i in range(2):
-    print("Итерация №" + str(i + 1))
-    system_commands.PumpToFlowcell(actPos=12, volume=180, aspirationRate=72, dispenseRate=2000)
-    time.sleep(30)
-print("Отжиг праймеров")
-thermal_cycler_lib.SetThermalCyclerTempLowSpeed(startTemp=65, stopTemp=40, timeToGo=250)
-print("Ожидание 60 секунд")
-time.sleep(60)
-print("Промывка буфером")
-system_commands.PumpToFlowcell(actPos=3, volume=180, aspirationRate=72, dispenseRate=2000)
-time.sleep(15)
-print("Встраивание первого нуклеотида")
-print("Выход на температуру 60°C")
-thermal_cycler_lib.SetThermalCyclerTemp(temp=60)
-print("Промывка буфером")
-system_commands.PumpToFlowcell(actPos=3, volume=180, aspirationRate=72, dispenseRate=2000)
-time.sleep(15)
-"""
-"""
 #
-thermal_cycler_lib.SetThermalCyclerTemp(60)
-system_commands.PumpToFlowcell(actPos=3, volume=270, aspirationRate=72, dispenseRate=2000)
-system_commands.PumpToFlowcell(actPos=4, volume=180, aspirationRate=72, dispenseRate=2000)
-system_commands.PumpToFlowcell(actPos=3, volume=48, aspirationRate=72, dispenseRate=2000)
-time.sleep(10)
-system_commands.PumpToFlowcell(actPos=3, volume=720, aspirationRate=72, dispenseRate=2000)
-#
-print("Встраивание первого нуклеотида")
-system_commands.PumpToFlowcell(actPos=1, volume=180, aspirationRate=72, dispenseRate=2000)
-time.sleep(60)
-print("Выход на температуру 65°C")
-thermal_cycler_lib.SetThermalCyclerTemp(temp=65)
-print("Ожидание 90 секунд")
-time.sleep(90)
-print("Промывка буфером")
-system_commands.PumpToFlowcell(actPos=3, volume=36, aspirationRate=72, dispenseRate=2000)
-time.sleep(15)
-print("Выход на температуру 22°C")
-thermal_cycler_lib.SetThermalCyclerTemp(temp=22)
-print("Промывка буфером")
-system_commands.PumpToFlowcell(actPos=3, volume=180, aspirationRate=72, dispenseRate=2000)
-time.sleep(15)
-print("Проявление кластеров")
-system_commands.PumpToFlowcell(actPos=2, volume=180, aspirationRate=72, dispenseRate=2000)
-time.sleep(30)
-print("Промывка буфером")
-system_commands.PumpToFlowcell(actPos=3, volume=90, aspirationRate=72, dispenseRate=2000)
-time.sleep(15)
-"""
-thermal_cycler_lib.SetThermalCyclerTemp(20)
-print("Детекция")
-"""
-#system_commands.PumpToFlowcell(actPos=12, volume=90, aspirationRate=72, dispenseRate=2000)
-
-"""
-"""
+#stand_cooler_lib.SetStandDown()
 sensors_lib.BubOn()
 q = time.time()
 time.sleep(5)
@@ -95,7 +20,7 @@ time.sleep(3)
 sensors_lib.BubAsk()
 print(time.time()-q)
 sensors_lib.BubOff()
-"""
+
 #print(thermal_cycler_lib.GetSpeed())
 #thermal_cycler_lib.SetSpeed(heat=8, cold=-0.5)
 #print(thermal_cycler_lib.GetSpeed())
@@ -140,12 +65,3 @@ sensors_lib.BubOff()
 #system_commands.PumpToActuator(actPos=3)
 #system_commands.PumpToActuator(actPos=3)
 #system_commands.PumpToFlowcell(actPos=2, volume=90, aspirationRate=10, dispenseRate=2000)
-
-"""
-thermal_cycler_lib.SetThermalCyclerTemp(60)
-system_commands.PumpToFlowcell(actPos=3, volume=270, aspirationRate=72, dispenseRate=2000)
-system_commands.PumpToFlowcell(actPos=4, volume=180, aspirationRate=72, dispenseRate=2000)
-system_commands.PumpToFlowcell(actPos=3, volume=48, aspirationRate=72, dispenseRate=2000)
-time.sleep(10)
-system_commands.PumpToFlowcell(actPos=3, volume=720, aspirationRate=72, dispenseRate=2000)
-"""

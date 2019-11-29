@@ -42,6 +42,14 @@ def SetThermalCyclerTemp(temp: float):
     return
 """
 
+def Transceiver(command: str, length: int, ):
+    try:
+        port.open()
+    except Exception:
+        time.sleep(0.01)
+        port.open()
+    checksum = (address + length + command
+
 
 def SetThermalCyclerTemp(temp: float):
     try:
