@@ -26,7 +26,7 @@ port = serial.Serial(port=ports.pump,
                      bytesize=serial.EIGHTBITS,
                      parity=serial.PARITY_NONE,
                      stopbits=serial.STOPBITS_ONE)
-port.close()
+
 
 
 def Transceiver(command: str):
