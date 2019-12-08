@@ -28,7 +28,6 @@ port = serial.Serial(port=ports.pump,
                      stopbits=serial.STOPBITS_ONE)
 
 
-
 def Transceiver(command: str):
     """
     Функция посылает команду на Насос и принимает ответ
@@ -38,7 +37,6 @@ def Transceiver(command: str):
     except Exception:
         time.sleep(0.1)
         port.open()
-    answer = ''
     port.write(str.encode(command + '\r\n'))
     config.logger.info(u'Xmit Pump: %s' % command)
     answer = port.readline().decode()
@@ -80,7 +78,7 @@ def Test():
     """
     Это функция тестирует Насос, рекомендуется вызывать после инициализации
     """
-    #port.open()
+    # port.open()
     config.logger.info(u'Start Pump test')
     error = 0
     if not Get255():
@@ -96,7 +94,7 @@ def Test():
     if error == 0:
         SetValveAbsoluteSyrPos(outPos, rate=1000, syrPos=0)
         config.logger.info(u'Test completed error - 0')
-     #   port.close()
+        #   port.close()
         return error
     else:
         config.logger.info(u'Test completed error - ' + str(error))
@@ -112,13 +110,13 @@ def AbsoluteSyrPos(rate: int, syrPos: int):
     используя rate в качестве скорости
     """
     if 5800 >= rate >= 5 and 0 <= syrPos <= 3000:
-        #port.open()
-        #port.write(str.encode("/1" + 'V' + str(rate) + 'A' + str(syrPos) +
+        # port.open()
+        # port.write(str.encode("/1" + 'V' + str(rate) + 'A' + str(syrPos) +
         #                      'R' + '\r\n'))
-        #config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + str(rate) + 'A' +
+        # config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + str(rate) + 'A' +
         #                  str(syrPos) + 'R')
-        #ans = str(port.readline())
-        #config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+        # ans = str(port.readline())
+        # config.logger.info(u'Recv Pump :%s' % ans[0:-1])
         Transceiver("/1" + 'V' + str(rate) + 'A' + str(syrPos) + 'R')
         Status(0)
         port.close()
@@ -137,17 +135,18 @@ def Aspirate(valvePos: str, rate: int, volume: int):
     на Volume колличество шагов вверх
     """
     if 5800 >= rate >= 5 and 0 <= volume <= 3000:
-     #   port.open()
-     #   port.write(str.encode(
-     #       "/1" + valvePos + 'V' + str(rate) + 'P' + str(volume) +
-     #       'R' + '\r\n'))
-     #   config.logger.info(
-     #       u'Xmit Pump: %s' % "/1" + valvePos + 'V' + str(rate) + 'P' +
-     #       str(volume) + 'R')
-     #   ans = str(port.readline())
-     #   port.close()
-     #   config.logger.info(u'Recv Pump :%s' % ans[0:-1])
-        Transceiver("/1" + valvePos + 'V' + str(rate) + 'P' + str(volume) + 'R')
+        #   port.open()
+        #   port.write(str.encode(
+        #       "/1" + valvePos + 'V' + str(rate) + 'P' + str(volume) +
+        #       'R' + '\r\n'))
+        #   config.logger.info(
+        #       u'Xmit Pump: %s' % "/1" + valvePos + 'V' + str(rate) + 'P' +
+        #       str(volume) + 'R')
+        #   ans = str(port.readline())
+        #   port.close()
+        #   config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+        Transceiver(
+            "/1" + valvePos + 'V' + str(rate) + 'P' + str(volume) + 'R')
         Status(0)
     else:
         config.logger.info(
@@ -163,14 +162,14 @@ def SyrSetAbsoluteZero(valvePos: str, rate: int):
     и полностью опорожняет шприц со скоростью rate
     """
     if 5800 >= rate >= 5:
-        #port.open()
-        #port.write(str.encode(
+        # port.open()
+        # port.write(str.encode(
         #    "/1" + 'V' + str(rate) + valvePos + 'A0' + 'R' + '\r\n'))
-        #config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + str(rate) +
+        # config.logger.info(u'Xmit Pump: %s' % "/1" + 'V' + str(rate) +
         #                   valvePos + 'A0' + 'R')
-        #ans = str(port.readline())
-        #port.close()
-        #config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+        # ans = str(port.readline())
+        # port.close()
+        # config.logger.info(u'Recv Pump :%s' % ans[0:-1])
         Transceiver("/1" + 'V' + str(rate) + valvePos + 'A0' + 'R')
         Status(0)
         port.close()
@@ -214,7 +213,7 @@ def SetValvePos(valvePos: str):
     #    config.logger.info(u'Xmit Pump: %s' % "/1" + valvePos + 'R')
     #    ans = str(port.readline())
     #    port.close()
-    ans = Transceiver('/1' + valvePos + 'R')
+    Transceiver('/1' + valvePos + 'R')
     #    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
     Status(0)
     return
