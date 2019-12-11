@@ -26,6 +26,7 @@ port = serial.Serial(port=ports.pump,
                      bytesize=serial.EIGHTBITS,
                      parity=serial.PARITY_NONE,
                      stopbits=serial.STOPBITS_ONE)
+port.close()
 
 
 def Transceiver(command: str):
@@ -39,8 +40,11 @@ def Transceiver(command: str):
         port.open()
     port.write(str.encode(command + '\r\n'))
     config.logger.info(u'Xmit Pump: %s' % command)
-    answer = port.readline().decode()
-    config.logger.info(u'Recv Pump: %s' % answer)
+    answer = ''
+    time.sleep(2)
+    while port.inWaiting() > 0:
+        answer = port.readline().decode()
+        config.logger.info(u'Recv Pump: %s' % answer)
     port.close()
     return answer
 
@@ -223,13 +227,13 @@ def AskSyrPos():
     """
     Функция возвращает текущее положение шприца
     """
-    #    port.open()
-    #    port.write(str.encode("/1" + '?' + '\r\n'))
-    #    config.logger.info(u'Xmit Pump: %s' % "/1" + '?')
-    #    ans = str(port.readline())
-    #    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
-    #    port.close()
-    ans = Transceiver('/1' + '?')
+    port.open()
+    port.write(str.encode("/1" + '?' + '\r\n'))
+    config.logger.info(u'Xmit Pump: %s' % "/1" + '?')
+    ans = str(port.readline())
+    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+    port.close()
+    # ans = Transceiver('/1' + '?')
     return ans
 
 
@@ -237,14 +241,14 @@ def AskValvePos():
     """
     Функция возвращает текущее положение коммутатора
     """
-    #    port.close()
-    #    port.write(str.encode("/1" + '?25000' + '\r\n'))
-    #    config.logger.info(u'Xmit Pump: %s' % "/1" + '?25000')
-    #    ans = str(port.readline())
-    #    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
-    #    port.close()
-    return Transceiver('/1' + '?25000')
-
+    port.close()
+    port.write(str.encode("/1" + '?25000' + '\r\n'))
+    config.logger.info(u'Xmit Pump: %s' % "/1" + '?25000')
+    ans = str(port.readline())
+    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+    port.close()
+    #return Transceiver('/1' + '?25000')
+    return ans
 
 def Status(i: int):
     """
@@ -265,7 +269,7 @@ def Status(i: int):
         #       port.close()
         #        config.logger.info(u'Recv Pump :%s' % ans[0:-1])
         ans = Transceiver('/1' + 'Q')
-        print(ans)
+        # print(ans)
         if ans[2] == '`':
             config.logger.info(u'Pump is ready')
             return

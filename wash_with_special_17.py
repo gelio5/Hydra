@@ -2,9 +2,11 @@ import config
 from system_commands import PumpToFlowcell
 from system_commands import AspirateFromBypass
 from system_commands import DispenseToFlowcell
+import time
 
 config.logger.info(u'========       Postrun wash is started       '
                    u'========')
+n = time.time()
 for i in range(3):
     PumpToFlowcell(actPos=3,
                    volume=2400,
@@ -76,3 +78,4 @@ for i in range(4):
                    volume=600,
                    aspirationRate=500,
                    dispenseRate=2000)
+print(time.time() - n)
