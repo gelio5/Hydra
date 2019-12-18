@@ -39,8 +39,8 @@ def PumpToActuator(actPos: int):
 
 def PumpToFlowcell(actPos: int,
                    volume: int,
-                   aspirationRate: int,
-                   dispenseRate: int):
+                   aspirationRate: int = 72,
+                   dispenseRate: int = 2000):
     logging.info(u'##########   Start pumping %s with volume %s, aspiration '
                  u'rate %s and dispense rate %s   ##########' %
                  (actPos, volume, aspirationRate, dispenseRate))

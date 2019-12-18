@@ -6,12 +6,19 @@
       <w>bfff</w>
       <w>biii</w>
       <w>cycler</w>
+      <w>deblock</w>
+      <w>denaturation</w>
+      <w>deprotection</w>
       <w>flowcell</w>
       <w>kbhit</w>
       <w>levelname</w>
+      <w>linearisation</w>
       <w>lineno</w>
       <w>microlab</w>
+      <w>preresynthesis</w>
       <w>recv</w>
+      <w>resynthesis</w>
+      <w>tempramp</w>
       <w>valco</w>
       <w>xmit</w>
     </words>
