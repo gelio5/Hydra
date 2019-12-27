@@ -250,6 +250,7 @@ def AskValvePos():
     #return Transceiver('/1' + '?25000')
     return ans
 
+
 def Status(i: int):
     """
     Функция возвращает текущий статус насоса.
@@ -260,6 +261,7 @@ def Status(i: int):
     Параметр i - необходим, для исключения бесконечной рекурсии в случае ошибки
     Желательно задавать его равным 0
     """
+    n = 0
     if i <= 100:
         i += 1
         #        port.open()
@@ -278,8 +280,14 @@ def Status(i: int):
             Status(i)
             return
         else:
-            config.logger.info(u'ERROR - %s' % ans[4])
-            return
+            if n != 5:
+                time.sleep(0.5)
+                Status(i)
+                config.logger.info(u'OSHIBKA ALARM!!!!!!!!!!!!!')
+                n += 1
+            else:
+                config.logger.info(u'ERROR - %s' % ans)
+                return
     else:
         config.logger.info(u'Delay time exceeded')
 
