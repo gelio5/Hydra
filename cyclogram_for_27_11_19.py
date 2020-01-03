@@ -35,6 +35,7 @@ PumpToActuator(actPos=19)
 print("Заполнение канала номер 20")
 PumpToActuator(actPos=20)
 
+SetThermalCyclerTemp(temp=60)
 print("Денатурация")
 PumpToFlowcell(actPos=8,
                volume=180,

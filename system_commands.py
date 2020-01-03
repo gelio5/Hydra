@@ -4,7 +4,7 @@ import pump as psd
 import actuator_lib as actuator
 import logging
 import time
-from math import pi
+
 
 logging.basicConfig(format=u'%(asctime)s%(levelname)-8s%(funcName)-24s'
                            u'%(message)s',
@@ -39,8 +39,8 @@ def PumpToActuator(actPos: int):
 
 def PumpToFlowcell(actPos: int,
                    volume: int,
-                   aspirationRate: int,
-                   dispenseRate: int):
+                   aspirationRate: int = 72,
+                   dispenseRate: int = 2000):
     logging.info(u'##########   Start pumping %s with volume %s, aspiration '
                  u'rate %s and dispense rate %s   ##########' %
                  (actPos, volume, aspirationRate, dispenseRate))
@@ -72,16 +72,16 @@ def DispenseToFlowcell(actPos: int,
                        volume: int,
                        dispenseRate: int):
     logging.info(u'##########   Dispensing to Flowcell %s with volume %s, '
-                 u'aspiration rate %s and dispense rate %s   ##########' %
-                 (actPos, volume, aspirationRate, dispenseRate))
+                 u'and dispense rate %s   ##########' %
+                 (actPos, volume, dispenseRate))
     actuator.TogglePos(actPos)
     time.sleep(0.5)
     psd.SetValveAbsoluteSyrPos(valvePos=psd.inpPos,
                                syrPos=int(psd.AskSyrPos()[5:-9])-volume,
-                               rate=aspirationRate)
+                               rate=dispenseRate)
     logging.info(u'######################################   Dispense to '
                  u'flowcell done!   ######################################')
 
 
-def DispenseAndWait(waiting_time: float, dispenseRate: int):
-    now = time.time()
+# def DispenseAndWait(waiting_time: float, dispenseRate: int):
+    # now = time.time()

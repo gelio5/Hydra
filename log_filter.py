@@ -1,16 +1,16 @@
 # Filtration by date
-"""
-f = open('./Special_Post_Run_Wash/MiSeqSoftware.01.log', 'r')
+
+f = open('hydra.log', 'r')
 a = f.readlines()
 f.close()
-b = open('./Special_Post_Run_Wash/lg4.log', 'w')
+b = open('hydra_full_02.log', 'w')
 print(len(a))
 for i in range(len(a)):
-    if a[i].find("19-11-18") != -1:
+    if a[i].find("2019-12-21") != -1 or a[i].find("2019-12-22") != -1 or a[i].find("2019-12-23") != -1 or a[i].find("2019-12-24") != -1:
         b.write(a[i])
 b.close()
-"""
 
+"""
 # Status of pump filtration
 f = open('./Cycle_Log/lg1.log', 'r')
 a = f.readlines()
@@ -25,7 +25,7 @@ for i in range(len(a) - 1):
         else:
             b.write(a[i])
 b.close()
-
+"""
 """
 # Next filtration system
 

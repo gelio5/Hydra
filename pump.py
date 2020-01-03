@@ -227,13 +227,13 @@ def AskSyrPos():
     """
     Функция возвращает текущее положение шприца
     """
-    #port.open()
-    #port.write(str.encode("/1" + '?' + '\r\n'))
-    #config.logger.info(u'Xmit Pump: %s' % "/1" + '?')
-    #ans = str(port.readline())
-    #config.logger.info(u'Recv Pump :%s' % ans[0:-1])
-    #port.close()
-    ans = Transceiver('/1' + '?').encode()
+    port.open()
+    port.write(str.encode("/1" + '?' + '\r\n'))
+    config.logger.info(u'Xmit Pump: %s' % "/1" + '?')
+    ans = str(port.readline())
+    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+    port.close()
+    # ans = Transceiver('/1' + '?')
     return ans
 
 
@@ -241,14 +241,15 @@ def AskValvePos():
     """
     Функция возвращает текущее положение коммутатора
     """
-    #port.close()
-    #port.write(str.encode("/1" + '?25000' + '\r\n'))
-    #config.logger.info(u'Xmit Pump: %s' % "/1" + '?25000')
-    #ans = str(port.readline())
-    #config.logger.info(u'Recv Pump :%s' % ans[0:-1])
-    #port.close()
-    return Transceiver('/1' + '?25000').encode()
-    #return ans
+    port.close()
+    port.write(str.encode("/1" + '?25000' + '\r\n'))
+    config.logger.info(u'Xmit Pump: %s' % "/1" + '?25000')
+    ans = str(port.readline())
+    config.logger.info(u'Recv Pump :%s' % ans[0:-1])
+    port.close()
+    #return Transceiver('/1' + '?25000')
+    return ans
+
 
 def Status(i: int):
     """
@@ -260,6 +261,7 @@ def Status(i: int):
     Параметр i - необходим, для исключения бесконечной рекурсии в случае ошибки
     Желательно задавать его равным 0
     """
+    n = 0
     if i <= 100:
         i += 1
         #        port.open()
@@ -278,8 +280,14 @@ def Status(i: int):
             Status(i)
             return
         else:
-            config.logger.info(u'ERROR - %s' % ans[4])
-            return
+            if n != 5:
+                time.sleep(0.5)
+                Status(i)
+                config.logger.info(u'OSHIBKA ALARM!!!!!!!!!!!!!')
+                n += 1
+            else:
+                config.logger.info(u'ERROR - %s' % ans)
+                return
     else:
         config.logger.info(u'Delay time exceeded')
 
