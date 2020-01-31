@@ -20,20 +20,31 @@ def Transceiver(command, length: int, *others):
         port.open()
     except Exception:
         time.sleep(0.01)
-        port.open()
+        try:
+            port.open()
+        except Exception:
+            time.sleep(0.01)
+            try:
+                port.open()
+            except Exception:
+                time.sleep(0.01)
+                try:
+                    port.open()
+                except Exception:
+                    time.sleep(0.01)
+                    port.open()
     n = 0
     checksum = (address + length + command)
     commandToSend = pack('<BBB', address, length, command)
     for i in others:
-        if i == int:
-            i = i
+        if type(i) == int:
             checksum += i
             commandToSend += pack('<i', i)
-        elif i == float:
+        elif type(i) == float:
+            commandToSend += pack('<f', i)
             n += 1
             i = FloatToSumOfBytes(i)
             checksum += i
-            commandToSend += pack('<f', i)
     if n != 0:
         checksum = checksum % 256
     commandToSend += pack('<B', checksum)
@@ -43,17 +54,6 @@ def Transceiver(command, length: int, *others):
 
 
 def GetStandState():
-    #try:
-    #    port.open()
-    #except Exception:
-    #    time.sleep(0.01)
-    #    port.open()
-    #length = 4
-    #command = 0xBD
-    #checkSum = address + length + command
-    #commandToSend = pack("<BBBB", address, length, command, checkSum)
-    #port.write(commandToSend)
-    #config.logger.info(u'Xmit Stand: %s.' % commandToSend)
     Transceiver(0xBD, 4)
     answerBytes = port.read(20)
     answer: tuple = unpack("<BBBiiiBBBBB", answerBytes)
@@ -80,13 +80,7 @@ def GetStandState():
 
 def SetStandZero(attempt):
     if attempt < 50:
-        #length = 4
-        #command = 0xBC
-        #checkSum = address + length + command
-        #commandToSend = pack("<BBBB", address, length, command, checkSum)
-        #port.write(commandToSend)
-        #config.logger.info(u'Xmit Stand: %s.' % commandToSend)
-        Transceiver(0xBC,4)
+        Transceiver(0xBC, 4)
         answerBytes = port.read(4)
         config.logger.info(u'Recv Stand: %s' % answerBytes)
         answer = unpack("<BBBB", answerBytes)
@@ -106,19 +100,7 @@ def SetStandZero(attempt):
 
 
 def SetStandUp():
-    #try:
-    #    port.open()
-    #except Exception:
-    #    time.sleep(0.01)
-    #    port.open()
-    #length = 8
-    #command = 0xBB
-    pos = int(1)
-    #checkSum = address + length + command + pos
-    #commandToSend = pack("<BBBiB", address, length, command, pos, checkSum)
-    #port.write(commandToSend)
-    #config.logger.info(u'Xmit Stand: %s.' % commandToSend)
-    Transceiver(0xBB, 8, pos)
+    Transceiver(0xBB, 8, 1)
     answerBytes = port.read(4)
     port.close()
     config.logger.info(u'Recv Stand: %s' % answerBytes)
@@ -135,19 +117,7 @@ def SetStandUp():
 
 
 def SetStandDown():
-    #try:
-    #    port.open()
-    #except Exception:
-    #    time.sleep(0.01)
-    #    port.open()
-    #length = 8
-    #command = 0xBB
-    pos = int(2)
-    #checkSum = address + length + command + pos
-    #commandToSend = pack("<BBBiB", address, length, command, pos, checkSum)
-    #port.write(commandToSend)
-    #config.logger.info(u'Xmit Stand: %s.' % commandToSend)
-    Transceiver(0xBB, 8, pos)
+    Transceiver(0xBB, 8, 2)
     answerBytes = port.read(4)
     port.close()
     config.logger.info(u'Recv Stand: %s' % answerBytes)
@@ -167,17 +137,6 @@ def SetStandDown():
 
 
 def GetCoolerData():
-    #try:
-    #    port.open()
-    #except Exception:
-    #    time.sleep(0.01)
-    #    port.open()
-    #length = 4
-    #command = 0x93
-    #checksum = address + length + command
-    #commandToSend = pack("<BBBB", address, length, command, checksum)
-    #port.write(commandToSend)
-    #config.logger.info(u'Xmit Cooler %s.' % commandToSend)
     Transceiver(0x93, 4)
     answerBytes = port.read(18)
     config.logger.info(u'Recv Cooler: %s' % answerBytes)
@@ -201,18 +160,6 @@ def GetCoolerData():
 
 
 def SetCoolerTemp(temp: float):
-    #try:
-    #    port.open()
-    #except Exception:
-    #    time.sleep(0.01)
-    #    port.open()
-    temp = float(temp)
-    #length = 8
-    #command = 0x91
-    #checksum = (address + length + command + FloatToSumOfBytes(temp)) % 256
-    #commandToSend = pack("<BBBfB", address, length, command, temp, checksum)
-    #port.write(commandToSend)
-    #config.logger.info(u'Xmit Cooler %s.' % commandToSend)
     Transceiver(0x91, 8, temp)
     answerBytes = port.read(4)
     config.logger.info(u'Recv Cooler: %s' % answerBytes)

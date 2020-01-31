@@ -25,7 +25,7 @@ lengths = {1: 300, 2: 315, 3: 780, 4: 340, 5: 270, 6: 290, 7: 310, 8: 340,
 def PumpToActuator(actPos: int):
     logging.info(u'##########   Start pumping %s with volume %s   ##########' %
                  (actPos, lengths[actPos]))
-    volume = lengths[actPos]
+    volume = lengths[actPos] + 90
     if int(psd.AskSyrPos()[5:-9])+volume > 3000:
         logging.warning(u'###   Syringe would be overflow   ###')
         psd.SyrSetAbsoluteZero(psd.outPos, 2000)

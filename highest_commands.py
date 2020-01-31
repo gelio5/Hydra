@@ -56,6 +56,7 @@ def FirstRead():
     #    h = input(">>")
     #    print(h)
     Snap()
+    #TODO изменили количество циклов с 249 до 20, вернуть позже обратно
     for i in range(249):
         Deblock()
         BufferWash()

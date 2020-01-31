@@ -22,7 +22,7 @@ def BridgeAmplification():
         sleep(8)
         print("Прокачка реагента №5")
         PumpToFlowcell(actPos=5,
-                       volume=270)
+                       volume=196)
         sleep(19)
         config.logger.info(u'End BridgeAmplification')
     return
@@ -31,7 +31,7 @@ def BridgeAmplification():
 def BufferWash():
     config.logger.info(u'Start BufferWash')
     PumpToFlowcell(actPos=3,
-                   volume=630)
+                   volume=623)
     config.logger.info(u'End BufferWash')
     return
 
@@ -39,13 +39,13 @@ def BufferWash():
 def Deblock():
     config.logger.info(u'Start Deblock')
     PumpToFlowcell(actPos=3,
-                   volume=360)
+                   volume=311)
     sleep(3.1)
     SetThermalCyclerTemp(temp=60)
     PumpToFlowcell(actPos=3,
-                   volume=360)
+                   volume=311)
     PumpToFlowcell(actPos=4,
-                   volume=120)
+                   volume=131)
     PumpToFlowcell(actPos=3,
                    volume=48)
     sleep(10)
@@ -65,13 +65,13 @@ def Snap():
 def End():
     config.logger.info(u'Start End')
     PumpToFlowcell(actPos=3,
-                   volume=360)
+                   volume=311)
     sleep(3.3)
     SetThermalCyclerTemp(temp=60)
     PumpToFlowcell(actPos=3,
-                   volume=360)
+                   volume=311)
     PumpToFlowcell(actPos=4,
-                   volume=270)
+                   volume=167)
     PumpToFlowcell(actPos=3,
                    volume=48)
     sleep(40)
@@ -84,7 +84,7 @@ def End():
 def EndRead():
     config.logger.info(u'Start EndRead')
     PumpToFlowcell(actPos=3,
-                   volume=360)
+                   volume=311)
     config.logger.info(u'End EndRead')
 
 
@@ -92,9 +92,9 @@ def IncorporationWithoutDeblockBefore():
     config.logger.info(u'Start IncorporationWithoutDeblockBefore')
     SetThermalCyclerTemp(temp=60)
     PumpToFlowcell(actPos=3,
-                   volume=360)
+                   volume=311)
     PumpToFlowcell(actPos=1,
-                   volume=180)
+                   volume=131)
     PumpToFlowcell(actPos=3,
                    volume=48)
     SetThermalCyclerTemp(temp=65)
@@ -105,9 +105,9 @@ def IncorporationWithoutDeblockBefore():
     SetThermalCyclerTemp(temp=22)
     sleep(60)
     PumpToFlowcell(actPos=3,
-                   volume=360)
+                   volume=311)
     PumpToFlowcell(actPos=2,
-                   volume=180)
+                   volume=131)
     PumpToFlowcell(actPos=3,
                    volume=48)
     sleep(10)
@@ -118,7 +118,7 @@ def IncorporationWithoutDeblockBefore():
 def IncorporationWithDeblockBefore():
     config.logger.info(u'Start IncorporationWithDeblockBefore')
     PumpToFlowcell(actPos=1,
-                   volume=180)
+                   volume=131)
     PumpToFlowcell(actPos=3,
                    volume=48)
     SetThermalCyclerTemp(temp=65)
@@ -128,9 +128,9 @@ def IncorporationWithDeblockBefore():
     sleep(30)
     SetThermalCyclerTemp(temp=22)
     PumpToFlowcell(actPos=3,
-                   volume=360)
+                   volume=311)
     PumpToFlowcell(actPos=2,
-                   volume=180)
+                   volume=131)
     PumpToFlowcell(actPos=3,
                    volume=48)
     sleep(10)
@@ -142,9 +142,9 @@ def FirstBase():
     config.logger.info(u'Start FirstBase')
     SetThermalCyclerTemp(temp=60)
     PumpToFlowcell(actPos=3,
-                   volume=360)
+                   volume=203)
     PumpToFlowcell(actPos=1,
-                   volume=180)
+                   volume=131)
     PumpToFlowcell(actPos=3,
                    volume=48)
     SetThermalCyclerTemp(temp=65)
@@ -155,9 +155,9 @@ def FirstBase():
     SetThermalCyclerTemp(temp=22)
     sleep(60)
     PumpToFlowcell(actPos=3,
-                   volume=360)
+                   volume=311)
     PumpToFlowcell(actPos=2,
-                   volume=180)
+                   volume=131)
     PumpToFlowcell(actPos=3,
                    volume=48)
     sleep(10)
@@ -168,18 +168,18 @@ def FirstBase():
 def SecondReadPreparation():
     config.logger.info(u'Start SecondReadPreparation')
     PumpToFlowcell(actPos=8,
-                   volume=270,
+                   volume=203,
                    aspirationRate=9)
     SetThermalCyclerTemp(temp=65)
     sleep(60)
     PumpToActuator(actPos=14)
     PumpToFlowcell(actPos=14,
-                   volume=270,
+                   volume=203,
                    aspirationRate=9)
     SetThermalCyclerTemp(temp=40)
     sleep(60)
     PumpToFlowcell(actPos=3,
-                   volume=360)
+                   volume=311)
     config.logger.info(u'End SecondReadPreparation')
     return
 
@@ -188,20 +188,20 @@ def SecondLinearisation():
     config.logger.info(u'Start SecondLinearisation')
     PumpToActuator(actPos=10)
     PumpToFlowcell(actPos=10,
-                   volume=270,
+                   volume=203,
                    aspirationRate=9)
     SetThermalCyclerTemp(temp=38)
     sleep(300)
     PumpToFlowcell(actPos=10,
-                   volume=90,
+                   volume=60,
                    aspirationRate=9)
     sleep(300)
     PumpToFlowcell(actPos=10,
-                   volume=90,
+                   volume=60,
                    aspirationRate=9)
     sleep(300)
     PumpToFlowcell(actPos=3,
-                   volume=360)
+                   volume=311)
     config.logger.info(u'End SecondLinearisation')
     return
 
@@ -209,7 +209,7 @@ def SecondLinearisation():
 def PostResynthesisWash():
     config.logger.info(u'Start PostResynthesisWash')
     PumpToFlowcell(actPos=3,
-                   volume=720)
+                   volume=311)
     SetThermalCyclerTemp(temp=20)
     sleep(45)
     config.logger.info(u'End PostResynthesisWash')
@@ -219,15 +219,15 @@ def PostResynthesisWash():
 def Resynthesis():
     config.logger.info(u'Start Resynthesis')
     PumpToFlowcell(actPos=8,
-                   volume=150,
+                   volume=90,
                    aspirationRate=9)
     sleep(7.2)
     PumpToFlowcell(actPos=3,
-                   volume=150,
+                   volume=90,
                    aspirationRate=9)
     sleep(7.2)
     PumpToFlowcell(actPos=6,
-                   volume=180,  # todo проверить объёмы в этом пункте
+                   volume=196,  # todo проверить объёмы в этом пункте
                    aspirationRate=9)
     sleep(18.7)
     config.logger.info(u'End Resynthesis')
@@ -238,7 +238,7 @@ def PreresynthesisTempramp():
     config.logger.info(u'Start PreresynthesisTempramp')
     PumpToActuator(actPos=6)
     PumpToFlowcell(actPos=3,
-                   volume=720)
+                   volume=311)
     SetThermalCyclerTemp(temp=50)
     config.logger.info(u'End PreresynthesisTempramp')
     return
@@ -249,17 +249,18 @@ def Denaturation():
     SetThermalCyclerTemp(temp=20)
     sleep(25)
     PumpToFlowcell(actPos=8,
-                   volume=270,
+                   volume=203,
                    aspirationRate=9)
     SetThermalCyclerTemp(temp=65)
     sleep(60)
-    PumpToActuator(actPos=3)
     PumpToFlowcell(actPos=3,
-                   volume=270)
+                   volume=743)
+    PumpToFlowcell(actPos=3,
+                   volume=203)
     SetThermalCyclerTemp(temp=40)
     sleep(60)
     PumpToFlowcell(actPos=3,
-                   volume=360)
+                   volume=311)
     config.logger.info(u'End Denaturation')
     return
 
@@ -270,16 +271,16 @@ def Deprotection():
     sleep(120)
     PumpToActuator(actPos=11)
     PumpToFlowcell(actPos=11,
-                   volume=270,
+                   volume=203,
                    aspirationRate=9)
     SetThermalCyclerTemp(temp=38)
     sleep(300)
     PumpToFlowcell(actPos=11,
-                   volume=90,
+                   volume=60,
                    aspirationRate=9)
     sleep(300)
     PumpToFlowcell(actPos=3,
-                   volume=360)
+                   volume=311)
     config.logger.info(u'End Deprotection')
     return
 
@@ -289,14 +290,16 @@ def IndexOnePreparation():
     SetThermalCyclerTemp(temp=20)
     sleep(25)
     PumpToFlowcell(actPos=8,
-                   volume=270)
+                   volume=203)
     SetThermalCyclerTemp(temp=65)
     sleep(60)
     PumpToActuator(actPos=13)
+    PumpToFlowcell(actPos=13,
+                   volume=203)
     SetThermalCyclerTemp(temp=40)
     sleep(60)
     PumpToFlowcell(actPos=3,
-                   volume=360)
+                   volume=311)
     config.logger.info(u'End IndexOnePreparation')
     return
 
@@ -304,15 +307,15 @@ def IndexOnePreparation():
 def FirstReadPreparation():
     config.logger.info(u'Start FirstReadPreparation')
     PumpToFlowcell(actPos=8,
-                   volume=180)
+                   volume=203)
     SetThermalCyclerTemp(temp=65)
     sleep(60)
     PumpToActuator(actPos=12)
     PumpToFlowcell(actPos=12,
-                   volume=180)
+                   volume=203)
     SetThermalCyclerTemp(temp=40)
     sleep(60)
-    PumpToFlowcell(actPos=3, volume=360)
+    PumpToFlowcell(actPos=3, volume=311)
     config.logger.info(u'End FirstReadPreparation')
     return
 
@@ -324,7 +327,7 @@ def SBSPrime():
     PumpToActuator(actPos=2)
     PumpToActuator(actPos=4)
     PumpToFlowcell(actPos=3,
-                   volume=720)
+                   volume=623)
     config.logger.info(u'End SBSPrime')
     return
 
@@ -333,20 +336,20 @@ def FirstLinearisation():
     config.logger.info(u'Start FirstLinearisation')
     PumpToActuator(actPos=9)
     PumpToFlowcell(actPos=9,
-                   volume=270,
+                   volume=203,
                    aspirationRate=9)
     SetThermalCyclerTemp(temp=46)
     sleep(300)
     PumpToFlowcell(actPos=9,
-                   volume=90,
+                   volume=60,
                    aspirationRate=9)
     sleep(300)
     PumpToFlowcell(actPos=9,
-                   volume=90,
+                   volume=60,
                    aspirationRate=9)
     sleep(300)
     PumpToFlowcell(actPos=3,
-                   volume=360)
+                   volume=311)
     config.logger.info(u'End FirstLinearisation')
     return
 
@@ -354,7 +357,7 @@ def FirstLinearisation():
 def AmplificationWash():
     config.logger.info(u'Start AmplificationWash')
     PumpToFlowcell(actPos=3,
-                   volume=360)
+                   volume=311)
     SetThermalCyclerTemp(temp=20)
     config.logger.info(u'End AmplificationWash')
     return
@@ -365,7 +368,7 @@ def FirstExtension():
     SetThermalCyclerTemp(temp=50)
     sleep(30)
     PumpToFlowcell(actPos=5,
-                   volume=520,
+                   volume=503,
                    aspirationRate=9)
     sleep(3)
     for i in range(5):
@@ -405,12 +408,10 @@ def InitialPrime():
     PumpToActuator(actPos=5)
     PumpToActuator(actPos=7)
     PumpToFlowcell(actPos=3,
-                   volume=720)
+                   volume=743)
     SetThermalCyclerTemp(temp=75)
     sleep(30)
     PumpToActuator(actPos=17)
-    PumpToFlowcell(actPos=17,
-                   volume=90)
     config.logger.info(u'End InitialPrime')
     return
 
@@ -418,7 +419,7 @@ def InitialPrime():
 def PrimePR2ByPass():
     config.logger.info(u'Start PrimePR2ByPass')
     for i in range(3):
-        AspirateFromBypass(volume=60,
+        AspirateFromBypass(volume=3000,
                            aspirationRate=72,
                            dispenseRate=2000)
     config.logger.info(u'End PrimePR2ByPass')

@@ -36,7 +36,19 @@ def AskSensors():
         port.open()
     except Exception:
         time.sleep(0.01)
-        port.open()
+        try:
+            port.open()
+        except Exception:
+            time.sleep(0.01)
+            try:
+                port.open()
+            except Exception:
+                time.sleep(0.01)
+                try:
+                    port.open()
+                except Exception:
+                    time.sleep(0.01)
+                    port.open()
     msg = "STATUS\r\n".encode()
     port.write(msg)
     answer = port.readline().decode()[7:-3]
@@ -83,7 +95,19 @@ def BubOn():
         port.open()
     except Exception:
         time.sleep(0.01)
-        port.open()
+        try:
+            port.open()
+        except Exception:
+            time.sleep(0.01)
+            try:
+                port.open()
+            except Exception:
+                time.sleep(0.01)
+                try:
+                    port.open()
+                except Exception:
+                    time.sleep(0.01)
+                    port.open()
     msg = "BUBON\r\n".encode()
     port.write(msg)
     answer = port.readline().decode()  # [7:-3]
@@ -99,7 +123,19 @@ def BubAsk():
         port.open()
     except Exception:
         time.sleep(0.01)
-        port.open()
+        try:
+            port.open()
+        except Exception:
+            time.sleep(0.01)
+            try:
+                port.open()
+            except Exception:
+                time.sleep(0.01)
+                try:
+                    port.open()
+                except Exception:
+                    time.sleep(0.01)
+                    port.open()
     msg = "BUBCOUNT\r\n".encode()
     port.write(msg)
     answer = port.readline().decode()  # [7:-3]
@@ -115,7 +151,19 @@ def BubOff():
         port.open()
     except Exception:
         time.sleep(0.01)
-        port.open()
+        try:
+            port.open()
+        except Exception:
+            time.sleep(0.01)
+            try:
+                port.open()
+            except Exception:
+                time.sleep(0.01)
+                try:
+                    port.open()
+                except Exception:
+                    time.sleep(0.01)
+                    port.open()
     msg = "BUBOFF\r\n".encode()
     port.write(msg)
     answer = port.readline().decode()  # [7:-3]

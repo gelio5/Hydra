@@ -23,12 +23,17 @@ port = serial.Serial(port=ports.actuator,
                      bytesize=serial.EIGHTBITS,
                      parity=serial.PARITY_NONE,
                      stopbits=serial.STOPBITS_ONE)
-
+port.close()
 
 def Transceiver(command: str):
     """
     Функция посылает команду на Кран-переключатель и возвращает с него ответ
     """
+    try:
+        port.open()
+    except Exception:
+        time.sleep(0.1)
+        port.open()
     port.write(str.encode(command + '\r\n'))
     config.logger.info(u'Xmit Actuator: %s.' % command)
     answer = ''
@@ -37,6 +42,7 @@ def Transceiver(command: str):
     while port.inWaiting() > 0:
         answer += port.read(1).decode()
     config.logger.info(u'Recv Actuator: %s.' % answer[0:-1])
+    port.close()
     return answer
 
 
@@ -44,8 +50,14 @@ def Transmitter(command: str):
     """
     Функция посылает команду на Кран-переключатель без ожидания ответа
     """
+    try:
+        port.open()
+    except Exception:
+        time.sleep(0.1)
+        port.open()
     port.write(str.encode(command + '\r\n'))
     config.logger.info(u'Xmit Actuator: %s.' % command)
+    port.close()
 
 
 def Test():

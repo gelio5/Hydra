@@ -6,13 +6,22 @@ import serial.tools.list_ports
 import subprocess
 import time
 import redis
-
-conn = redis.Redis(host='127.0.0.1', port=6379, db=1)
-conn.set("bubble_need", 0)
-print(pump.AskSyrPos())
+#thermal_cycler_lib.SetThermalCyclerTemp(30)
+#conn = redis.Redis(host='127.0.0.1', port=6379, db=1)
+#conn.set("bubble_need", 0)
+#print(pump.AskSyrPos())
 #import sensors_lib
+n = time.time()
+#pump.Initialization()
+system_commands.PumpToFlowcell(actPos=3, volume=90)
+print(time.time() - n)
+#stand_cooler_lib.SetCoolerTemp(4)
+#thermal_cycler_lib.SetThermalCyclerTemp(30)
 
-#system_commands.PumpToFlowcell(actPos=3, volume=90, aspirationRate=75, dispenseRate=2000)
+#system_commands.PumpToFlowcell(actPos=3, volume=90)
+#system_commands.PumpToFlowcell(actPos=3, volume=90)
+#system_commands.PumpToFlowcell(actPos=3, volume=90)
+#system_commands.PumpToFlowcell(actPos=3, volume=90)
 #thermal_cycler_lib.SetThermalCyclerTemp(22)
 #thermal_cycler_lib.SetThermalCyclerTempLowSpeed(startTemp=65,stopTemp=40, timeToGo=250)
 #time.sleep(180)
@@ -127,3 +136,5 @@ system_commands.PumpToFlowcell(actPos=3, volume=48, aspirationRate=72, dispenseR
 time.sleep(10)
 system_commands.PumpToFlowcell(actPos=3, volume=720, aspirationRate=72, dispenseRate=2000)
 """
+#t = 6
+#print(type(t) == int)

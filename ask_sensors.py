@@ -12,8 +12,8 @@ import redis
 import sensors_lib
 
 conn = redis.Redis(host='127.0.0.1', port=6379, db=1)
-bubble_on = 0 # пузыри включены
-bubble_need = 0 # пузырьки должны быть включены
+bubble_on = 0  # пузыри включены
+bubble_need = 0  # пузырьки должны быть включены
 conn.set("bubble_need", bubble_need)
 conn.set("bubble_on", bubble_on)
 counter = 0

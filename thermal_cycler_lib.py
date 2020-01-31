@@ -15,70 +15,47 @@ port = serial.Serial(port=ports.cycler,
 address = 8
 port.close()
 
-"""
-def SetThermalCyclerTemp(temp: float):
-    try:
-        port.open()
-    except Exception:
-        time.sleep(0.01)
-        port.open()
-    temp = float(temp)
-    length = 8
-    command = 0x91
-    checksum = (address + length + command + FloatToSumOfBytes(temp)) % 256
-    commandToSend = pack("<BBBfB", address, length, command, temp, checksum)
-    port.write(commandToSend)
-    config.logger.info(u'Xmit Cooler %s.' % commandToSend)
-    answerBytes = port.read(4)
-    config.logger.info(u'Recv Cooler: %s' % answerBytes)
-    answer = unpack("<BBBB", answerBytes)
-    if answer[3] != 0x9D:
-        config.logger.error(u'Answer message is corrupted')
-        port.close()
-        SetThermalCyclerTemp(temp)
-    else:
-        port.close()
-        config.logger.info(u'Cooler going to %s' % temp)
-    return
-"""
 
 def Transceiver(command, length: int, *others):
     try:
         port.open()
     except Exception:
         time.sleep(0.01)
-        port.open()
+        try:
+            port.open()
+        except Exception:
+            time.sleep(0.01)
+            try:
+                port.open()
+            except Exception:
+                time.sleep(0.01)
+                try:
+                    port.open()
+                except Exception:
+                    time.sleep(0.01)
+                    port.open()
     n = 0
     checksum = (address + length + command)
     commandToSend = pack('<BBB', address, length, command)
     for i in others:
+        commandToSend1 = pack('<f', i)
         i = FloatToSumOfBytes(i)
         checksum += i
-        commandToSend += pack('<f', i)
+        commandToSend += commandToSend1
         n += 1
     if n != 0:
         checksum = checksum % 256
     commandToSend += pack('<B', checksum)
     port.write(commandToSend)
     config.logger.info(u'Xmit Cooler: %s' % commandToSend)
+    print(commandToSend)
     return commandToSend
 
 
 def SetThermalCyclerTemp(temp: float):
-    #try:
-    #   port.open()
-    #except Exception:
-    #    time.sleep(0.01)
-    #    port.open()
-    temp = float(temp)
-    #length = 8
-    #command = 0x91
-    #checksum = (address + length + command + FloatToSumOfBytes(temp)) % 256
-    #commandToSend = pack("<BBBfB", address, length, command, temp, checksum)
-    #port.write(commandToSend)
-    #config.logger.info(u'Xmit Cooler %s.' % commandToSend)
     Transceiver(0x91, 8, temp)
     answerBytes = port.read(4)
+    print(answerBytes)
     config.logger.info(u'Recv Cooler: %s' % answerBytes)
     answer = unpack("<BBBB", answerBytes)
     if answer[3] != 0x9D:
@@ -97,17 +74,6 @@ def SetThermalCyclerTemp(temp: float):
 
 
 def StopThermalCyclerControl():
-    #try:
-    #    port.open()
-    #except Exception:
-    #    time.sleep(0.2)
-    #    port.open()
-    #length = 4
-    #command = 0x41
-    #checksum = address + length + command
-    #commandToSend = pack("<BBBB", address, length, command, checksum)
-    #port.write(commandToSend)
-    #config.logger.info(u'Xmit Cooler: %s' % commandToSend)
     commandToSend = Transceiver(0x41, 4)
     answerBytes = port.read(4)
     config.logger.info(u'Recv Cooler: %s' % answerBytes)
@@ -122,17 +88,6 @@ def StopThermalCyclerControl():
 
 
 def GetThermalCyclerData():
-    #try:
-    #    port.open()
-    #except Exception:
-    #    time.sleep(0.01)
-    #    port.open()
-    #length = 4
-    #command = 0x93
-    #checksum = address + length + command
-    #commandToSend = pack("<BBBB", address, length, command, checksum)
-    #port.write(commandToSend)
-    #config.logger.info(u'Xmit Cycler %s.' % commandToSend)
     Transceiver(0x93, 4)
     answerBytes = port.read(18)
     config.logger.info(u'Recv Cycler: %s' % answerBytes)
@@ -154,83 +109,7 @@ def GetThermalCyclerData():
         return answer
 
 
-def GetSpeed():
-    #try:
-    #    port.open()
-    #except Exception:
-    #    time.sleep(0.01)
-    #    port.open()
-    #length = 4
-    #command = 0x84
-    #checksum = address + length + command
-    #commandToSend = pack("<BBBB", address, length, command, checksum)
-    #port.write(commandToSend)
-    #config.logger.info(u'Xmit Cycler %s.' % commandToSend)
-    Transceiver(0x84, 4)
-    answerBytes = port.read(12)
-    config.logger.info(u'Recv Cycler: %s' % answerBytes)
-    answer = unpack("<BBBffB", answerBytes)
-    if answer[5] != (answer[0] +
-                     answer[1] +
-                     answer[2] +
-                     FloatToSumOfBytes(answer[3]) +
-                     FloatToSumOfBytes(answer[4])) % 256:
-        config.logger.error(u'Message is corrupted')
-        port.close()
-        answer = GetSpeed()
-        return answer
-    else:
-        port.close()
-        return answer
-
-
-def SetSpeed(heat, cold):
-    #try:
-    #    port.open()
-    #except Exception:
-    #    time.sleep(0.02)
-    #    port.open()
-    #length = 4
-    #command = 0x85
-    #checksum = (address + length + command + FloatToSumOfBytes(
-    #    heat) + FloatToSumOfBytes(cold)) % 256
-    #commandToSend = pack("<BBBffB", address, length, command, float(heat),
-    #                     float(cold), checksum)
-    #port.write(commandToSend)
-    #config.logger.info(u'Xmit Cycler %s.' % commandToSend)
-    Transceiver(0x85, 4, heat, cold)
-    answerBytes = port.read(5)
-    config.logger.info(u'Recv Cycler: %s' % answerBytes)
-    answer = unpack("<BBBBB", answerBytes)
-    if answer[4] != (answer[0] +
-                     answer[1] +
-                     answer[2]) % 256:
-        config.logger.error(u'Message is corrupted')
-        port.close()
-        print('ex')
-        print(answer)
-        return
-    else:
-        port.close()
-        print('god')
-        return
-
-
 def SetThermalCyclerTempLowSpeed(startTemp: float, stopTemp: float, timeToGo: float):
-    #try:
-    #    port.open()
-    #except Exception:
-    #    time.sleep(0.2)
-    #    port.open()
-    #length = 16
-    #command = 0x9A
-    #checksum = (address + length + command + FloatToSumOfBytes(startTemp) +
-    #            FloatToSumOfBytes(stopTemp) + FloatToSumOfBytes(
-    #            timeToGo)) % 256
-    #commandToSend = pack("<BBBfffB", address, length, command, startTemp,
-    #                     stopTemp, timeToGo, checksum)
-    #port.write(commandToSend)
-    #config.logger.info(u'Xmit Cycler %s.' % commandToSend)
     Transceiver(0x9A, 16, startTemp, stopTemp, timeToGo)
     answerBytes = port.read(4)
     config.logger.info(u'Recv Cooler: %s' % answerBytes)

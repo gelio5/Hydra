@@ -41,7 +41,7 @@ def Transceiver(command: str):
     port.write(str.encode(command + '\r\n'))
     config.logger.info(u'Xmit Pump: %s' % command)
     answer = ''
-    time.sleep(2)
+    time.sleep(0.1)
     while port.inWaiting() > 0:
         answer = port.readline().decode()
         config.logger.info(u'Recv Pump: %s' % answer)
@@ -65,13 +65,13 @@ def Initialization():
     #    config.logger.info(u'Xmit Pump :%s' % '/1' + 'h20000R')
     #    ans = str(port.readline())
     #    config.logger.info(u'Recv Pump :%s' % ans)
-    time.sleep(1)
+    #time.sleep(1)
     SetValvePos(outPos)
-    time.sleep(1)
+    #time.sleep(1)
     Transceiver("/1" + 'h10000R')
     #    port.write(str.encode("/1" + 'h10000R' + '\r\n'))
     #    config.logger.info(u'Xmit Pump :%s' % '/1' + 'h10000R')
-    time.sleep(15)
+    #time.sleep(15)
     #    ans = str(port.readline())
     #    config.logger.info(u'Recv Pump :%s' % ans)
     config.logger.info(u'End of initialization of pump')
@@ -82,7 +82,6 @@ def Test():
     """
     Это функция тестирует Насос, рекомендуется вызывать после инициализации
     """
-    # port.open()
     config.logger.info(u'Start Pump test')
     error = 0
     if not Get255():
@@ -98,7 +97,6 @@ def Test():
     if error == 0:
         SetValveAbsoluteSyrPos(outPos, rate=1000, syrPos=0)
         config.logger.info(u'Test completed error - 0')
-        #   port.close()
         return error
     else:
         config.logger.info(u'Test completed error - ' + str(error))
