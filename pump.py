@@ -11,7 +11,7 @@
 # Переменная SyrPos(0-3000) типа int
 # Переменная Volume(0-3000) типа int
 # ValvePos('inpPos' - input, 'outPoss' - output, 'byPassPos' - bypass)
-
+import sys
 import time
 import serial
 import ports
@@ -41,10 +41,10 @@ def Transceiver(command: str):
     port.write(str.encode(command + '\r\n'))
     config.logger.info(u'Xmit Pump: %s' % command)
     answer = ''
-    time.sleep(0.1)
-    while port.inWaiting() > 0:
-        answer = port.readline().decode()
-        config.logger.info(u'Recv Pump: %s' % answer)
+    #time.sleep(0.1)
+    #while port.inWaiting() > 0:
+    answer = port.readline().decode()
+    config.logger.info(u'Recv Pump: %s' % answer)
     port.close()
     return answer
 
@@ -69,9 +69,10 @@ def Initialization():
     SetValvePos(outPos)
     #time.sleep(1)
     Transceiver("/1" + 'h10000R')
+    Status(0)
     #    port.write(str.encode("/1" + 'h10000R' + '\r\n'))
     #    config.logger.info(u'Xmit Pump :%s' % '/1' + 'h10000R')
-    #time.sleep(15)
+    time.sleep(15)
     #    ans = str(port.readline())
     #    config.logger.info(u'Recv Pump :%s' % ans)
     config.logger.info(u'End of initialization of pump')
@@ -343,3 +344,11 @@ def FirmVersion() -> bool:
     else:
         ans = True
     return ans
+
+
+if len(sys.argv) > 1:
+    if sys.argv[1] == 'init':
+        Initialization()
+        Test()
+    elif sys.argv[1] == 'test':
+        Test()

@@ -12,8 +12,8 @@ import redis
 #print(pump.AskSyrPos())
 #import sensors_lib
 n = time.time()
-#pump.Initialization()
-system_commands.PumpToFlowcell(actPos=3, volume=90)
+pump.Initialization()
+#system_commands.PumpToFlowcell(actPos=3, volume=3000, aspirationRate=5800)
 print(time.time() - n)
 #stand_cooler_lib.SetCoolerTemp(4)
 #thermal_cycler_lib.SetThermalCyclerTemp(30)
