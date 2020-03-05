@@ -1,7 +1,22 @@
+from stand_cooler_lib import SetStandDown, SetStandUp
 from system_commands import PumpToFlowcell
 from thermal_cycler_lib import SetThermalCyclerTemp
 import time
 from system_commands import PumpToActuator
+
+
+print("Старт")
+n = time.time()
+SetStandDown()
+time.sleep(7)
+print("Установите на рабочее место штатив с реагентами и чип")
+h = ''
+while h != "work":
+    h = input(">>")
+    print(h)
+SetStandUp()
+time.sleep(7)
+print("Начало отрабатывания циклограммы")
 
 PumpToActuator(1)
 PumpToActuator(2)
