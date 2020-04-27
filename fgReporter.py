@@ -1,15 +1,15 @@
 import win32api
 import win32con
 import win32gui
+import redis
 
 FullGenMessage = win32gui.RegisterWindowMessage("FullGenReport")
+connection = redis.Redis(host="127.0.0.1", port=6379, db=1)
 
 
 def main():
     hInstance = win32api.GetModuleHandle()
-
     className = 'SimpleWin32'
-
     wndClass = win32gui.WNDCLASS()
     wndClass.style = win32con.CS_HREDRAW | win32con.CS_VREDRAW
     wndClass.lpfnWndProc = wndProc
@@ -60,8 +60,8 @@ def wndProc(hWnd, message, wParam, lParam):
         return 0
     elif message == FullGenMessage:
         # TODO: need to send this data on redis and read it in main work cycle
-        print(wParam)
-        print(lParam)
+        connection.set("wParam", wParam)
+        connection.set("lParam", lParam)
         return 0
     else:
         return win32gui.DefWindowProc(hWnd, message, wParam, lParam)
