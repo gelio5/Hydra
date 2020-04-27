@@ -5,36 +5,39 @@ import win32api
 import win32con
 import win32gui
 
-
+FullGenMessage = win32gui.RegisterWindowMessage("FullGenReport")
 def main():
-    #get instance handle
+    # get instance handle
     hInstance = win32api.GetModuleHandle()
+    print(hInstance)
 
     # the class name
     className = 'SimpleWin32'
 
-
     # create and initialize window class
-    wndClass                = win32gui.WNDCLASS()
-    wndClass.style          = win32con.CS_HREDRAW | win32con.CS_VREDRAW
-    wndClass.lpfnWndProc    = wndProc
-    wndClass.hInstance      = hInstance
-    wndClass.hIcon          = win32gui.LoadIcon(0, win32con.IDI_APPLICATION)
-    wndClass.hCursor        = win32gui.LoadCursor(0, win32con.IDC_ARROW)
-    wndClass.hbrBackground  = win32gui.GetStockObject(win32con.WHITE_BRUSH)
-    wndClass.lpszClassName  = className
-
+    wndClass = win32gui.WNDCLASS()
+    print(wndClass)
+    wndClass.style = win32con.CS_HREDRAW | win32con.CS_VREDRAW
+    wndClass.lpfnWndProc = wndProc
+    wndClass.hInstance = hInstance
+    wndClass.hIcon = win32gui.LoadIcon(0, win32con.IDI_APPLICATION)
+    wndClass.hCursor = win32gui.LoadCursor(0, win32con.IDC_ARROW)
+    wndClass.hbrBackground = win32gui.GetStockObject(win32con.WHITE_BRUSH)
+    wndClass.lpszClassName = className
+    print(wndClass)
     # register window class
     wndClassAtom = None
     try:
         wndClassAtom = win32gui.RegisterClass(wndClass)
+        print(wndClassAtom)
     except Exception as e:
         print(e)
         raise e
 
     hWindow = win32gui.CreateWindow(
         wndClassAtom,
-# it seems message dispatching only works with the atom, not the class name
+        # it seems message dispatching only works with the atom, not the
+        # class name
         'FullGenReport',
         win32con.WS_OVERLAPPEDWINDOW,
         win32con.CW_USEDEFAULT,
@@ -45,7 +48,7 @@ def main():
         None,
         hInstance,
         None)
-
+    print(hWindow)
     # Show & update the window
     win32gui.ShowWindow(hWindow, win32con.SW_HIDE)
     win32gui.UpdateWindow(hWindow)
@@ -53,10 +56,13 @@ def main():
     # Dispatch messages
     win32gui.PumpMessages()
 
+    # WM_COMMAND = 0x0111
+    # hTheWindow = win32gui.FindWindow("FullGenMainFrame", 0)
+    # print(hTheWindow)
+    # win32gui.PostMessage(hTheWindow, WM_COMMAND, 32864, 0)
 
 
 def wndProc(hWnd, message, wParam, lParam):
-
     if message == win32con.WM_PAINT:
         hDC, paintStruct = win32gui.BeginPaint(hWnd)
 
@@ -75,14 +81,15 @@ def wndProc(hWnd, message, wParam, lParam):
         print('Being destroyed')
         win32gui.PostQuitMessage(0)
         return 0
-
+    elif message == FullGenMessage:
+        print("Founded new message from FullGen")
+        print(wParam)
+        print(lParam)
+        return 0
     else:
         return win32gui.DefWindowProc(hWnd, message, wParam, lParam)
 
 
-
 if __name__ == '__main__':
     main()
-    WM_COMMAND = 0x0111
-    hTheWindow = win32gui.FindWindow("FullGenMainFrame", 0)
-    win32gui.PostMessage(hTheWindow, WM_COMMAND, 32864, 0)
+
