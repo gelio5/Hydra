@@ -3,6 +3,8 @@ import win32con
 import win32gui
 
 FullGenMessage = win32gui.RegisterWindowMessage("FullGenReport")
+
+
 def main():
     hInstance = win32api.GetModuleHandle()
 
@@ -54,11 +56,10 @@ def wndProc(hWnd, message, wParam, lParam):
         win32gui.EndPaint(hWnd, paintStruct)
         return 0
     elif message == win32con.WM_DESTROY:
-        print('Being destroyed')
         win32gui.PostQuitMessage(0)
         return 0
     elif message == FullGenMessage:
-        print("Founded new message from FullGen")
+        # TODO: need to send this data on redis and read it in main work cycle
         print(wParam)
         print(lParam)
         return 0
