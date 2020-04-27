@@ -37,7 +37,7 @@ def main():
         hInstance,
         None)
 
-    win32gui.ShowWindow(hWindow, win32con.SW_HIDE)
+    win32gui.ShowWindow(hWindow, win32con.SW_SHOWNORMAL)
     win32gui.UpdateWindow(hWindow)
     win32gui.PumpMessages()
 
@@ -59,9 +59,8 @@ def wndProc(hWnd, message, wParam, lParam):
         win32gui.PostQuitMessage(0)
         return 0
     elif message == FullGenMessage:
-        # TODO: need to send this data on redis and read it in main work cycle
-        connection.set("wParam", wParam)
-        connection.set("lParam", lParam)
+        connection.set("wParam", str(wParam))
+        connection.set("lParam", str(lParam))
         return 0
     else:
         return win32gui.DefWindowProc(hWnd, message, wParam, lParam)
